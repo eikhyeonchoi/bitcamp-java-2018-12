@@ -7,3 +7,27 @@
 #  A. 내가 만든 source file을 compile해서 .class file을 만들면 서버쪽 JDK가 버전이 낮을 수 도 있기 때문에 
 #     source file만 공유함. + 어떤것에 의해 자동생성되는것은(ex .class file)은 share하는게 아님..
 *.class
+node_modules/
+.vscode/
+.gradle/
+.settings/
+bin/
+build/
+temp/
+Debug/
+Release/
+
+.DS_Store
+.classpath
+.project
+*.class
+*.log
+*.ctxt
+.mtj.tmp/
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
