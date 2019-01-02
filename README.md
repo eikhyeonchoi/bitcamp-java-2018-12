@@ -11,9 +11,9 @@
 5. 
 Eclipse IDE 도구 설치 및 설정
     - 에디터
-        - 탭 대신 스페이스로 처리
+        - 탭 대신 스페이스로 처리 2칸으로 바꿈
         - 한 줄 당 글자 수: 100자 안내선  
-        - 공백 문자를 흐릿하게 표시
+        - 공백 문자를 흐릿하게 표시 80
     - 워크스페이스 
         - 문자집합 : UTF-8
     - Java / JRE 
@@ -24,10 +24,12 @@ Eclipse IDE 도구 설치 및 설정
     - java code style guild 설치
         - google java style guide 검색한 후 github 링크 클릭
         - eclipse-java-google-style.xml을 다운로드 받아 설치한다.
+        - java -> codestyle ->formatter->import-> xml import
 - gradle 빌드 도구 설치
     - apt-get 기본 저장소에는 gradle 최신 버전이 없다.
     - 그래서 최신 버전을 갖고 있는 저장소를 추가해야 한다.
-    - apt-get 저장소 추가: $ sudo add-apt-repository ppa:cwchien/gradle
+    - apt-get 저장소 추가:
+    - $ sudo add-apt-repository ppa:cwchien/gradle
     - 설치: $ sudo apt-get install gradle
     
 
