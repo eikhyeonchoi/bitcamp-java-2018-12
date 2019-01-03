@@ -1,8 +1,11 @@
 //문자 리터럴
 package ch02;
 public class Test07 {
+  static final char a= '가';
   public static void main(String[] args) {
     //'가' 문자를 출력하라
+    System.out.println('\uac00');
+    System.out.println((char)44032);
     System.out.println(0xac00); //UTF-16
     //해당 숫자가 UTF-16의 문자 코드임을 알려주지 않으면 println()은 일반 숫자인줄 알고
     //10진수로 출력한다;
@@ -28,6 +31,7 @@ public class Test07 {
     
     System.out.println('가'+2);
     System.out.println((char)('가'+2));
+    System.out.println((char)0xac02);
     //싱글 코데이션 ('')의 return값은 unicode의 숫자값임;
     
     //싱글코테이션안에 직접 unicode(UTF-16)을 표기할 수 있다;

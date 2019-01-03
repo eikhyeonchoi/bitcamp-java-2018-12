@@ -24,7 +24,7 @@ public class Test02 {
                   일반 class를 compile하는것과 같음
                   하지만 컴파일 하고 난 후 .class 파일은 패키지 이름에 해당하는 폴더에 놓인다.
                   package 이름 지정해야함
-                  $ java -cp bin ch01.Test02    
+                  $ java -cp bin ch01.Test02
                   소스 파일도 자신이 소속된 패키지 폴더에 놓기 그래야 관리 쉬움
                   package 는 directory ex)a.b.c.Hello = src/main/java/a/b/c/Hello
                                        ex) java-basic$ java -cp bin a.b.c.Hello
