@@ -1,8 +1,8 @@
 //패키지 무소속
 public class Test001 {
-      public static void main(String[] args){
-              System.out.println("hello");
-      }
+  public static void main(String[] args){
+    System.out.println("hello");
+  }
 }
 
 
