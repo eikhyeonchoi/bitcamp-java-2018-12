@@ -1,9 +1,9 @@
 //자바 리터럴 literal - 자바 코드로 값을 표현하는 방법  1
-//
 package ch02;
 
 public class Test01 {
   public static void main(String[] args){
+
     //정수 78을 출력
     //10진수
     System.out.println(78);
@@ -49,8 +49,6 @@ public class Test01 {
     
     //문자열을 출력 안녕하세요
     System.out.println("안녕하세요");
-    
-    
     
     
     
