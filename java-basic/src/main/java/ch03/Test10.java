@@ -17,7 +17,7 @@ public class Test10 {
     // nextInt()를 호출한 후 LF코드를 남아 있다하더라도
     // next()는 공백을 버리기 때문에 영향을 받지않는다
     // 내부 버퍼의 원리.. h/w에 직접 접근할 수 x OS에서 막음;
-    
+
     
     System.out.printf("age : %d, name : %s",age, name);
   }
