@@ -3,6 +3,8 @@
  */
 package com.company.product00;
 
+import java.sql.Date;
+
 public class App {
   public String getGreeting() {
     return "Hello world.";
@@ -10,9 +12,25 @@ public class App {
 
   public static void main(String[] args) {
     System.out.println(new App().getGreeting());
+
+
     
+    Date date = Date.valueOf("2018-09-09"); 
+    System.out.printf("%s\n",date);
     
-    
-   
+
+
+    Temp asd =new Temp();
+    int a = Temp.tempMethod();
+    System.out.println(a);
+  }
+}
+
+class Temp {
+  public static void main() {
+
+  }
+  static int tempMethod() {
+    return 32;
   }
 }
