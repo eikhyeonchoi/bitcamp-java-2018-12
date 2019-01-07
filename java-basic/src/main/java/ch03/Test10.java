@@ -5,7 +5,7 @@ public class Test10 {
   public static void main(String[] args) {
     
     java.util.Scanner keyboard = new java.util.Scanner(System.in);
-    
+   
     
     System.out.print("age? ");
     int age = keyboard.nextInt();
@@ -13,6 +13,8 @@ public class Test10 {
     
     System.out.print("name? ");
     String name = keyboard.next();
+    
+    
     // next()는 token단위로 문자열을 읽는다;
     // nextInt()를 호출한 후 LF코드를 남아 있다하더라도
     // next()는 공백을 버리기 때문에 영향을 받지않는다
@@ -20,8 +22,13 @@ public class Test10 {
     
     
     System.out.printf("age : %d, name : %s",age, name);
+    
+    
+
+
   }
 }
+
 
 /*
  * 

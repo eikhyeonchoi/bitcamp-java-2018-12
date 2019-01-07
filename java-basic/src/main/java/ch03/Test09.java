@@ -28,6 +28,8 @@ public class Test09 {
     // 저장을 안하니깐, LF코드를 버리는것이나 마찬가지임;
     
     System.out.printf("age : %d, name : %s",age, name);
+    
+    
   }
 }
 
