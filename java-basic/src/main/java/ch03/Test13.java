@@ -28,7 +28,8 @@ public class Test13 {
     // arr5 = {90,90,90,90,90}; 초기화 할때만 사용가능 compile error
     // reference를 별도로 선언한 경우 배열 생성 문장을 생략할 수 없다.
     arr5 = new int[] {90,90,90,90,90}; //Ok 생략 불가능
-    
+
+    int[] aaa = new int[4];
     
   }
 }
