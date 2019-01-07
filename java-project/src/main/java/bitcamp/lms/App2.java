@@ -1,5 +1,7 @@
 package bitcamp.lms;
 
+import java.sql.Date;
+
 public class App2 {
 
   public static void main(String[] args) {
@@ -28,8 +30,10 @@ public class App2 {
     System.out.print("전화 : ");
     String tel = key.nextLine();
     
+    java.sql.Date registerDate = new java.sql.Date(System.currentTimeMillis());
+    // 가입일...
     System.out.printf("번호 : %d\n이름 : %s\n이메일 : %s\n암호 %d\n사진 : %s\n전화 : %s\n"
-        + "가입일 : 2019.01.01",num ,name, mail, pw, pic, tel);
+        + "가입일 : %s\n ",num ,name, mail, pw, pic, tel,registerDate);
     
 
   }

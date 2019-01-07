@@ -5,10 +5,14 @@ package bitcamp.lms;
 
 public class App {
     public static void main(String[] args) {
+      
+      // 키보드 입력 스트림(System.in)을 Scanner객체에 연결한다.
+      // ==> 입력 stream으로 들어온 문자열을 줄 단위로 / 정수단위로 잘라주는 역할
       java.util.Scanner key = new java.util.Scanner(System.in);
       
       System.out.print("번호 : ");
       int num = key.nextInt();
+      //int num = Integer.parseInt(key.nextLine());
       
       key.nextLine();
       
@@ -20,6 +24,7 @@ public class App {
       
       System.out.print("시작일 : ");
       String stDate = key.nextLine();
+      //Date stDate = Date.valueOf(key.nextLine());
       
       System.out.print("종료일 : ");
       String edDate = key.nextLine();
