@@ -3,22 +3,48 @@ package bitcamp.lms;
 public class App3 {
 
   public static void main(String[] args) {
-    
-    java.util.Scanner k = new java.util.Scanner(System.in);
-    java.util.Date date =new java.util.Date();
-    
-    System.out.print("번호 : ");
-    int num = k.nextInt();
-    
-    k.nextLine();
-    
-    System.out.print("내용 : ");
-    String con = k.nextLine();
-    
-    System.out.printf("번호 : %d\n내용 : %s\n작성일 : %3$ty %3$tm %3$td "
-        + "%3$tH %3$tM %3$tS",num, con, date);
-    
-    
-    
+
+    java.util.Scanner key = new java.util.Scanner(System.in);
+
+    int[] num = new int[20];
+    String[] content = new String[20];
+    java.util.Date signUp = new java.util.Date(System.currentTimeMillis());
+    int i = 0;
+
+    ok: {
+      while(true) {
+        String ans = null;
+        System.out.print("번호 : ");
+        num[i] = Integer.parseInt(key.nextLine());
+        System.out.print("내용 : ");
+        content[i] = key.nextLine();
+
+        while (true) {
+          System.out.print("계속 입력 y/n");
+          ans = key.nextLine();
+
+          if(ans.equalsIgnoreCase("y")) {
+            i++;
+            break;
+          } else if (ans.equalsIgnoreCase("n")) {
+            int j = 0;
+            while (j <= i) {
+              System.out.println(num[j]+", "+content[j]+", 0");
+              j++;
+            }
+            break ok;
+          } else { 
+            System.out.println("유효한값 입력하세요");
+          }
+        }
+
+
+
+
+      }
+    }
+
   }
 }
+
+

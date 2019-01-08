@@ -4,40 +4,69 @@
 package bitcamp.lms;
 
 public class App {
-    public static void main(String[] args) {
-      
-      // 키보드 입력 스트림(System.in)을 Scanner객체에 연결한다.
-      // ==> 입력 stream으로 들어온 문자열을 줄 단위로 / 정수단위로 잘라주는 역할
-      java.util.Scanner key = new java.util.Scanner(System.in);
-      
-      System.out.print("번호 : ");
-      int num = key.nextInt();
-      //int num = Integer.parseInt(key.nextLine());
-      
-      key.nextLine();
-      
-      System.out.print("수업명 : ");
-      String className = key.nextLine();
-      
-      System.out.print("수업내용 : ");
-      String exp = key.nextLine();
-      
-      System.out.print("시작일 : ");
-      String stDate = key.nextLine();
-      //Date stDate = Date.valueOf(key.nextLine());
-      
-      System.out.print("종료일 : ");
-      String edDate = key.nextLine();
-      
-      System.out.print("총수업시간 :");
-      String totStudy = key.nextLine();
-      
-      System.out.print("일수업시간 : ");
-      String dayStudy = key.nextLine();
-      
-      System.out.printf("번호 : %d\n수업명 : %s\n수업내용 : %s\n기간 : %s~"+"%s\n"
-          + "총수업시간 : %s\n일수업시간 : %s\n",num , className, exp, stDate, edDate, totStudy, dayStudy);
-      
-      
+  public static void main(String[] args) {
+
+    java.util.Scanner key = new java.util.Scanner(System.in);
+
+    int[] num = new int[20];
+    String[] className = new String[20];
+    String[] classContent = new String[20];
+    String[] stDate = new String[20];
+    String[] edDate = new String[20];
+    int[] tot = new int[20];
+    int[] day = new int[20];
+    int i = 0;
+
+    ok:{
+      while(true) {
+        String ans = null;
+        System.out.print("번호 : ");
+        num[i] = Integer.parseInt(key.nextLine());
+        System.out.print("수업명 : ");
+        className[i] = key.nextLine();
+        System.out.print("수업내용 : ");
+        classContent[i] = key.nextLine();
+        System.out.print("시작일 : ");
+        stDate[i] = key.nextLine();
+        System.out.print("종료일 : ");
+        edDate[i] = key.nextLine();
+        System.out.print("총 수업시간 : ");
+        tot[i] = Integer.parseInt(key.nextLine());
+        System.out.print("일 수업시간 : ");
+        day[i] = Integer.parseInt(key.nextLine());
+
+        System.out.print("계속 입력하시겠습니까 y/n");
+        ans = key.nextLine();
+
+        if (ans.equals("y") || ans.equals("Y") || ans.equals("\n")) {
+          i++;
+          continue;
+        } else {
+          int j = 0;
+          while (j <= i) {
+            System.out.println(num[j]+" "+ className[j]+" "+ stDate[j] + " ~ "
+                + edDate[j]+" "+tot[j]);
+            j++;
+          }
+          break ok;
+        }
+      }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  }
 }
