@@ -8,17 +8,21 @@ public class App {
 
     java.util.Scanner key = new java.util.Scanner(System.in);
 
-    int[] num = new int[20];
-    String[] className = new String[20];
-    String[] classContent = new String[20];
-    String[] stDate = new String[20];
-    String[] edDate = new String[20];
-    int[] tot = new int[20];
-    int[] day = new int[20];
+    final int LENGTH = 2;
+    int[] num = new int[LENGTH];
+    String[] className = new String[LENGTH];
+    String[] classContent = new String[LENGTH];
+    String[] stDate = new String[LENGTH];
+    String[] edDate = new String[LENGTH];
+    int[] tot = new int[LENGTH];
+    int[] day = new int[LENGTH];
     int i = 0;
 
     ok:{
-      while(true) {
+      while(i<LENGTH) {
+        if (i >= LENGTH) {
+          System.out.println("꽉참");
+        }
         String ans = null;
         System.out.print("번호 : ");
         num[i] = Integer.parseInt(key.nextLine());
@@ -38,7 +42,7 @@ public class App {
         System.out.print("계속 입력하시겠습니까 y/n");
         ans = key.nextLine();
 
-        if (ans.equals("y") || ans.equals("Y") || ans.equals("\n")) {
+        if (ans.equalsIgnoreCase("y") || ans.equals("")) {
           i++;
           continue;
         } else {
@@ -48,6 +52,7 @@ public class App {
                 + edDate[j]+" "+tot[j]);
             j++;
           }
+          key.close();
           break ok;
         }
       }

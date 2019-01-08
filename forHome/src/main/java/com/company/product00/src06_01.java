@@ -1,14 +1,15 @@
-package bitcamp.lms;
+package com.company.product00;
 
-public class App3 {
+public class src06_01 {
 
   public static void main(String[] args) {
 
+    
     java.util.Scanner key = new java.util.Scanner(System.in);
 
     int[] num = new int[20];
     String[] content = new String[20];
-    java.sql.Date signUp = new java.sql.Date(System.currentTimeMillis());
+    java.util.Date signUp = new java.util.Date(System.currentTimeMillis());
     int i = 0;
 
     ok: {
@@ -29,7 +30,7 @@ public class App3 {
           } else if (ans.equalsIgnoreCase("n")) {
             int j = 0;
             while (j <= i) {
-              System.out.println(num[j]+", "+content[j]+", "+signUp);
+              System.out.println(num[j]+", "+content[j]+", 0");
               j++;
             }
             key.close();
@@ -39,13 +40,10 @@ public class App3 {
           }
         }
 
-
-
-
       }
     }
 
+    
+    
   }
 }
-
-

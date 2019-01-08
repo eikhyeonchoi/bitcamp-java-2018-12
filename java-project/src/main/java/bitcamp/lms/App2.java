@@ -45,6 +45,7 @@ public class App2 {
                 " "+signUp);
             j++;
           }
+          key.close();
           break ok;
         }
       }

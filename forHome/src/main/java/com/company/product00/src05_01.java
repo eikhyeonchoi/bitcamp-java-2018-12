@@ -1,6 +1,6 @@
 package com.company.product00;
 
-public class src05 {
+public class src05_01 {
 
   public static void main(String[] args) {
     
