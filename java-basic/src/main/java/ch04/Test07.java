@@ -16,14 +16,8 @@ public class Test07 {
     // => 오차를 제거한 후 비교
     // => 다만 계산 결과를 절대값으로 만든 후에 오차 이하의 값인지 비교
     float r = f1 * f2 - 0.01f;
+    System.out.println(r);
     System.out.println(Math.abs(r) <= Float.POSITIVE_INFINITY);
-    
-    
-    
-    
-    
-
-
 
 
 
