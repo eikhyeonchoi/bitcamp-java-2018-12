@@ -3,7 +3,7 @@
 package com.company.product00;
 import java.sql.Date;
 
-public class src06_re01 {
+public class src06_app3_re01 {
   public static void main(String[] args) {
 
     final int LENGTH = 10;

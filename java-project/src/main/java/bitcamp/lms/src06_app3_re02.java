@@ -1,9 +1,9 @@
 // 함수를 사용한 src06구현
 
-package com.company.product00;
+package bitcamp.lms;
 import java.sql.Date;
 
-public class src06_re02 {
+public class src06_app3_re02 {
   public static void main(String[] args) {
 
     final int LENGTH = 10;

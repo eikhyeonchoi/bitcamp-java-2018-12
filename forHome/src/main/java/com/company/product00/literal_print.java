@@ -1,6 +1,6 @@
 package com.company.product00;
 
-public class App_2019_01_03 {
+public class literal_print {
 
   public static void main(String[] args) {
     // TODO Auto-generated method stub
