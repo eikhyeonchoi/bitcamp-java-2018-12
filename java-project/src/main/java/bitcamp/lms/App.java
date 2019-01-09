@@ -17,12 +17,9 @@ public class App {
     int[] tot = new int[LENGTH];
     int[] day = new int[LENGTH];
     int i = 0;
-
+    
     ok:{
-      while(i<LENGTH) {
-        if (i >= LENGTH) {
-          System.out.println("꽉참");
-        }
+      while (i < LENGTH) {
         String ans = null;
         System.out.print("번호 : ");
         num[i] = Integer.parseInt(key.nextLine());
@@ -44,6 +41,18 @@ public class App {
 
         if (ans.equalsIgnoreCase("y") || ans.equals("")) {
           i++;
+          if (i >= LENGTH) {
+            System.out.println("full ...");
+            int j = 0;
+            // 데이터는 입력한 갯수와 같기때문에 j를 입력한갯수 i보다 미만으로 설정해야함
+            while (j < i) {
+              System.out.println(num[j]+" "+ className[j]+" "+ stDate[j] + " ~ "
+                  + edDate[j]+" "+tot[j]);
+              j++;
+            }
+            key.close();
+            break ok;
+          }
           continue;
         } else {
           int j = 0;
@@ -55,6 +64,9 @@ public class App {
           key.close();
           break ok;
         }
+
+
+
       }
     }
 
