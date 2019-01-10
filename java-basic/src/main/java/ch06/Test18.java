@@ -1,6 +1,7 @@
 // JVM 아규먼트 응용 2
 package ch06;
 
+import ch07.Score10;
 
 public class Test18 {
   public static void main(String[] args) {
@@ -17,7 +18,6 @@ public class Test18 {
      System.out.printf("%s = %s\n", key, value);
       
     }
-    
     
     
     
