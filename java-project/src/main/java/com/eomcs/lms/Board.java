@@ -1,10 +1,9 @@
-package bitcamp.lms;
+package com.eomcs.lms;
 
 import java.sql.Date;
 
-class Board {
-  
-  int num;
+public class Board {
+  int no;
   String contents;
   Date createdDate;
   int viewCount;
