@@ -1,4 +1,4 @@
-// 인스턴스 필드와 클래스 필드
+// 클래스 필드
 package ch08;
 
 class My1 {
@@ -41,17 +41,17 @@ public class Test01 {
     My1 obj2 = new My1();
     obj2.name = "임꺽정";
     obj2.age = 30;
-    obj2.userType = My1.manager;
+    obj2.userType = obj2.manager;
     
     My1 obj3 = new My1();
     obj3.name = "유관순";
     obj3.age = 17;
-    obj3.userType = My1.guest;
+    obj3.userType = obj3.guest;
     
     My1 obj4 = new My1();
     obj4.name = "윤봉길";
     obj4.age = 22;
-    obj4.userType = My1.member;
+    obj4.userType = obj4.member;
     
     
     

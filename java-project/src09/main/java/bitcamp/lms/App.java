@@ -5,10 +5,10 @@ import java.util.Scanner;
 import bitcamp.lms.Lesson;
 
 public class App {
+  final static int L = 10;
   static int lessonCount = 0;
   static int memberCount = 0;
   static int boardCount = 0;
-  static int L = 10;
   static Lesson[] les = new Lesson[L];
   static Member[] mems = new Member[L];
   static Board[] bods = new Board[L];
@@ -17,8 +17,12 @@ public class App {
   public static void main(String[] args) {
 
     finalEnding: while (true) {
+      
+      
       System.out.print("명령>");
       String ans = key.nextLine();
+      
+      
       if (ans.equals("quit")) {
         System.out.println("안녕!!\n....\n....");
         break finalEnding;
