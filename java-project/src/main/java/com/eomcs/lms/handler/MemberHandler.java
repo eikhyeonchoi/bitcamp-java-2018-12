@@ -1,19 +1,18 @@
-package com.eomcs.lms;
+package com.eomcs.lms.handler;
 
 import java.sql.Date;
 import java.util.Scanner;
+import com.eomcs.lms.domain.Member;
 
 public class MemberHandler {
-
+  public static Scanner key;
   final static int L = 10;
+  
   static Member[] members = new Member[L];
   static int memberIdx = 0;
-  static Scanner key = new Scanner(System.in);
   
-  static void addMember() {
+  public static void addMember() {
     Date signUp = new Date(System.currentTimeMillis());
-    for (int i = 0; i < L; i++) {
-      memberIdx++;
       Member tempMember = new Member();
       System.out.print("번호 : ");
       tempMember.no = Integer.parseInt(key.nextLine());
@@ -29,13 +28,12 @@ public class MemberHandler {
       tempMember.tel = key.nextLine();
       tempMember.registeredDate = signUp;
       System.out.println("저장하였습니다");
-      members[i] = tempMember;
-      break;
-    }
+      members[memberIdx] = tempMember;
+      memberIdx++;
     return;
   }
   
-  static void listMember() {
+  public static void listMember() {
     if (memberIdx == 0) {
       System.out.println("저장된 정보가 없습니다");
       return;

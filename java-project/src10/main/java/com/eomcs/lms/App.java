@@ -2,17 +2,14 @@ package com.eomcs.lms;
 
 import java.sql.Date;
 import java.util.Scanner;
-import com.eomcs.lms.handler.*;
 
 public class App {
-  static Scanner key = new Scanner(System.in);
   public static void main(String[] args) {
     
-    LessonHandler.key = key;
-    MemberHandler.key = key;
-    BoardHandler.key = key;
+    Scanner key = new Scanner(System.in);
     
     while(true) {
+      
       String ans = prompt(key);
       
       if (ans.equals("quit")) break;

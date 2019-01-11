@@ -11,8 +11,6 @@ public class LessonHandler {
   static Scanner key = new Scanner(System.in);
   
   static void addLesson() {
-    for (int i = 0; i < L; i++) {
-      lessonIdx++;
       Lesson tempLesson = new Lesson();
       System.out.print("번호 : ");
       tempLesson.no = Integer.parseInt(key.nextLine());
@@ -29,9 +27,8 @@ public class LessonHandler {
       System.out.print("일 수업 시간 : ");
       tempLesson.dayHours = Integer.parseInt(key.nextLine());
       System.out.println("저장하였습니다");
-      lessons[i] = tempLesson;
-      break;
-    }
+      lessons[lessonIdx] = tempLesson;
+      lessonIdx++;
     return;
   }
   

@@ -17,12 +17,12 @@ public class App {
   public static void main(String[] args) {
 
     finalEnding: while (true) {
-      
-      
+
+
       System.out.print("명령>");
       String ans = key.nextLine();
-      
-      
+
+
       if (ans.equals("quit")) {
         System.out.println("안녕!!\n....\n....");
         break finalEnding;
@@ -38,9 +38,9 @@ public class App {
         listMember();
       } else if (ans.equals("/board/add")) {
         addBoard();
-      } else if (ans.equals("/board/list")){
+      } else if (ans.equals("/board/list")) {
         listBoard();
-      } else  {
+      } else {
         System.out.println("실행할 수 없는 명령입니다.");
         System.out.println();
         continue;
@@ -50,69 +50,60 @@ public class App {
 
   }
 
-  
+
   static void addLesson() {
-    for (int i = 0; i < L; i++) {
-      lessonCount++;
-      Lesson tempLesson = new Lesson();
-      System.out.print("번호 : ");
-      tempLesson.no = Integer.parseInt(key.nextLine());
-      System.out.print("수업명 : ");
-      tempLesson.title = key.nextLine();
-      System.out.print("수업내용 : ");
-      tempLesson.contents = key.nextLine();
-      System.out.print("시작일 : ");
-      tempLesson.startDate = Date.valueOf(key.nextLine());
-      System.out.print("종료일 : ");
-      tempLesson.endDate = Date.valueOf(key.nextLine());
-      System.out.print("총 수업 시간 : ");
-      tempLesson.totalHours = Integer.parseInt(key.nextLine());
-      System.out.print("일 수업 시간 : ");
-      tempLesson.dayHours = Integer.parseInt(key.nextLine());
-      System.out.println("저장하였습니다");
-      les[i] = tempLesson;
-      break;
-    }
+    Lesson tempLesson = new Lesson();
+    System.out.print("번호 : ");
+    tempLesson.no = Integer.parseInt(key.nextLine());
+    System.out.print("수업명 : ");
+    tempLesson.title = key.nextLine();
+    System.out.print("수업내용 : ");
+    tempLesson.contents = key.nextLine();
+    System.out.print("시작일 : ");
+    tempLesson.startDate = Date.valueOf(key.nextLine());
+    System.out.print("종료일 : ");
+    tempLesson.endDate = Date.valueOf(key.nextLine());
+    System.out.print("총 수업 시간 : ");
+    tempLesson.totalHours = Integer.parseInt(key.nextLine());
+    System.out.print("일 수업 시간 : ");
+    tempLesson.dayHours = Integer.parseInt(key.nextLine());
+    System.out.println("저장하였습니다");
+    les[lessonCount] = tempLesson;
+    lessonCount++;
     return;
   }
 
   static void addMember() {
     Date signUp = new Date(System.currentTimeMillis());
-    for (int i = 0; i < L; i++) {
-      memberCount++;
-      Member tempMember = new Member();
-      System.out.print("번호 : ");
-      tempMember.no = Integer.parseInt(key.nextLine());
-      System.out.print("이름 : ");
-      tempMember.name = key.nextLine();
-      System.out.print("이메일 : ");
-      tempMember.email = key.nextLine();
-      System.out.print("암호 : ");
-      tempMember.password = key.nextLine();
-      System.out.print("사진 : ");
-      tempMember.photo = key.nextLine();
-      System.out.print("전화 : ");
-      tempMember.tel = key.nextLine();
-      tempMember.registeredDate = signUp;
-      System.out.println("저장하였습니다");
-      mems[i] = tempMember;
-      break;
-    }
+    Member tempMember = new Member();
+    System.out.print("번호 : ");
+    tempMember.no = Integer.parseInt(key.nextLine());
+    System.out.print("이름 : ");
+    tempMember.name = key.nextLine();
+    System.out.print("이메일 : ");
+    tempMember.email = key.nextLine();
+    System.out.print("암호 : ");
+    tempMember.password = key.nextLine();
+    System.out.print("사진 : ");
+    tempMember.photo = key.nextLine();
+    System.out.print("전화 : ");
+    tempMember.tel = key.nextLine();
+    tempMember.registeredDate = signUp;
+    System.out.println("저장하였습니다");
+    mems[i] = tempMember;
+    memberCount++;
     return;
   }
 
   static void addBoard() {
-    for (int i = 0; i < L; i++) {
-      boardCount++;
-      Board tempBoard = new Board();
-      System.out.print("번호 : ");
-      tempBoard.no = Integer.parseInt(key.nextLine());
-      System.out.print("내용 : ");
-      tempBoard.contents = key.nextLine();
-      System.out.println("저장하였습니다");
-      bods[i] = tempBoard;
-      break;
-    }
+    Board tempBoard = new Board();
+    System.out.print("번호 : ");
+    tempBoard.no = Integer.parseInt(key.nextLine());
+    System.out.print("내용 : ");
+    tempBoard.contents = key.nextLine();
+    System.out.println("저장하였습니다");
+    bods[i] = tempBoard;
+    boardCount++;
     return;
   }
 
@@ -122,8 +113,7 @@ public class App {
       return;
     }
     for (int i = 0; i < lessonCount; i++) {
-      System.out.printf("%1d, %-8s , %9s ~ %9s, %4d\n"
-          , les[i].no, les[i].title, les[i].startDate,
+      System.out.printf("%1d, %-8s , %9s ~ %9s, %4d\n", les[i].no, les[i].title, les[i].startDate,
           les[i].endDate, les[i].totalHours);
     }
     return;
