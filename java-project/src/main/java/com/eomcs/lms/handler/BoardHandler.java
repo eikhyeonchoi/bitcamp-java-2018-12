@@ -8,9 +8,7 @@ public class BoardHandler {
   
   public static Scanner keyboard;
   static final int LENGTH = 10;
-
-
-  static  Board[] boards = new Board[LENGTH];
+  static Board[] boards = new Board[LENGTH];
   static int boardIdx = 0;
 
   public static void listBoard() {
@@ -38,6 +36,5 @@ public class BoardHandler {
     
     System.out.println("저장하였습니다.");
   }
-
 
 }

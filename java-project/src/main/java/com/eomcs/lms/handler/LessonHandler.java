@@ -6,13 +6,10 @@ import com.eomcs.lms.domain.Lesson;
 
 public class LessonHandler {
 
-  
   public static Scanner keyboard;
   static final int LENGTH = 10;
-  
   static Lesson[] lessons = new Lesson[LENGTH];
   static int lessonIdx = 0;
-  
   
   public static void listLesson() {
     for (int j = 0; j < lessonIdx; j++) {
@@ -21,7 +18,7 @@ public class LessonHandler {
           lessons[j].endDate, lessons[j].totalHours);
     }
   }
-  
+
   public static void addLesson() {
     Lesson lesson = new Lesson();
 
@@ -51,6 +48,5 @@ public class LessonHandler {
     lessonIdx++;
 
     System.out.println("저장하였습니다.");
-    
   }
 }

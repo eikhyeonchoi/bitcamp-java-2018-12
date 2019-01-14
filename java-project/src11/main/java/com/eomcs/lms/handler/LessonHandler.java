@@ -5,45 +5,48 @@ import java.util.Scanner;
 import com.eomcs.lms.domain.Lesson;
 
 public class LessonHandler {
-  public static Scanner key;
-  final static int L = 10;
 
-  static Lesson[] lessons = new Lesson[L];
+  public static Scanner keyboard;
+  static final int LENGTH = 10;
+  static Lesson[] lessons = new Lesson[LENGTH];
   static int lessonIdx = 0;
+  
+  public static void listLesson() {
+    for (int j = 0; j < lessonIdx; j++) {
+      System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
+          lessons[j].no, lessons[j].title, lessons[j].startDate, 
+          lessons[j].endDate, lessons[j].totalHours);
+    }
+  }
 
   public static void addLesson() {
-    Lesson tempLesson = new Lesson();
-    System.out.print("번호 : ");
-    tempLesson.no = Integer.parseInt(key.nextLine());
-    System.out.print("수업명 : ");
-    tempLesson.title = key.nextLine();
-    System.out.print("수업내용 : ");
-    tempLesson.contents = key.nextLine();
-    System.out.print("시작일 : ");
-    tempLesson.startDate = Date.valueOf(key.nextLine());
-    System.out.print("종료일 : ");
-    tempLesson.endDate = Date.valueOf(key.nextLine());
-    System.out.print("총 수업 시간 : ");
-    tempLesson.totalHours = Integer.parseInt(key.nextLine());
-    System.out.print("일 수업 시간 : ");
-    tempLesson.dayHours = Integer.parseInt(key.nextLine());
-    System.out.println("저장하였습니다");
-    lessons[lessonIdx] = tempLesson;
+    Lesson lesson = new Lesson();
+
+    System.out.print("번호? ");
+    lesson.no = Integer.parseInt(keyboard.nextLine());
+
+    System.out.print("수업명? ");
+    lesson.title = keyboard.nextLine();
+
+    System.out.print("설명? ");
+    lesson.contents = keyboard.nextLine();
+
+    System.out.print("시작일? ");
+    lesson.startDate = Date.valueOf(keyboard.nextLine());
+
+    System.out.print("종료일? ");
+    lesson.endDate = Date.valueOf(keyboard.nextLine());
+
+    System.out.print("총수업시간? ");
+    lesson.totalHours = Integer.parseInt(keyboard.nextLine());
+
+    System.out.print("일수업시간? ");
+    lesson.dayHours = Integer.parseInt(keyboard.nextLine());
+
+    // i 번째 배열에 수업 정보를 담고 있는 Lesson 객체(의 주소)를 보관한다.
+    lessons[lessonIdx] = lesson;
     lessonIdx++;
-    return;
+
+    System.out.println("저장하였습니다.");
   }
-
-
-  public static void listLesson() {
-    if (lessonIdx == 0) {
-      System.out.println("저장된 정보가 없습니다");
-      return;
-    }
-    for (int i = 0; i < lessonIdx; i++) {
-      System.out.printf("%1d, %-8s , %9s ~ %9s, %4d\n", lessons[i].no, lessons[i].title,
-          lessons[i].startDate, lessons[i].endDate, lessons[i].totalHours);
-    }
-    return;
-  }
-
 }

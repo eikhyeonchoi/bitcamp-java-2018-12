@@ -5,15 +5,11 @@ import java.util.Scanner;
 import com.eomcs.lms.domain.Member;
 
 public class MemberHandler {
-
+  
   public static Scanner keyboard;
   static final int LENGTH = 10;
   static Member[] members = new Member[LENGTH];
   static int memberIdx = 0;
-  
-  
-  
-  
   
   public static void listMember() {
     for (int j = 0; j < memberIdx; j++) {
@@ -51,4 +47,5 @@ public class MemberHandler {
     
     System.out.println("저장하였습니다.");
   }
+
 }
