@@ -2,17 +2,27 @@ package com.eomcs.lms;
 
 import java.sql.Date;
 import java.util.Scanner;
+import com.eomcs.lms.handler.LessonHandler;
+import com.eomcs.lms.handler.MemberHandler;
 
 public class App {
   public static void main(String[] args) {
     
     Scanner key = new Scanner(System.in);
+    LessonHandler.key = key;
+    MemberHandler.key = key;
+    BoardHandler.key= key;
     
+    
+ 
     while(true) {
       
       String ans = prompt(key);
       
-      if (ans.equals("quit")) break;
+      if (ans.equals("quit"))  {
+        System.out.println("안녕\n...\n...");
+        break;
+      }
       
       if(ans.equals("/lesson/add")) {
         LessonHandler.addLesson();

@@ -51,7 +51,7 @@ public class App {
   }
 
 
-  static void addLesson() {
+  public void addLesson() {
     Lesson tempLesson = new Lesson();
     System.out.print("번호 : ");
     tempLesson.no = Integer.parseInt(key.nextLine());

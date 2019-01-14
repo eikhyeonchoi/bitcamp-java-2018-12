@@ -5,48 +5,50 @@ import java.util.Scanner;
 import com.eomcs.lms.domain.Member;
 
 public class MemberHandler {
-  public static Scanner key;
-  final static int L = 10;
-  
-  static Member[] members = new Member[L];
+
+  public static Scanner keyboard;
+  static final int LENGTH = 10;
+  static Member[] members = new Member[LENGTH];
   static int memberIdx = 0;
   
-  public static void addMember() {
-    Date signUp = new Date(System.currentTimeMillis());
-      Member tempMember = new Member();
-      System.out.print("번호 : ");
-      tempMember.no = Integer.parseInt(key.nextLine());
-      System.out.print("이름 : ");
-      tempMember.name = key.nextLine();
-      System.out.print("이메일 : ");
-      tempMember.email = key.nextLine();
-      System.out.print("암호 : ");
-      tempMember.password = key.nextLine();
-      System.out.print("사진 : ");
-      tempMember.photo = key.nextLine();
-      System.out.print("전화 : ");
-      tempMember.tel = key.nextLine();
-      tempMember.registeredDate = signUp;
-      System.out.println("저장하였습니다");
-      members[memberIdx] = tempMember;
-      memberIdx++;
-    return;
-  }
+  
+  
+  
   
   public static void listMember() {
-    if (memberIdx == 0) {
-      System.out.println("저장된 정보가 없습니다");
-      return;
+    for (int j = 0; j < memberIdx; j++) {
+      System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n", 
+          members[j].no, members[j].name, members[j].email, 
+          members[j].tel, members[j].registeredDate);
     }
-    for (int i = 0; i < memberIdx; i++) {
-      System.out.printf("%1d, %-5s, %-10s, %-5s, %s\n"
-          , members[i].no, members[i].name, members[i].email,
-          members[i].tel, members[i].registeredDate);
-    }
-    return;
   }
+
+  public static void addMember() {
+    Member member = new Member();
+    
+    System.out.print("번호? ");
+    member.no = Integer.parseInt(keyboard.nextLine());
+    
+    System.out.print("이름? ");
+    member.name = keyboard.nextLine();
+    
+    System.out.print("이메일? ");
+    member.email = keyboard.nextLine();
+    
+    System.out.print("암호? ");
+    member.password = keyboard.nextLine();
   
+    System.out.print("사진? ");
+    member.photo = keyboard.nextLine();
   
+    System.out.print("전화? ");
+    member.tel = keyboard.nextLine();
   
-  
+    member.registeredDate = new Date(System.currentTimeMillis()); 
+    
+    members[memberIdx] = member;
+    memberIdx++;
+    
+    System.out.println("저장하였습니다.");
+  }
 }

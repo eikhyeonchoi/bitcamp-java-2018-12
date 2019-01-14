@@ -8,7 +8,7 @@ public class LessonHandler {
   final static int L = 10;
   static Lesson[] lessons = new Lesson[L];
   static int lessonIdx = 0;
-  static Scanner key = new Scanner(System.in);
+  static Scanner key;
   
   static void addLesson() {
       Lesson tempLesson = new Lesson();

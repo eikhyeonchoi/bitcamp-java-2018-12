@@ -8,7 +8,7 @@ public class MemberHandler {
   final static int L = 10;
   static Member[] members = new Member[L];
   static int memberIdx = 0;
-  static Scanner key = new Scanner(System.in);
+  static Scanner key;
 
   static void addMember() {
     Date signUp = new Date(System.currentTimeMillis());

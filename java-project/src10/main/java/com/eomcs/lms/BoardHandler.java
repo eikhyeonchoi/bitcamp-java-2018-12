@@ -7,7 +7,7 @@ public class BoardHandler {
   final static int L = 10;
   static Board[] boards = new Board[L];
   static int boardIdx = 0;
-  static Scanner key = new Scanner(System.in);
+  static Scanner key;
 
   static void addBoard() {
     Board tempBoard = new Board();
