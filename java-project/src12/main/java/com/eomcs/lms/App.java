@@ -2,6 +2,7 @@ package com.eomcs.lms;
 
 import java.util.Scanner;
 import com.eomcs.lms.handler.BoardHandler;
+import com.eomcs.lms.handler.BoardHandler2;
 import com.eomcs.lms.handler.LessonHandler;
 import com.eomcs.lms.handler.MemberHandler;
 
@@ -10,57 +11,38 @@ public class App {
   static Scanner keyboard = new Scanner(System.in);
 
   public static void main(String[] args) {
-
-    LessonHandler lHandler = new LessonHandler();
-    lHandler.keyboard = keyboard;
-    LessonHandler lHandler2 = new LessonHandler();
-    lHandler2.keyboard = keyboard;
-    MemberHandler mHandler = new MemberHandler();
-    mHandler.keyboard = keyboard;
-    MemberHandler mHandler2 = new MemberHandler();
-    mHandler2.keyboard = keyboard;
-    BoardHandler bHandler = new BoardHandler();
-    bHandler.keyboard = keyboard;
-    BoardHandler bHandler2 = new BoardHandler();
-    bHandler2.keyboard = keyboard;
+    
+    LessonHandler.keyboard = keyboard;
+    MemberHandler.keyboard = keyboard;
+    BoardHandler.keyboard = keyboard;
+    BoardHandler2.keyboard = keyboard;
     
     while (true) {
       String command = prompt();
 
       if (command.equals("/lesson/add")) {
-        lHandler.addLesson();
+        LessonHandler.addLesson();
         
       } else if (command.equals("/lesson/list")) {
-        lHandler.listLesson();
-      } else if (command.equals("/lesson2/add")) {
-        lHandler2.addLesson();
-        
-      } else if (command.equals("/lesson2/list")) {
-        lHandler2.listLesson();
+        LessonHandler.listLesson();
       
       } else if (command.equals("/member/add")) {
-        mHandler.addMember();
+        MemberHandler.addMember();
         
       } else if (command.equals("/member/list")) {
-        mHandler.listMember();
-        
-      } else if (command.equals("/member2/add")) {
-        mHandler2.addMember();
-        
-      } else if (command.equals("/member2/list")) {
-        mHandler2.listMember();
+        MemberHandler.listMember();
         
       } else if (command.equals("/board/add")) {
-        bHandler.addBoard();
+        BoardHandler.addBoard();
         
       } else if (command.equals("/board/list")) {
-        bHandler.listBoard();
+        BoardHandler.listBoard();
         
       } else if (command.equals("/board2/add")) {
-        bHandler2.addBoard();
+        BoardHandler2.addBoard();
         
       } else if (command.equals("/board2/list")) {
-        bHandler2.listBoard();
+        BoardHandler2.listBoard();
         
       } else if (command.equals("quit")) {
         System.out.println("안녕!");
