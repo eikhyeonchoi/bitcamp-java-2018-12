@@ -11,7 +11,7 @@ public class LessonHandler {
   static Lesson[] lessons = new Lesson[LENGTH];
   static int lessonIdx = 0;
   
-  public static void listLesson() {
+  static public void listLesson() {
     for (int j = 0; j < lessonIdx; j++) {
       System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
           lessons[j].no, lessons[j].title, lessons[j].startDate, 

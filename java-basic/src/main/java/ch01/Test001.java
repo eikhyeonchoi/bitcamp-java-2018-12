@@ -4,12 +4,6 @@ public class Test001 {
     System.out.println("hello");
   }
 }
-
-
-
-
-
-
 /* 
       #java package
             -package 무소속 class
