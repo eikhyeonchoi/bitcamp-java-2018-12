@@ -7,10 +7,12 @@ public class Test04 {
     String s1 = new String("Hello");
     String s2 = new String("Hello");
     
-    if(s1==s2) { // 인스턴스가 같은 지 비교한다
+    if(s1 == s2) { // 인스턴스가 같은 지 비교한다
       System.out.println("s1 == s2");
     } else System.out.println("s1 != s2");
+
     
+    // String class의 equals() 오버라이딩(overriding)
     if(s1.equals(s2)) { // 인스턴스가에 있는 문자열이 같은지 비교
       System.out.println("s1, s2 문자열이 같다");
     } else System.out.println("s1, s2 문자열이 다르다");

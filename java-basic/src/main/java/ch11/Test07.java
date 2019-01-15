@@ -14,7 +14,7 @@ public class Test07 {
     
     System.out.println(b1); // 파라미터에 넘겨주는 값이 String이 아닐 경우
                             // println() 메서드가 내부에서 해당 값에 대해 toString()을 
-                               // 호출하여 그 리턴값 String을 출력한다
+                                // 호출하여 그 리턴값 String을 출력한다
     
     // 만약 해당 클래스에 toString() 메서드가 없다면????
     // ==> 자바의 모든 클래스에는 toString()이 있다
