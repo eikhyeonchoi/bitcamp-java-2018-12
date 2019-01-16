@@ -32,7 +32,7 @@ public class Score2 extends Score {
 
   private void compute2() {
     // 기존메서드를 호출해서 기존 3과목 합계 평균 계산 후 다시 2과목 추가해 계산
-    this.compute();
+    super.compute();
     super.sum += this.music+this.art;
     super.aver = super.sum / 5f;
   }
