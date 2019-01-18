@@ -39,12 +39,6 @@ public class App {
       } else if (command.equals("/board/detail")) {
         bHandler.detailBoard();
         
-      } else if (command.equals("/board/update")) {
-        bHandler.updateBoard();
-        
-      } else if (command.equals("/board/delete")) {
-        bHandler.deleteBoard();
-        
       } else if (command.equals("quit")) {
         System.out.println("안녕!");
         break;

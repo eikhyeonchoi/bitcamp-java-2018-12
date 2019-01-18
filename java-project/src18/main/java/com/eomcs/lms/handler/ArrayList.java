@@ -1,7 +1,7 @@
 package com.eomcs.lms.handler;
 
 import java.util.Arrays;
-import java.util.List;
+import com.eomcs.lms.domain.Board;
 
 public class ArrayList<E> {
   Object[] list;
@@ -41,35 +41,21 @@ public class ArrayList<E> {
     size++;
   }
   
-  @SuppressWarnings("unchecked")
   public E get(int index) {
     // index : 값을 꺼낼 배열의 항목 위치
-   return (E) list[index - 1]; 
+   return null; 
   }
   public E set(int index, E value) {
     // index : 값을 변경할 배열의 항목 위치 
     // value : 해당 위치에 있는 값을 대체할 값
     // return 값 : 대체되기 전 기존 값
-    Object tmp = list[index - 1];
-    list[index - 1] = value;
-    return (E) tmp;
+    return null;
   }
-  
   public E remove(int index) {
     // index : 삭제할 배열의 항목 위치
     // return : 삭제된 이전 값
     // System.arraycopy 참고
-    /*
-    Object[] objStart = new Object[index-1];
-    Object[] objEnd = new Object[(size-1)-(index+1)];
-    System.arraycopy(list, 0, objStart, 0, index-1);
-    System.arraycopy(list, index+1, objEnd, 0, size-1);
-    */
-    Object deleteContent = list[index];
-    for (int i = index; i < size; i++) {
-      list[i] = list[i+1]; 
-    }
-    return (E) deleteContent;
+    return null;
   }
   
   
