@@ -3,6 +3,7 @@ package com.eomcs.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.util.ArrayList;
 public class BoardHandler {
   public Scanner keyboard;
   ArrayList<Board> arrayList;
@@ -32,68 +33,69 @@ public class BoardHandler {
     b.setCreatedDate(new Date(System.currentTimeMillis()));
     b.setViewCount(0);
     arrayList.add(b);
-    System.out.println("add complete ...");
     // Board(서브클래스) ==> Object(수퍼클래스) 형변환이 필요없다
   }
   
   public void detailBoard() {
-    System.out.print("번호를 입력하세요 : ");
-    int a = Integer.parseInt(this.keyboard.nextLine());
-    if (arrayList.getSize() < a || a <= 0) {
-      System.out.println("해당 게시글을 찾을 수 없습니다");
-      return;
-    }
-    Board dBoard = arrayList.get(a);
-    System.out.printf("내용 : %s\n",dBoard.getContents());
-    System.out.printf("작성일 : %s\n",dBoard.getCreatedDate());
+    int no = prompt();
+    int res = indexOf(no);
+    if (valid(res) == false) return;
+    
+    Board detail = arrayList.get(res);
+    System.out.printf("내용 : %s\n", detail.getContents());
+    System.out.printf("작성일 : %s\n", detail.getCreatedDate());
+    
   }
+
   
   public void updateBoard() {
-    System.out.print("번호 : ");
-    int excep = Integer.parseInt(this.keyboard.nextLine());
-    if (arrayList.getSize() < excep || excep <= 0) {
-      System.out.println("해당 게시글을 찾을 수 없습니다");
-      return;
-    } else {
-      Board b = new Board();
-      System.out.print("내용 : ");
-      b.setNo(excep);
-      b.setContents(keyboard.nextLine());
-      b.setCreatedDate(new Date(System.currentTimeMillis()));
-      if (b.getContents().equals("")) {
-        return;
-      }
-      arrayList.set(excep, b);
-      System.out.println("update complete ...");
-    }
+    int no = prompt();
+    int res = indexOf(no);
+    if (valid(res) == false) return;
+    
+    Board originalBoard = arrayList.get(res);
+    Board newBoard = new Board();
+    System.out.print("내용 : ");
+    String string = keyboard.nextLine();
+    newBoard.setNo(no);
+    newBoard.setContents(string.length() > 0 ?
+        string : originalBoard.getContents());
+    newBoard.setCreatedDate(new Date(System.currentTimeMillis()));
+    arrayList.set(res, newBoard);
+    System.out.println("수정이 완료되었습니다 ...");
   }
   
   public void deleteBoard() {
-    System.out.print("번호 : ");
-    int excep = Integer.parseInt(this.keyboard.nextLine());
-    if (arrayList.getSize() < excep || excep <= 0) {
-      System.out.println("해당 게시글을 찾을 수 없습니다");
-      return;
+    int no = prompt();
+    int res = indexOf(no);
+    if (valid(res) == false) return;
+    
+    arrayList.remove(res);
+    System.out.println("삭제가 완료되었습니다 ...");
+  }
+
+  boolean valid(int res) {
+    if (res == -1) {
+      System.out.println("해당 번호를 찾을 수 없습니다 ...");
+      return false;
     }
-    arrayList.remove2(excep);
-    System.out.println("delete complete ...");
+    return true;
   }
   
+  int prompt() {
+    System.out.print("번호 : ");
+    int no = Integer.parseInt(keyboard.nextLine());
+    return no;
+  }
   
-  
+  int indexOf(int no) {
+    Board[] temp = arrayList.toArray(new Board[0]);
+    for(int k = 0; k < arrayList.getSize(); k++) {
+      if (temp[k].getNo() == no) {
+        return k;
+      }
+    }
+    return -1;
+  }
   
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

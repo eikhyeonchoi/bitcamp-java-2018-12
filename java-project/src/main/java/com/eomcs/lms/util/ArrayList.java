@@ -1,16 +1,16 @@
-package com.eomcs.lms.handler;
+package com.eomcs.lms.util;
 
 import java.util.Arrays;
-import java.util.List;
+import com.eomcs.lms.domain.Board;
 
 public class ArrayList<E> {
   Object[] list;
-  private int  size = 0;
+  int size = 0;
   
   public int getSize() {
-    return this.size;
+    return size;
   }
-  
+
   @SuppressWarnings("unchecked")
   public ArrayList() {
     list = new Object[10];
@@ -45,48 +45,32 @@ public class ArrayList<E> {
     size++;
   }
   
-  @SuppressWarnings("unchecked")
   public E get(int index) {
     // index : 값을 꺼낼 배열의 항목 위치
-   return (E) list[index - 1]; 
+   return (E) list[index]; 
   }
-  
   public E set(int index, E value) {
     // index : 값을 변경할 배열의 항목 위치 
     // value : 해당 위치에 있는 값을 대체할 값
     // return 값 : 대체되기 전 기존 값
-    Object tmp = list[index - 1];
-    list[index - 1] = value;
-    return (E) tmp;
-    
+    E obj = (E) list[index];
+    list[index] = value;
+    return obj;
   }
-  
   public E remove(int index) {
     // index : 삭제할 배열의 항목 위치
     // return : 삭제된 이전 값
     // System.arraycopy 참고
-    /*
-    Object[] objStart = new Object[index-1];
-    Object[] objEnd = new Object[(size-1)-(index+1)];
-    System.arraycopy(list, 0, objStart, 0, index-1);
-    System.arraycopy(list, index+1, objEnd, 0, size-1);
-    */
-    Object deleteContent = list[index-1];
-    for (int i = index-1; i < list.length-1; i++) {
-      list[i] = list[i+1]; 
+    E obj = (E) list[index];
+    for(int k = index; k < size; k++) {
+      list[k] = list[k+1];
     }
-    size--;
-    return (E) deleteContent;
-    
+    size --;
+    return obj;
   }
   
-  public E remove2(int i) {
-    int index = i-1;
-    Object returnObj = list[index];
-    int newSize = size - 1;
-    System.arraycopy(list, index+1, list, index, newSize - index);
-    size--;
-    return (E) returnObj;
-  }
+  
+  
+  
 
 }

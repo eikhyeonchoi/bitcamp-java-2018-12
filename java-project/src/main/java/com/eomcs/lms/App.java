@@ -43,7 +43,7 @@ public class App {
       } else if (command.equals("/member/detail")) {
         mHandler.detailMember();
         
-      } else if (command.equals("/member/upadte")) {
+      } else if (command.equals("/member/update")) {
         mHandler.updateMember();
         
       } else if (command.equals("/member/delete")) {

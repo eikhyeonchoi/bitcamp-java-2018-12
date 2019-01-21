@@ -3,20 +3,21 @@ package com.eomcs.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Member;
+import com.eomcs.lms.util.ArrayList;
 
 public class MemberHandler {
   public Scanner keyboard;
   ArrayList<Member> arrayList;
-
+  
   public MemberHandler(Scanner key) {
     this.keyboard = key;
     this.arrayList =  new ArrayList<>();
   }
-
+  
   public void listMember() {
     Member[] members = arrayList.toArray(new Member[0]);
     for (Member member : members) {
-      System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n"
+      System.out.printf("%d, %s, %s, %s, %s\n"
           , member.getNo(), member.getName(), member.getEmail(), 
           member.getTel(), member.getRegisteredDate());
     }
@@ -37,55 +38,91 @@ public class MemberHandler {
     System.out.print("전화? ");
     m.setTel(this.keyboard.nextLine());
     m.setRegisteredDate(new Date(System.currentTimeMillis()));
+    
     arrayList.add(m);
-    System.out.println("add complete ...");
-    
   }
-
+  
   public void detailMember() {
-    System.out.print("번호 : ");
-    int ans = Integer.parseInt(keyboard.nextLine());
-    if (ans > arrayList.getSize() || ans <= 0) {
-      System.out.println("해당 번호를 찾을 수 없습니다");
-      return;
-    } 
-    Member showMember = arrayList.get(ans);
-    System.out.printf("이름 : %s\n", showMember.getName());
-    System.out.printf("메일 : %s\n", showMember.getEmail());
-    System.out.printf("암호 : %s\n", showMember.getPassword());
-    System.out.printf("사진 : %s\n", showMember.getPhoto());
-    System.out.printf("전화 : %s\n", showMember.getTel());
-
-  }
-  public void updateMember() { 
-    System.out.print("번호 : ");
-    int ans = Integer.parseInt(keyboard.nextLine());
-    if (ans > arrayList.getSize() || ans <= 0) {
-      System.out.println("해당 번호를 찾을 수 없습니다");
-      return;
-    } 
-    Member mem = new Member();
-    mem.setNo(ans);
-    mem.setName(keyboard.nextLine());
-    mem.setEmail(keyboard.nextLine());
-    mem.setPassword(keyboard.nextLine());
-    mem.setPhoto(keyboard.nextLine());
-    mem.setTel(keyboard.nextLine());
-    arrayList.set(ans, mem);
-    System.out.println("update delete ...");
+    int no = prompt();
+    int res = indexOf(no);
+    if (valid(res) == false) return;
     
+    Member detail = arrayList.get(res);
+    System.out.printf("이름 : %s\n", detail.getName());
+    System.out.printf("메일 : %s\n", detail.getEmail());
+    System.out.printf("암호 : %s\n", detail.getPassword());
+    System.out.printf("사진 : %s\n", detail.getPhoto());
+    System.out.printf("전화 : %s\n", detail.getTel());
+    System.out.printf("가입 : %s\n", detail.getRegisteredDate());
+  }
+
+  
+  public void updateMember() {
+    int no = prompt();
+    int res = indexOf(no);
+    if (valid(res) == false) return;
+
+    Member originalMember = arrayList.get(res);
+    Member newMember = new Member();
+    newMember.setNo(no);
+    System.out.print("이름 : ");
+    String str = keyboard.nextLine();
+    newMember.setName(str.length() > 0 ?
+        str : originalMember.getName());
+    System.out.print("메일 : ");
+    str = keyboard.nextLine();
+    newMember.setEmail(str.length() > 0 ?
+        str : originalMember.getEmail());
+    System.out.print("암호 : ");
+    str = keyboard.nextLine();
+    newMember.setPassword(str.length() > 0 ?
+        str : originalMember.getPassword());
+    System.out.print("사진 : ");
+    str = keyboard.nextLine();
+    newMember.setPhoto(str.length() > 0 ?
+        str : originalMember.getPhoto());
+    System.out.print("전화 : ");
+    str = keyboard.nextLine();
+    newMember.setTel(str.length() > 0 ?
+        str : originalMember.getTel());
+    newMember.setRegisteredDate(new Date(System.currentTimeMillis()));
+    arrayList.set(res, newMember);
+    System.out.println("수정이 완료되었습니다 ...");
   }
   
   public void deleteMember() {
-    System.out.print("번호 : ");
-    int ans = Integer.parseInt(keyboard.nextLine());
-    if (ans > arrayList.getSize() || ans <= 0) {
-      System.out.println("해당 번호를 찾을 수 없습니다");
-      return;
-    } 
-    arrayList.remove(ans);
-    System.out.println("delete complete ...");
-
+    int no = prompt();
+    int res = indexOf(no);
+    if (valid(res) == false) return;
+    
+    arrayList.remove(res);
+    System.out.println("삭제가 완료되었습니다 ...");
+    
   }
 
+  int indexOf(int no) {
+    Member[] members = arrayList.toArray(new Member[0]);
+    for(int k = 0; k < arrayList.getSize(); k++) {
+      if (members[k].getNo() == no) {
+        return k;
+      }
+    }
+    return -1;
+  }
+  
+  int prompt() {
+    System.out.print("번호 : ");
+    int no = Integer.parseInt(keyboard.nextLine());
+    return no;
+  }
+  
+  boolean valid(int no) {
+    if (no == -1) {
+      System.out.println("해당 번호를 찾을 수 없습니다 ...");
+      return false;
+    }
+    return true;
+  }
+  
+  
 }

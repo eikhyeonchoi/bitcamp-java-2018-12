@@ -43,7 +43,7 @@ public class App {
       } else if (command.equals("/member/detail")) {
         mHandler.detailMember();
         
-      } else if (command.equals("/member/upadte")) {
+      } else if (command.equals("/member/update")) {
         mHandler.updateMember();
         
       } else if (command.equals("/member/delete")) {
@@ -65,11 +65,11 @@ public class App {
         bHandler.deleteBoard();
         
       } else if (command.equals("quit")) {
-        System.out.println("안녕!");
+        System.out.println("bye!");
         break;
         
       } else {
-        System.out.println("실행할 수 없는 명령입니다.");
+        System.out.println("invalid command ...");
       }
       
       System.out.println(); // 결과 출력 후 빈 줄 출력
@@ -79,7 +79,7 @@ public class App {
   }
 
   private static String prompt() {
-    System.out.print("명령> ");
+    System.out.print("command >> ");
     return keyboard.nextLine().toLowerCase();
   }
 }
