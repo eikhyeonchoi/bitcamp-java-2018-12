@@ -5,35 +5,21 @@ public class Test {
   public static void main(String[] args) {
     // TODO Auto-generated method stub
 
-    ArrayList arr = new ArrayList();
-    arr.add(4);
-    arr.print();
-    System.out.println();
+    ArrayList2 arr = new ArrayList2();
+    ArrayList2 arr2 = new ArrayList2(10);
+    arr.add(111);
     
-    arr.insert(0, 11);
-    arr.print();
-    System.out.println();
+    arr.add(222);
+    arr.add(333);
+    arr.add(444);
+    arr.add(555);
+    arr.add(null);
+    arr.add(null);
     
-    arr.insert(0, 123);
+    arr.reverse();
     arr.print();
-    System.out.println();
+   
     
-    arr.insert(2, 999);
-    arr.print();
-    System.out.println();
-    
-    arr.remove(0);
-    arr.print();
-    System.out.println();
-    
-    arr.add(123);
-    arr.print();
-    System.out.println();
-    
-    System.out.println(arr.get(0));
-    arr.set(0, 586);
-    arr.print();
-    System.out.println();
  
   }
 

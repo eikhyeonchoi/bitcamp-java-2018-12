@@ -61,6 +61,10 @@ public class ArrayList {
     return old;
   }
   
+  public void reverse() {
+    
+  }
+  
   public Object remove(int index) {
     // 유효 인덱스(현재 배열에 데이터가 저장된 방 번호)가 아니면 삭제하지말라
     // 삭제한 후 다음 항목을 앞으로 당긴다
