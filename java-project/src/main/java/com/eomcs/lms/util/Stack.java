@@ -1,4 +1,4 @@
-package algorithm.data_structure.stack;
+package com.eomcs.lms.util;
 
 public class Stack {
   public static final int DEFAULT_SIZE = 5;
@@ -30,7 +30,6 @@ public class Stack {
     Object old = list[size - 1];
     size --;
     return old;
-    // return list[--size];
   }
   
   public boolean empty() {

@@ -1,4 +1,4 @@
-package algorithm.data_structure.linkedlist;
+package com.eomcs.lms.util;
 
 import java.awt.Cursor;
 
