@@ -15,6 +15,8 @@ public class BoardHandler {
   }
 
   public void listBoard() {
+    // Board[] boards = new Board[arrayList.size()];
+    // arrayList.toArray(boards);
     Board[] boards = arrayList.toArray(new Board[0]);
     for (Board temp : boards) {
       // Object(수퍼클래스) ==> Board(서브클래스) 형변환이 필요하다

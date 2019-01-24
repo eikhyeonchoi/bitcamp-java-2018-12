@@ -3,16 +3,16 @@ package com.eomcs.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Member;
-import com.eomcs.util.ArrayList;
+import com.eomcs.util.LinkedList;
 
 public class MemberHandler {
   public Scanner keyboard;
-  ArrayList<Member> arrayList;
+  LinkedList<Member> arrayList;
 
   
   public MemberHandler(Scanner key) {
     this.keyboard = key;
-    this.arrayList =  new ArrayList<>();
+    this.arrayList =  new LinkedList<>();
   }
 
   
@@ -113,7 +113,7 @@ public class MemberHandler {
   
   private int indexOf(int no) {
     Member[] temp = arrayList.toArray(new Member[0]);
-    for (int k = 0; k < arrayList.getSize(); k++) {
+    for (int k = 0; k < arrayList.size(); k++) {
       if (temp[k].getNo() == no) {
         return k;
       }

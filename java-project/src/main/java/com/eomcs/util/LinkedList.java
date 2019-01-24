@@ -1,5 +1,6 @@
 package com.eomcs.util;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class LinkedList<E> {
@@ -56,7 +57,7 @@ public class LinkedList<E> {
     return old;
   }
 
-  public E[] toArray(E[] a) {
+  public Object[] toArray() {
     Object[] arr = new Object[size()];
     Node<E> cursor = head;
     int k = 0;
@@ -67,14 +68,28 @@ public class LinkedList<E> {
     }
     return arr;
   }
-  public<T> T[] toArray(T[] a) {
-    Object[] arr = new Object[size()];
+  
+  @SuppressWarnings("unchecked")
+  public <T> T[] toArray(T[] a) {
+    T[] arr = null;
+    if (a.length >= size()) {
+      // 파라미터로 받은 배열의 크기가 리스트의 모든 항목을 담을 만큼 크다면
+      // 배열을 새로 만들지 않고 그대로 사용한다
+      arr = a;
+    } else {
+      // 만약 파라미터로 받은 배열의 크기가 리스트의 항목 크기보다 작다면
+      // 새로 배열을 만든다
+      arr =(T[]) Array.newInstance(
+          a.getClass() // getClass()의 리턴 값은 T가 아니라 T[]이다
+          .getComponentType() // getComponentType()의 리턴값은
+          , this.size());
+    }
+
     Node<E> cursor = head;
-    int k = 0;
+    int i = 0;
     while(cursor != tail) {
-      arr[k] = cursor.value;
+      arr[i++] = (T) cursor.value;
       cursor = cursor.next;
-      k++;
     }
     return arr;
   }

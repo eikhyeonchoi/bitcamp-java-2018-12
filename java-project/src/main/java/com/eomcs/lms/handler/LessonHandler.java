@@ -3,15 +3,15 @@ package com.eomcs.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Lesson;
-import com.eomcs.util.ArrayList;
+import com.eomcs.util.LinkedList;
 
 public class LessonHandler {
   public Scanner keyboard;
-  ArrayList<Lesson> arrayList;
+  LinkedList<Lesson> arrayList;
 
   public LessonHandler(Scanner key) {
     this.keyboard = key;
-    this.arrayList = new ArrayList<>();
+    this.arrayList = new LinkedList<>();
   }
   
 
@@ -120,7 +120,7 @@ public class LessonHandler {
   
   
   private int indexOf(int lessonNo) {
-    for (int k = 0; k < arrayList.getSize(); k++) {
+    for (int k = 0; k < arrayList.size(); k++) {
       Lesson item = arrayList.get(k);
       if (item.getNo() == lessonNo) {
         return k;
