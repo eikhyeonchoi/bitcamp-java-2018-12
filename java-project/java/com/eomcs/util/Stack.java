@@ -1,6 +1,6 @@
-package com.eomcs.lms.util;
+package com.eomcs.util;
 
-public class Stack {
+public class Stack<E> {
   public static final int DEFAULT_SIZE = 5;
   Object[] list;
   int size = 0;
@@ -9,7 +9,7 @@ public class Stack {
     list = new Object[DEFAULT_SIZE];
   }
   
-  public void push(Object value) {
+  public void push(E value) {
     // 맨 마지막에 추가
     // 배열의 크기가 작다면 확장해야한다
     if (size >= list.length) {
@@ -23,13 +23,16 @@ public class Stack {
     list[size] = value;
     size ++;
   }
-  public Object pop() {
+  
+  @SuppressWarnings("unchecked")
+  public E pop() {
     // 맨 마지막 값을 꺼내 return
     // 꺼낸 값을 배열에서 제거되어야 한다
     if (size == 0) return null;
     Object old = list[size - 1];
     size --;
-    return old;
+    return (E) old;
+    // return list[--size];
   }
   
   public boolean empty() {
@@ -44,24 +47,6 @@ public class Stack {
     for(int k =  0; k < size; k++) {
       System.out.printf("%d\n", list[k]);
     }
-  }
-  public static void main(String[] args) {
-    Stack st = new Stack();
-    st.push(100);
-    st.push(200);
-    st.push(300);
-    st.push(400);
-    System.out.println(st.pop());
-    System.out.println(st.empty());
-    System.out.println(st.pop());
-    System.out.println(st.empty());
-    System.out.println(st.pop());
-    System.out.println(st.empty());
-    System.out.println(st.pop());
-    System.out.println(st.empty());
-    
-
-    //st.print();
   }
   
 }

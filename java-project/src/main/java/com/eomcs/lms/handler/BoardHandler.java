@@ -3,14 +3,15 @@ package com.eomcs.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Board;
-import com.eomcs.lms.util.ArrayList;
+import com.eomcs.util.ArrayList;
+import com.eomcs.util.LinkedList;
 public class BoardHandler {
   public Scanner keyboard;
-  ArrayList<Board> arrayList;
+  LinkedList<Board> arrayList;
   
   public BoardHandler(Scanner key) {
     this.keyboard = key;
-    this.arrayList = new ArrayList<>();
+    this.arrayList = new LinkedList<>();
   }
 
   public void listBoard() {
@@ -26,14 +27,15 @@ public class BoardHandler {
 
   public void addBoard() {
     Board b = new Board();
-    System.out.print("번호 : ");
+    System.out.print("num : ");
     b.setNo(Integer.parseInt(this.keyboard.nextLine()));
-    System.out.print("내용 : ");
+    System.out.print("contents : ");
     b.setContents(this.keyboard.nextLine());
     b.setCreatedDate(new Date(System.currentTimeMillis()));
     b.setViewCount(0);
     arrayList.add(b);
-    // Board(서브클래스) ==> Object(수퍼클래스) 형변환이 필요없다
+    System.out.println("add complete ...");
+    // Board(서브클래스) ==> Object내용(수퍼클래스) 형변환이 필요없다
   }
   
   public void detailBoard() {
@@ -42,9 +44,8 @@ public class BoardHandler {
     if (valid(res) == false) return;
     
     Board detail = arrayList.get(res);
-    System.out.printf("내용 : %s\n", detail.getContents());
-    System.out.printf("작성일 : %s\n", detail.getCreatedDate());
-    
+    System.out.printf("contents : %s\n", detail.getContents());
+    System.out.printf("createDay : %s\n", detail.getCreatedDate());
   }
 
   
@@ -55,47 +56,63 @@ public class BoardHandler {
     
     Board originalBoard = arrayList.get(res);
     Board newBoard = new Board();
-    System.out.print("내용 : ");
+    System.out.print("contents : ");
     String string = keyboard.nextLine();
     newBoard.setNo(no);
     newBoard.setContents(string.length() > 0 ?
         string : originalBoard.getContents());
     newBoard.setCreatedDate(new Date(System.currentTimeMillis()));
     arrayList.set(res, newBoard);
-    System.out.println("수정이 완료되었습니다 ...");
+    System.out.println("update complete ...");
+    
+
   }
-  
+
+
   public void deleteBoard() {
     int no = prompt();
     int res = indexOf(no);
     if (valid(res) == false) return;
     
     arrayList.remove(res);
-    System.out.println("삭제가 완료되었습니다 ...");
-  }
-
-  boolean valid(int res) {
-    if (res == -1) {
-      System.out.println("해당 번호를 찾을 수 없습니다 ...");
-      return false;
-    }
-    return true;
+    System.out.println("remove complete ...");
   }
   
-  int prompt() {
-    System.out.print("번호 : ");
+  private int prompt() {
+    System.out.print("num : ");
     int no = Integer.parseInt(keyboard.nextLine());
     return no;
   }
   
-  int indexOf(int no) {
+  private int indexOf(int no) {
     Board[] temp = arrayList.toArray(new Board[0]);
-    for(int k = 0; k < arrayList.getSize(); k++) {
+    for(int k = 0; k < arrayList.size(); k++) {
       if (temp[k].getNo() == no) {
         return k;
       }
     }
     return -1;
   }
-  
+
+  boolean valid(int res) {
+    if (res == -1) {
+      System.out.println("not find num ...");
+      return false;
+    }
+    return true;
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
