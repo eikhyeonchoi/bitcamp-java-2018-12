@@ -3,7 +3,7 @@ package com.eomcs.util;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
-public class LinkedList<E> {
+public class LinkedList<E> implements Cloneable {
   private static class Node<E> {
     Node<E> prev;
     Node<E> next;
@@ -131,6 +131,12 @@ public class LinkedList<E> {
     return 0;
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
+  public LinkedList<E> clone() throws CloneNotSupportedException {
+    // TODO Auto-generated method stub
+    return (LinkedList<E>) super.clone();
+  }
 
 
 }

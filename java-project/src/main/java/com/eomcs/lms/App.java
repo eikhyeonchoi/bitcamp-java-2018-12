@@ -1,5 +1,4 @@
 package com.eomcs.lms;
-
 import java.util.Scanner;
 import com.eomcs.lms.handler.BoardHandler;
 import com.eomcs.lms.handler.LessonHandler;
@@ -8,7 +7,6 @@ import com.eomcs.util.Queue;
 import com.eomcs.util.Stack;
 
 public class App {
-
   static Scanner keyboard = new Scanner(System.in);
   static Stack<String> stack = new Stack<>();
   static Queue<String> queue = new Queue<>();
@@ -24,7 +22,7 @@ public class App {
       String command = prompt();
       stack.push(command);
       queue.offer(command);
-
+      
       if (command.equals("/lesson/add")) {
         lHandler.addLesson();
 
@@ -93,8 +91,15 @@ public class App {
   public static void printCommandHistory() {
     try {
       Stack<String> temp = stack.clone();
-      while (!temp.empty()) {
+      int count = 0;
+      while (temp.empty() == false) {
         System.out.println(temp.pop());
+        if (++count % 5 == 0) {
+          System.out.print("continue? :");
+          String input  = keyboard.nextLine();
+          if(input.equalsIgnoreCase("q"))
+            break;
+        }
       }
     } catch(Exception e) {
       e.printStackTrace();
@@ -104,8 +109,15 @@ public class App {
   public static void printCommandHistory2() {
     try {
       Queue<String> temp = queue.clone();
+      int count = 0;
       while (!temp.empty()) {
         System.out.println(temp.poll());
+        if (++count % 5 == 0) {
+          System.out.print("continue? :");
+          String input  = keyboard.nextLine();
+          if(input.equalsIgnoreCase("q"))
+            break;
+        }
       }
     } catch(Exception e) {
       e.printStackTrace();
