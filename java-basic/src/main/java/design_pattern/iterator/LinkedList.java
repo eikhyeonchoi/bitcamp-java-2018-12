@@ -1,5 +1,5 @@
 // 제네릭 적용하기
-package algorithm.data_structure.linkedlist3;
+package design_pattern.iterator;
 
 public class LinkedList<E> {
   protected Node<E> head;
@@ -99,7 +99,27 @@ public class LinkedList<E> {
     size--;
     return old;
   }
+  
+  // 자신이 보유한 데이터를 꺼내주는 일을 하는 객체를 알려주는 메서드
+  public Iterator<E> iterator() {
+    return new Iterator<E>(){
+      int index = 0;
+      
+      @Override
+      public boolean hasNext() {
+        return index < size();
+      }
 
+      @SuppressWarnings("unchecked")
+      @Override
+      public E next() {
+        return (E) get(index++);
+      }
+    };
+    
+  }
+  
+  
   // Node가 다루는 값의 타입을 generic으로 선언한다
   // ==> 즉 Node가 다루는 데이터의 타입을 E라고 명명하고 코드를 작성한다
   // ==> Node 클래스를 사용하는 시점에 E가 무슨 타입인지 결정될 것이다
@@ -113,6 +133,10 @@ public class LinkedList<E> {
       this.value = value;
     }
   }
+  
+  
 
-
+  
+  
+  
 }

@@ -1,19 +1,13 @@
 package com.eomcs.lms.domain;
+
 import java.sql.Date;
 
-public class Lesson implements Cloneable {
+public class Lesson {
   private int no;
   private String title;
   private String contents;
   private Date startDate;
   private Date endDate;
-  private int totalHours;
-  private int dayHours;
-  
-  @Override
-  public Lesson clone() throws CloneNotSupportedException {
-    return (Lesson) super.clone();
-  }
   
   public int getNo() {
     return no;
@@ -57,6 +51,6 @@ public class Lesson implements Cloneable {
   public void setDayHours(int dayHours) {
     this.dayHours = dayHours;
   }
-  
-  
+  private int totalHours;
+  private int dayHours;
 }

@@ -1,14 +1,12 @@
 package com.eomcs.util;
-
 import java.util.Arrays;
-import java.util.List;
 import com.eomcs.lms.domain.Lesson;
 
-public class ArrayList<E> {
+public class ArrayList<E> implements List<E> {
   Object[] list;
   private int  size = 0;
 
-  public int getSize() {
+  public int size() {
     return this.size;
   }
 
@@ -25,6 +23,7 @@ public class ArrayList<E> {
     }
   }
 
+  /*
   @SuppressWarnings("unchecked")    
   public E[] toArray(E[] sampleArr) {
     return (E[]) Arrays.copyOf(list, size, sampleArr.getClass());
@@ -34,7 +33,15 @@ public class ArrayList<E> {
       arr[i] = (E) list[i];
     }
     return arr;
-     */
+  }
+   */
+ 
+ 
+  @SuppressWarnings("unchecked")    
+  public Object[] toArray() {
+    Object[] temp = new Object[this.size()];
+    System.arraycopy(list, 0, temp, 0, size);
+    return temp;
   }
 
   public void add(E ee) {
@@ -43,7 +50,8 @@ public class ArrayList<E> {
       System.out.println("배열을 증가했습니다 배열 length : " + list.length);
     }
     list[size] = ee;
-    size++;  }
+    size++; 
+  }
 
 
   @SuppressWarnings("unchecked")
@@ -51,7 +59,7 @@ public class ArrayList<E> {
     // index : 값을 꺼낼 배열의 항목 위치
     if (index < 0 || index >= size)
       return null;
-    
+
     return (E) list[index]; 
   }
 
@@ -60,7 +68,7 @@ public class ArrayList<E> {
     // value : 해당 위치에 있는 값을 대체할 값
     // return 값 : 대체되기 전 기존 값
     if (index < 0 || index >= size) return null;
-    
+
     @SuppressWarnings("unchecked")
     E obj = (E) list[index];
     list[index] = value;
@@ -72,7 +80,7 @@ public class ArrayList<E> {
     // return : 삭제된 이전 값
     // System.arraycopy 참고
     if (index < 0 || index >= size) return null;
-    
+
     @SuppressWarnings("unchecked")
     E obj = (E) list[index];
     for (int i = index; i < size-1; i++) {
@@ -82,13 +90,11 @@ public class ArrayList<E> {
     return obj;
   }
 
-  public E remove2(int i) {
-    int index = i-1;
-    Object returnObj = list[index];
-    int newSize = size - 1;
-    System.arraycopy(list, index+1, list, index, newSize - index);
-    size--;
-    return (E) returnObj;
+  @SuppressWarnings("unchecked")
+  @Override
+  public<T> T[] toArray(T[] sampleArr) {
+    return (T[]) Arrays.copyOf(list, size, sampleArr.getClass());
   }
+
 
 }
