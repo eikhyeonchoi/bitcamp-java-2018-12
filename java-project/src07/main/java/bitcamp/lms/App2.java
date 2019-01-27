@@ -1,4 +1,4 @@
-package bitcamp.lms;
+package src07;
 
 import java.sql.Date;
 import bitcamp.lms.Member;

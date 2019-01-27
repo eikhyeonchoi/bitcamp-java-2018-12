@@ -61,12 +61,10 @@ public class Stack<E> implements Cloneable{
   
   public Iterator<E> iterator() {
     return new Iterator<E>() {
-      int index = 1;
+      int index = 0;
       @Override
       public boolean hasNext() {
-        return empty();
-        // empty() => 비어있으면 true
-        // empty() => 안 비어있으면 false;
+        return index < Stack.this.size();
       }
       
       @SuppressWarnings("unchecked")

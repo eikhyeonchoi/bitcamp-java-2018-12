@@ -32,15 +32,16 @@ public class Queue<E> extends LinkedList<E> implements Cloneable{
   
   public Iterator<E> iterator() {
     return new Iterator<E>() {
+      int index = 0;
 
       @Override
       public boolean hasNext() {
-        return empty();
+        return index < Queue.this.size();
       }
 
       @Override
       public E next() {
-        return (E) poll();
+        return (E) Queue.this.get(index++);
       }
       
     };
