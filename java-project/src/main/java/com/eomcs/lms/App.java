@@ -3,6 +3,8 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
 import com.eomcs.lms.domain.Board;
@@ -81,13 +83,19 @@ public class App {
         });
 
       } else if (command.equals("history2")) {
-
+        printCommandHistory2();
       } else {
         Command commandHandler = commandMap.get(command);
         if (commandHandler == null)
           System.out.println("실행할 수 없는 명령입니다.");
-        else 
+        else {
+          try {
           commandHandler.execute();
+          } catch(Exception e) {
+            System.out.println("작업중 오류 발생 : " + e.toString());
+          }
+        }
+        
       }
       System.out.println(); // 결과 출력 후 빈 줄 출력
     }
@@ -100,10 +108,11 @@ public class App {
       System.out.println();
     }
   }
-  private static void printCommandHistory2(Iterator<String> iter) {
-    while(iter.hasNext()) {
-      System.out.print(iter.next());
-      System.out.println();
+  private static void printCommandHistory2() {
+    Queue<String> temp = (Queue<String>) ((ArrayDeque<String>) commandHistory2).clone();
+    
+    while (temp.size() > 0) {
+      System.out.println(temp.poll());
     }
   }
 
