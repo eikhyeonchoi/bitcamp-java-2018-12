@@ -58,19 +58,5 @@ public class Member implements Cloneable {
     this.registeredDate = registeredDate;
   }
   
-  public static Member valueOf(String line) {
-    String[] values = line.split(",");
-    Member temp = new Member();
-    temp.setNo(Integer.valueOf(values[0]));
-    temp.setName(values[1]);
-    temp.setEmail(values[2]);
-    temp.setPassword(values[3]);
-    temp.setPhoto(values[4]);
-    temp.setTel(values[5]);
-    temp.setRegisteredDate(Date.valueOf(values[6]));
-    return temp;
-    
-  }
-  
   
 }

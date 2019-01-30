@@ -58,19 +58,5 @@ public class Lesson implements Cloneable {
     this.dayHours = dayHours;
   }
   
-  public static Lesson valueOf(String line) {
-    String[] values = line.split(",");
-    Lesson temp = new Lesson();
-    temp.setNo(Integer.valueOf(values[0]));
-    temp.setTitle(values[1]);
-    temp.setContents(values[2]);
-    temp.setStartDate(Date.valueOf(values[3]));
-    temp.setEndDate(Date.valueOf(values[4]));
-    temp.setTotalHours(Integer.valueOf(values[5]));
-    temp.setDayHours(Integer.valueOf(values[6]));
-    return temp;
-    
-  }
-  
   
 }

@@ -58,19 +58,51 @@ public class Lesson implements Cloneable {
     this.dayHours = dayHours;
   }
   
-  public static Lesson valueOf(String line) {
-    String[] values = line.split(",");
-    Lesson temp = new Lesson();
-    temp.setNo(Integer.valueOf(values[0]));
-    temp.setTitle(values[1]);
-    temp.setContents(values[2]);
-    temp.setStartDate(Date.valueOf(values[3]));
-    temp.setEndDate(Date.valueOf(values[4]));
-    temp.setTotalHours(Integer.valueOf(values[5]));
-    temp.setDayHours(Integer.valueOf(values[6]));
-    return temp;
+  
+  /**
+   * 
+   * @param csv "번호,제목,내용,시작일,종료일,총강의시간,일강의시간"
+   * @return
+   */
+  public static Lesson valueOf(String csv) {
+    String[] values = csv.split(",");
+    Lesson lesson =  new Lesson();
+    lesson.setNo(Integer.parseInt(values[0]));
+    lesson.setTitle(values[1]);
+    lesson.setContents(values[2]);
+    lesson.setStartDate(Date.valueOf(values[3]));
+    lesson.setEndDate(Date.valueOf(values[4]));
+    lesson.setTotalHours(Integer.parseInt(values[5]));
+    lesson.setDayHours(Integer.parseInt(values[6]));
     
+    return lesson;
   }
   
   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

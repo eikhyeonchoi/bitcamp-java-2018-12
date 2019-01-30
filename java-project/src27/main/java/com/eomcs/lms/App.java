@@ -1,14 +1,9 @@
 package com.eomcs.lms;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
@@ -36,41 +31,42 @@ public class App {
   static Scanner keyboard = new Scanner(System.in);
   static Stack<String> commandHistory = new Stack<>();
   static ArrayDeque<String> commandHistory2 = new ArrayDeque<>();
-  static ArrayList<Board> boardList = new ArrayList<>();
-  static ArrayList<Member> memberList = new ArrayList<>();
-  static ArrayList<Lesson> lessonList = new ArrayList<>();
 
   public static void main(String[] args) {
-    loadLessonData();
-    loadBoardData();
-    loadMemberData();
-
+    ArrayList<Board> boardList = new ArrayList<>();
+    ArrayList<Member> memberList = new ArrayList<>();
+    ArrayList<Lesson> lessonList = new ArrayList<>();
+    
     HashMap<String, Command> commandMap = new HashMap<>();
-
+    
     commandMap.put("/board/add", new BoardAddCommand(keyboard, boardList));
     commandMap.put("/board/list", new BoardListCommand(keyboard, boardList));
     commandMap.put("/board/detail", new BoardDetailCommand(keyboard, boardList));
     commandMap.put("/board/update", new BoardUpdateCommand(keyboard, boardList));
     commandMap.put("/board/delete", new BoardDeleteCommand(keyboard, boardList));
-
+    
     commandMap.put("/member/add", new MemberAddCommand(keyboard, memberList));
     commandMap.put("/member/list", new MemberListCommand(keyboard, memberList));
     commandMap.put("/member/detail", new MemberDetailCommand(keyboard, memberList));
     commandMap.put("/member/update", new MemberUpdateCommand(keyboard, memberList));
     commandMap.put("/member/delete", new MemberDeleteCommand(keyboard, memberList));
-
+    
     commandMap.put("/lesson/add", new LessonAddCommand(keyboard, lessonList));
     commandMap.put("/lesson/list", new LessonListCommand(keyboard, lessonList));
     commandMap.put("/lesson/detail", new LessonDetailCommand(keyboard, lessonList));
     commandMap.put("/lesson/update", new LessonUpdateCommand(keyboard, lessonList));
     commandMap.put("/lesson/delete", new LessonDeleteCommand(keyboard, lessonList));
+    
+
     while (true) {
       String command = prompt();
+
+      // 사용자가 입력한 명령어를 푸시
       commandHistory.push(command);
       commandHistory2.offer(command);
 
       if (command.equals("quit")) {
-        quit();
+        System.out.println("안녕!");
         break;
 
       } else if (command.equals("history")) {
@@ -94,12 +90,12 @@ public class App {
           System.out.println("실행할 수 없는 명령입니다.");
         else {
           try {
-            commandHandler.execute();
+          commandHandler.execute();
           } catch(Exception e) {
             System.out.println("작업중 오류 발생 : " + e.toString());
           }
         }
-
+        
       }
       System.out.println(); // 결과 출력 후 빈 줄 출력
     }
@@ -112,147 +108,17 @@ public class App {
       System.out.println();
     }
   }
-
   private static void printCommandHistory2() {
     Queue<String> temp = (Queue<String>) ((ArrayDeque<String>) commandHistory2).clone();
-
+    
     while (temp.size() > 0) {
       System.out.println(temp.poll());
     }
   }
 
+
   private static String prompt() {
     System.out.print("명령> ");
     return keyboard.nextLine().toLowerCase();
   }
-
-  public static void saveLessonData() {
-    try (FileWriter writer = new FileWriter("lesson.csv");) {
-      for (Lesson temp : lessonList) {
-        writer.write(String.format("%d,%s,%s,%s,%s,%d,%d\n"
-            , temp.getNo()
-            , temp.getTitle()
-            , temp.getContents()
-            , temp.getStartDate()
-            , temp.getEndDate()
-            , temp.getTotalHours()
-            , temp.getDayHours()));
-      }
-      System.out.println("saved lesson data");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  public static void loadLessonData() {
-    try (FileReader reader = new FileReader("lesson.csv");
-        Scanner lineReader = new Scanner(reader); ) {
-      while(true) {
-        lessonList.add(Lesson.valueOf(lineReader.nextLine()));
-      }
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-
-    } catch (NoSuchElementException e) {
-      System.out.println("lesson data loading complete ...");
-    } catch (IOException e1) {
-      e1.printStackTrace();
-    }
-  }
-
-  public static void saveBoardData() {
-    try (FileWriter writer = new FileWriter("board.csv");){
-      for(Board board : boardList) {
-        writer.write(String.format("%d,%s,%s,%d\n"
-            , board.getNo()
-            , board.getContents()
-            , board.getCreatedDate()
-            , board.getViewCount()));
-      }
-      System.out.println("saved board data");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  public static void loadBoardData() {
-    try (FileReader reader = new FileReader("board.csv");
-        Scanner lineReader = new Scanner(reader); ){
-      while(true) {
-        boardList.add(Board.valueOf(lineReader.nextLine()));
-      }
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-      
-    } catch (NoSuchElementException e) {
-      System.out.println("board data loading complete ...");
-      
-    } catch (IOException e1) {
-      e1.printStackTrace();
-    }
-  }
-  
-  public static void saveMemberData() {
-    try (FileWriter writer = new FileWriter("member.csv");){
-      for(Member member : memberList) {
-        writer.write(String.format("%d,%s,%s,%s,%s,%s,%s\n"
-            , member.getNo()
-            , member.getName()
-            , member.getEmail()
-            , member.getPassword()
-            , member.getPhoto()
-            , member.getTel()
-            , member.getRegisteredDate()));
-      }
-      System.out.println("saved member data");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-  
-  public static void loadMemberData() {
-    try (FileReader reader = new FileReader("member.csv");
-        Scanner lineReader = new Scanner(reader); ){
-      while(true) {
-        memberList.add(Member.valueOf(lineReader.nextLine()));
-      }
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-      
-    } catch (NoSuchElementException e) {
-      System.out.println("member data loading complete ...");
-      
-    } catch (IOException e1) {
-      e1.printStackTrace();
-    }
-  }
-
-
-  public static void quit() {
-    saveLessonData();
-    saveMemberData();
-    saveBoardData();
-    System.out.println("good bye ~ ");
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
