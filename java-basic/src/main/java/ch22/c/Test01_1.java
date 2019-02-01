@@ -10,11 +10,13 @@ public class Test01_1 {
       System.out.println("data reading ...");
       long start = System.currentTimeMillis();
       int b;
+      int count = 0;
       while((b = in.read()) != -1) {
-        
+        count++;
       }
       long end = System.currentTimeMillis();
-      System.out.println(end - start);
+      System.out.println("걸린시간(ms) = " + (end - start));
+      System.out.println("메서드 수행 횟수 = " + count);
       
       
     } catch (Exception e) {
