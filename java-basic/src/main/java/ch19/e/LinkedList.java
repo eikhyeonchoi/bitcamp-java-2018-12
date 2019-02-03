@@ -2,8 +2,6 @@
 // 패키지 멤버 클래스일 때 불편한 점;
 package ch19.e;
 
-import java.awt.Cursor;
-
 public class LinkedList {
   
   public static final int FORWARD = 1;

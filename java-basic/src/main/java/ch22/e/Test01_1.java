@@ -20,9 +20,20 @@ public class Test01_1 {
         BufferedOutputStream out2 = new BufferedOutputStream(out);
         DataOutputStream out3 = new DataOutputStream(out2);){
       
-      out3.writeUTF(s1.toString());
-      out3.writeUTF(s2.toString());
-      out3.writeUTF(s3.toString());
+      out3.writeUTF(s1.getName());
+      out3.writeInt(s1.getKor());
+      out3.writeInt(s1.getEng());
+      out3.writeInt(s1.getMath());
+      
+      out3.writeUTF(s2.getName());
+      out3.writeInt(s2.getKor());
+      out3.writeInt(s2.getEng());
+      out3.writeInt(s2.getMath());
+      
+      out3.writeUTF(s3.getName());
+      out3.writeInt(s3.getKor());
+      out3.writeInt(s3.getEng());
+      out3.writeInt(s3.getMath());
       
       
     } catch (IOException e) {

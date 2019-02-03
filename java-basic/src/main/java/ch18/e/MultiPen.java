@@ -1,4 +1,4 @@
-package ch18.e;
+ package ch18.e;
 
 public class MultiPen extends Zebra implements Pen{
 

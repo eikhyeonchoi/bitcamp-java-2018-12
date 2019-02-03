@@ -20,6 +20,7 @@ public class Test02_2 {
       // ==> 읽은 데이터를 저장할 위치부터 갯수만큼 저장 
       // ==> 리턴 값은 실제 읽은 바이트 갯수이다
       int count = in.read(buf);
+      System.out.println(count);
       for(int i = 0; i < count; i++) {
         System.out.print(Integer.toHexString(buf[i]) + " ");
       }

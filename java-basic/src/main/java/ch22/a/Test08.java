@@ -12,7 +12,7 @@ public class Test08 {
 
     String[] names = file.list();
     for(String name : names) {
-      System.out.print(name);
+      System.out.println(name);
     }
     
     

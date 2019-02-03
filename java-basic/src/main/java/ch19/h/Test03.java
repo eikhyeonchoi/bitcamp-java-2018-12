@@ -7,6 +7,13 @@ public class Test03 {
     void play(String name);
   }
   public static void main(String[] args) {
+    Player p0 = new Player() {
+      @Override
+      public void play(String name) {
+        System.out.println(name + " welcome");
+      }
+    };
+    
     // 파라미터는 괄호()안에 선언한다 
     Player p1 = (String name) -> System.out.println(name + " welcome");
     p1.play("hong");

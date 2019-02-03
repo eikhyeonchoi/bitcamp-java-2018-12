@@ -21,7 +21,7 @@ public class Test05 {
 
     // 값을 리턴해야하는데 람다 문장에서 값을 리턴하지 않으면 컴파일 에러
     // Calculator c4 = (a,b) -> System.out.println(a + ", " + b );
-    // System.out.println(c4.comput(10, 20));
+    // System.out.println(c4.compute(10, 20));
 
 
 

@@ -46,7 +46,6 @@ public class Test01 {
     // 4) equals()의 return이 true라면 같은키로 간주해 해당 위치의 값을 꺼낸다
     String key1 = "bbb";
     String key2= new String("bbb");
-    System.out.println(key1 == key2); // 인스턴스가 다름
     System.out.println(key1.hashCode() == key2.hashCode()); // 동일
     System.out.println(key1.equals(key2)); // return true
     // 결론 key1, key2는 서로 다른 인스턴스 지만 hashCode()의 리턴 값이 같고

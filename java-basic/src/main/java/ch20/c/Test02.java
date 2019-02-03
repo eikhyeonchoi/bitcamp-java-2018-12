@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 public class Test02 {
-
   public static void main(String[] args) {
     class Student {
       String name;
