@@ -23,30 +23,18 @@ public class Test01_2 {
         BufferedInputStream in2 = new BufferedInputStream(in);
         DataInputStream in3 = new DataInputStream(in2);){
 
-      String name1 = in3.readUTF();
-      int kor1 = in3.readInt();
-      int eng1 = in3.readInt();
-      int math1 = in3.readInt();
-      s1 = setScore(name1, kor1, eng1, math1);
-      System.out.printf("%s, %d, %d, %d, %d, %f\n"
+      s1 = setScore(in3.readUTF(), in3.readInt(), in3.readInt(), in3.readInt());
+      System.out.printf("%s, %d, %d, %d, %d, %.2f\n"
           ,s1.getName() ,s1.getKor(), s1.getEng()
           , s1.getMath(),s1.getSum(), s1.getAver());
       
-      String name2 = in3.readUTF();
-      int kor2 = in3.readInt();
-      int eng2 = in3.readInt();
-      int math2 = in3.readInt();
-      s2 = setScore(name2, kor2, eng2, math2);
-      System.out.printf("%s, %d, %d, %d, %d, %f\n"
+      s2 = setScore(in3.readUTF(), in3.readInt(), in3.readInt(), in3.readInt());
+      System.out.printf("%s, %d, %d, %d, %d, %.2f\n"
           ,s2.getName() ,s2.getKor(), s2.getEng()
           , s2.getMath(),s2.getSum(), s2.getAver());
           
-      String name3 = in3.readUTF();
-      int kor3 = in3.readInt();
-      int eng3 = in3.readInt();
-      int math3 = in3.readInt();
-      s3 = setScore(name3, kor3, eng3, math3);
-      System.out.printf("%s, %d, %d, %d, %d, %f\n"
+      s3 = setScore(in3.readUTF(), in3.readInt(), in3.readInt(), in3.readInt());
+      System.out.printf("%s, %d, %d, %d, %d, %.2f\n"
           ,s3.getName() ,s3.getKor(), s3.getEng()
           , s3.getMath(),s3.getSum(), s3.getAver());
 
@@ -71,7 +59,4 @@ public class Test01_2 {
     temp.setMath(math);
     return temp;
   }
-  
-  
-  
 }
