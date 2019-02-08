@@ -17,6 +17,14 @@ public class Server2 {
       System.out.println("server : 클라이언트의 연결을 기다림 ...");
 
       try (Socket socket = serverSocket.accept();
+
+
+
+
+
+
+
+
           Scanner in = new Scanner(socket.getInputStream());
           PrintWriter out = new PrintWriter(socket.getOutputStream());){
 
