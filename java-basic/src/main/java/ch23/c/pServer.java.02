@@ -1,0 +1,39 @@
+package ch23.c;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class pServer {
+  public static void main(String[] args) {
+    try (ServerSocket serverSocket = new ServerSocket(8558,1);) {
+      System.out.println("server : 서버 실행중 ...");
+
+      while(true) {
+        // accept() : 대기열에 클라이언트가 있으면 socket return
+        // 대기열에 client가 없으면 있을 때 까지 대기 
+        try (Socket socket = serverSocket.accept();
+            PrintStream out = new PrintStream(socket.getOutputStream());
+            BufferedReader in = new BufferedReader(
+                new InputStreamReader(socket.getInputStream()));) {
+
+          String[] input = in.readLine().split(" ");
+          int a = Integer.parseInt(input[0]);
+          String op = input[1];
+          int b = Integer.parseInt(input[2]);
+          out.printf("결과는 %d 입니다\n", a+b);
+          out.flush();
+
+
+
+
+        }
+      }
+
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+}

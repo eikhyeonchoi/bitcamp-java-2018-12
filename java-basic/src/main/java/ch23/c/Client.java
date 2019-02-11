@@ -5,37 +5,29 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class pClient {
+public class Client {
   public static void main(String[] args) {
-    try (Socket socket = new Socket("localhost", 8558);
+
+    try (Socket socket = new Socket("localhost", 8542);
         PrintStream out = new PrintStream(socket.getOutputStream());
         BufferedReader in = new BufferedReader(
             new InputStreamReader(socket.getInputStream()));
         Scanner keyboard = new Scanner(System.in); ){
-      System.out.println("client : 서버에 연결 완료 ...");
-      
       while(true) {
-        String input =  in.readLine();
-        System.out.println(input);
-        if(input.length() == 0 ) break; // 빈줄 받기
-      }
-
-      while (true) {
-        System.out.print("> ");
-        String input = keyboard.nextLine();
-
-        out.println(input);
-        out.flush();
-
+        String send = keyboard.nextLine();
+        out.println(send);
+        
+        if(send.equalsIgnoreCase("quit")) break;
+        
         String response = in.readLine();
         System.out.println(response);
-        if(input.equalsIgnoreCase("quit")) break;
-      }
 
+        
+      } // while
     } catch (Exception e) {
       e.printStackTrace();
-    }
+    } 
 
 
-  }
+  } // main
 }

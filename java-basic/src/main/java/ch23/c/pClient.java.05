@@ -13,12 +13,6 @@ public class pClient {
             new InputStreamReader(socket.getInputStream()));
         Scanner keyboard = new Scanner(System.in); ){
       System.out.println("client : 서버에 연결 완료 ...");
-      
-      while(true) {
-        String input =  in.readLine();
-        System.out.println(input);
-        if(input.length() == 0 ) break; // 빈줄 받기
-      }
 
       while (true) {
         System.out.print("> ");

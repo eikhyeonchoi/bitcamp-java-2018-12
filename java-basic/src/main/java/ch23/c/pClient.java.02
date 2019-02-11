@@ -14,24 +14,16 @@ public class pClient {
         Scanner keyboard = new Scanner(System.in); ){
       System.out.println("client : 서버에 연결 완료 ...");
       
-      while(true) {
-        String input =  in.readLine();
-        System.out.println(input);
-        if(input.length() == 0 ) break; // 빈줄 받기
-      }
-
-      while (true) {
-        System.out.print("> ");
-        String input = keyboard.nextLine();
-
-        out.println(input);
-        out.flush();
-
-        String response = in.readLine();
-        System.out.println(response);
-        if(input.equalsIgnoreCase("quit")) break;
-      }
-
+      System.out.print("> ");
+      String input = keyboard.nextLine();
+      
+      out.println(input);
+      out.flush();
+      
+      String response = in.readLine();
+      System.out.println(response);
+      
+      
     } catch (Exception e) {
       e.printStackTrace();
     }

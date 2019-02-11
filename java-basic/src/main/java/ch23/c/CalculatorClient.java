@@ -27,7 +27,7 @@ import java.util.Scanner;
 > "quit"  <== 사용자의 입력. '>' 문자는 클라이언트에서 출력한다
 안녕히 가세요!  <== 서버의 응답
  */
-*/
+
 public class CalculatorClient {
   public static void main(String[] args) {
 
@@ -41,6 +41,7 @@ public class CalculatorClient {
       System.out.println(in.readUTF());
       System.out.println(in.readUTF());
       System.out.println(in.readUTF());
+      
       while (true) {
         System.out.print("> ");
         String oper = keyboard.nextLine();

@@ -17,9 +17,12 @@ public class CalculatorServer {
         System.out.println("server : 클라이언트 연결 완료");
 
         out.writeUTF("계산기 서버에 오신것을 환영합니다!");
+        out.flush();
         out.writeUTF("계산식을 입력하세요!");
+        out.flush();
         out.writeUTF("예) 23 + 7 ");
         out.flush();
+        
         while(true) {
           String result = in.readUTF();
           if(result.equalsIgnoreCase("quit")) {
@@ -37,6 +40,8 @@ public class CalculatorServer {
       e.printStackTrace();
     }
   }
+  
+  
   
   public static String split(String oper) {
     String blank = oper.replaceAll(" ", "");
