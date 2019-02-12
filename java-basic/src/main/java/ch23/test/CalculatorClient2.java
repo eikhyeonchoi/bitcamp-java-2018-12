@@ -5,7 +5,7 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
  
-public class CalculatorClient {
+public class CalculatorClient2 {
   public static void main(String[] args) {
     Scanner keyboard = new Scanner(System.in);
     
@@ -23,16 +23,16 @@ public class CalculatorClient {
         
         out.println(sessionId);
         out.flush();
-
+        
         out.println(input);
         out.flush();
 
         String response = in.readLine();
         System.out.println(response);
         
-        if (sessionId == 0) {
-          sessionId = Long.parseLong(in.readLine());
-          System.out.printf("New Session ID = %d\n", sessionId);
+        if(sessionId == 0) {
+         sessionId =Long.parseLong(in.readLine());
+          System.out.printf("Your New Session ID : %d\n",sessionId);
         }
 
 

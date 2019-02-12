@@ -15,6 +15,7 @@ public class CalculatorClient {
     Scanner keyboard = new Scanner(System.in);
 
     String cookie = null;
+    // long sessionId = 0;
     while(true) {
       System.out.print("> ");
       String input = keyboard.nextLine();
@@ -26,11 +27,19 @@ public class CalculatorClient {
               new InputStreamReader(socket.getInputStream())); ){
         System.out.println("client : 서버에 연결 완료 ...");
         out.println(cookie);
+        // out.println(sessionId);
         out.flush();
 
         out.println(input);
         out.flush();
-
+        
+        /*
+        if(sessionId == 0) {
+          //l 서버에 보낸 세션 ID가 0이면 서버는 새로 세션 ID를 발급하여 보내줄 것임 받아야함
+          sessionId = Long.parseLong(in.readLine());
+        }
+        */
+        
         String response = in.readLine();
         System.out.println(response);
 
