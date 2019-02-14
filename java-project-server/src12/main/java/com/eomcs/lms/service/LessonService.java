@@ -1,10 +1,16 @@
 package com.eomcs.lms.service;
+import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
-//클라이언트의 요청을 처리하는 클래스라는 의미
-//~~~Service
-public class LessonService extends AbstractService<Lesson> {
-  
+public class LessonService extends AbstractService<Lesson>{
+
+  // LessonService가 작업을 수행할 때 사용할 객체 (의존 객체; dependancy)
+  LessonDao lessonDao;
+
+  public LessonService(LessonDao lessonDao) {
+    this.lessonDao = lessonDao;
+  }
+
   public void execute(String request) throws Exception {
     switch(request) {
       case "/lesson/add" : add(); break;
@@ -20,47 +26,43 @@ public class LessonService extends AbstractService<Lesson> {
 
   private void add() throws Exception {
     out.writeUTF("OK"); out.flush();
-    this.list.add((Lesson)in.readObject());
-    out.writeUTF("OK"); 
+    lessonDao.insert((Lesson)in.readObject());
+    out.writeUTF("OK");
+
   } // add()
 
   private void list() throws Exception {
     out.writeUTF("OK"); out.flush();
     out.writeUTF("OK");
-    out.writeObject(this.list);
-    // Collection 객체도 보낼 수 있음 
+
+    out.writeUnshared(lessonDao.findAll());
   } // list()
 
   private void detail() throws Exception {
     out.writeUTF("OK"); out.flush();
     int no = in.readInt();
 
-    for(Lesson m : this.list) {
-      if(m.getNo() == no) {
-        out.writeUTF("OK");
-        out.writeObject(m);
-        return;
-      }
-    } // for
+    Lesson b = lessonDao.findByNo(no);
+    if (b == null) {
+      out.writeUTF("FAIL");
+      return;
+    }
 
-    out.writeUTF("FAIL");
+    out.writeUTF("OK");
+    out.writeObject(b);
+
   } // detail()
 
   private void update() throws Exception {
     out.writeUTF("OK"); out.flush();
     Lesson lesson = (Lesson)in.readObject();
 
-    int index = 0;
-    for(Lesson m : this.list) {
-      if(m.getNo() == lesson.getNo()) {
-        this.list.set(index, lesson);
-        out.writeUTF("OK");
-        return;
-      }
-      index ++;
-    } // for
+    if (lessonDao.update(lesson) == 0) {
+      out.writeUTF("FAIL");
+      return;
+    }
 
-    out.writeUTF("FAIL");
+    out.writeUTF("OK");
   } // update()
 
 
@@ -68,17 +70,12 @@ public class LessonService extends AbstractService<Lesson> {
     out.writeUTF("OK"); out.flush();
     int no = in.readInt();
 
-    int index = 0;
-    for(Lesson m : this.list) {
-      if(m.getNo() == no) {
-        this.list.remove(index);
-        out.writeUTF("OK");
-        return;
-      }
-      index++;
-    } // for
-
-    out.writeUTF("FAIL");
+    if (lessonDao.delete(no) == 0) {
+      out.writeUTF("FAIL");
+      return;
+    }
+    
+    out.writeUTF("OK");
   } // delete()
 
 

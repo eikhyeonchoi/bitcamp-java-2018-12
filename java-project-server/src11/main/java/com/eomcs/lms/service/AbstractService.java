@@ -14,7 +14,6 @@ import com.eomcs.lms.domain.Board;
 public abstract class AbstractService<E> {
 
   List<E> list;
-  
   ObjectInputStream in;
   ObjectOutputStream out;
   String filepath;

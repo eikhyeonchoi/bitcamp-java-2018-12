@@ -1,10 +1,15 @@
 package com.eomcs.lms.service;
+import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
-// 클라이언트의 요청을 처리하는 클래스라는 의미
-// ~~~Service
 public class BoardService extends AbstractService<Board>{
 
+  // BoardService가 작업을 수행할 때 사용할 객체 (의존 객체; dependancy)
+  BoardDao boardDao;
+
+  public BoardService(BoardDao boardDao) {
+    this.boardDao = boardDao;
+  }
 
   public void execute(String request) throws Exception {
     switch(request) {
@@ -21,47 +26,43 @@ public class BoardService extends AbstractService<Board>{
 
   private void add() throws Exception {
     out.writeUTF("OK"); out.flush();
-    this.list.add((Board)in.readObject());
-    out.writeUTF("OK"); 
+    boardDao.insert((Board)in.readObject());
+    out.writeUTF("OK");
+
   } // add()
 
   private void list() throws Exception {
     out.writeUTF("OK"); out.flush();
     out.writeUTF("OK");
-    out.writeObject(this.list);
-    // Collection 객체도 보낼 수 있음 
+
+    out.writeUnshared(boardDao.findAll());
   } // list()
 
   private void detail() throws Exception {
     out.writeUTF("OK"); out.flush();
     int no = in.readInt();
 
-    for(Board m : this.list) {
-      if(m.getNo() == no) {
-        out.writeUTF("OK");
-        out.writeObject(m);
-        return;
-      }
-    } // for
+    Board b = boardDao.findByNo(no);
+    if (b == null) {
+      out.writeUTF("FAIL");
+      return;
+    }
 
-    out.writeUTF("FAIL");
+    out.writeUTF("OK");
+    out.writeObject(b);
+
   } // detail()
 
   private void update() throws Exception {
     out.writeUTF("OK"); out.flush();
     Board board = (Board)in.readObject();
 
-    int index = 0;
-    for(Board m : this.list) {
-      if(m.getNo() == board.getNo()) {
-        this.list.set(index, board);
-        out.writeUTF("OK");
-        return;
-      }
-      index ++;
-    } // for
+    if (boardDao.update(board) == 0) {
+      out.writeUTF("FAIL");
+      return;
+    }
 
-    out.writeUTF("FAIL");
+    out.writeUTF("OK");
   } // update()
 
 
@@ -69,17 +70,12 @@ public class BoardService extends AbstractService<Board>{
     out.writeUTF("OK"); out.flush();
     int no = in.readInt();
 
-    int index = 0;
-    for(Board m : this.list) {
-      if(m.getNo() == no) {
-        this.list.remove(index);
-        out.writeUTF("OK");
-        return;
-      }
-      index++;
-    } // for
-
-    out.writeUTF("FAIL");
+    if (boardDao.delete(no) == 0) {
+      out.writeUTF("FAIL");
+      return;
+    }
+    
+    out.writeUTF("OK");
   } // delete()
 
 

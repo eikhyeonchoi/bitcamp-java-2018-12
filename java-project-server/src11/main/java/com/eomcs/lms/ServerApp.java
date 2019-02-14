@@ -44,7 +44,6 @@ public class ServerApp {
     try(ServerSocket serverSocket = new ServerSocket(8888); ){
       System.out.println("서버 시작!");
 
-
       try {
         memberService = new MemberService();
         memberService.loadData("member.bin");

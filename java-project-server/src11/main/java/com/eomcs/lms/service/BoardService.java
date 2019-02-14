@@ -4,8 +4,7 @@ import com.eomcs.lms.domain.Board;
 // 클라이언트의 요청을 처리하는 클래스라는 의미
 // ~~~Service
 public class BoardService extends AbstractService<Board>{
-
-
+  
   public void execute(String request) throws Exception {
     switch(request) {
       case "/board/add" : add(); break;
