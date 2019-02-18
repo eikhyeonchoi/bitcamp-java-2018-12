@@ -1,23 +1,4 @@
-/*
-★★★★★★★★★★★★★★★★★★★★★★★★★★★★
-★★★★★★★★★★★★★★★★★★★★★★★★★★★★
-
--src06 -> src07 과정 차례대로 코딩할 것
-  -ServerTest 과정
-    -메서드 리팩토링
-    -클래스 리팩토링
-    -접근 제한자 + static vs instance
-    -생성자
-   -Lesson, Board에도 적용 복붙적용
-
-  -ServerApp과정
-   -switch vs if 단순한건 switch 복잡한건 if
-   -(String).startsWith(" ");
-   -
-
-★★★★★★★★★★★★★★★★★★★★★★★★★★★★
-★★★★★★★★★★★★★★★★★★★★★★★★★★★★
- */
+// 13단계 stateful -> stateless
 package com.eomcs.lms;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

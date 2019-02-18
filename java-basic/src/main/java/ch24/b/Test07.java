@@ -1,0 +1,37 @@
+// 스레드 우선순위
+package ch24.b;
+
+public class Test07 {
+  public static void main(String[] args) {
+
+    // 스레드의 우선 순위는 1~10까지 임
+    // 기본 우선순위는 5
+    Thread mainThread = Thread.currentThread();
+    System.out.println(mainThread.getPriority());
+    
+    
+  } // main
+} // end of class
+
+
+// JVM의 스레드 계층도 : 
+// system(TG)
+//   ==> Reference Handler(T)
+//   ==> Finalizer(T)
+//   ==> Signal Dispatcher(T)
+//   main(TG)
+//     ==> main(T) : main()메서드를 호출
+//   InnocuousThreadGroup(TG)
+//     ==> Common-Cleaner(T)
+
+
+
+
+
+
+
+
+
+
+
+

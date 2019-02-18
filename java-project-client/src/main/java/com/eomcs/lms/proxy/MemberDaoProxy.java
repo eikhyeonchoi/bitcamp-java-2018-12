@@ -1,24 +1,25 @@
-package com.eomcs.lms.agent;
+package com.eomcs.lms.proxy;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
-import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.dao.MemberDao;
+import com.eomcs.lms.domain.Member;
 
-public class LessonAgent {
+public class MemberDaoProxy implements MemberDao {
   
   String serverAddr;
   int port;
   String rootPath;
   
-  public LessonAgent(String serverAddr, int port, String rootPath) {
+  public MemberDaoProxy(String serverAddr, int port, String rootPath) {
     this.serverAddr = serverAddr;
     this.port = port;
     this.rootPath = rootPath;
   }
 
   @SuppressWarnings("unchecked")
-  public List<Lesson> list() throws Exception {
+  public List<Member> findAll()  {
     try (Socket socket = new Socket(this.serverAddr, this.port); 
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream()) ){
@@ -36,12 +37,14 @@ public class LessonAgent {
       if (!status.equals("OK")) 
         throw new Exception("서버에서 목록 가져오기 실패!");
 
-      return (List<Lesson>) in.readObject();
+      return (List<Member>) in.readObject();
+    } catch(Exception e) {
+      throw new RuntimeException(e);
     }
   } // list()
 
 
-  public void add(Lesson lesson) throws Exception {
+  public void insert(Member member) {
     try (Socket socket = new Socket(this.serverAddr, this.port); 
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream()) ){
@@ -52,16 +55,18 @@ public class LessonAgent {
       if (!in.readUTF().equals("OK"))
         throw new Exception("서버에서 해당 명령어를 처리하지 못합니다");
 
-      out.writeObject(lesson); out.flush();
+      out.writeObject(member); out.flush();
 
       String status = in.readUTF();
       if (!status.equals("OK"))
         throw new Exception("서버에서 가져오기 실패!");
+    } catch(Exception e) {
+      throw new RuntimeException(e);
     }
   } // add()
 
 
-  public Lesson get(int no) throws Exception {
+  public Member findByNo(int no) {
     try (Socket socket = new Socket(this.serverAddr, this.port); 
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream()) ){
@@ -79,12 +84,14 @@ public class LessonAgent {
       if (!status.equals("OK"))
         throw new Exception("서버에서 가져오기 실패!");
 
-      return (Lesson) in.readObject();
+      return (Member) in.readObject();
+    } catch(Exception e) {
+      throw new RuntimeException(e);
     }
   } // get()
 
   
-  public void update(Lesson lesson) throws Exception {
+  public int update(Member member) {
     try (Socket socket = new Socket(this.serverAddr, this.port); 
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream()) ){
@@ -95,16 +102,20 @@ public class LessonAgent {
       if (!in.readUTF().equals("OK")) 
         throw new Exception("서버에서 해당 명령어를 처리하지 못합니다");
 
-      out.writeObject(lesson); out.flush();
+      out.writeObject(member); out.flush();
 
       String status = in.readUTF();
       if (!status.equals("OK"))
         throw new Exception("서버에서 저장 실패!");
+      
+      return 0;
+    } catch(Exception e) {
+      throw new RuntimeException(e);
     }
   } // update()
 
   
-  public void delete(int no) throws Exception {
+  public int delete(int no) {
     try (Socket socket = new Socket(this.serverAddr, this.port); 
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream()) ){
@@ -121,6 +132,9 @@ public class LessonAgent {
 
       if (!status.equals("OK"))
         throw new Exception("서버에서 삭제 실패!");
+      return 0;
+    } catch(Exception e) {
+      throw new RuntimeException(e);
     }
   } // delete()
   

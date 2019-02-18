@@ -4,19 +4,18 @@ import java.io.ObjectOutputStream;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
-public class BoardService implements Service{
+public class BoardDaoSkel implements Service{
 
   // BoardService가 작업을 수행할 때 사용할 객체 (의존 객체; dependancy)
   BoardDao boardDao;
 
-  public BoardService(BoardDao boardDao) {
+  public BoardDaoSkel(BoardDao boardDao) {
     this.boardDao = boardDao;
   }
 
   @Override
   public void execute(String request, 
       ObjectInputStream in, ObjectOutputStream out) throws Exception {
-    
     switch(request) {
       case "/board/add" : add(in, out); break;
       case "/board/list" : list(in, out); break;

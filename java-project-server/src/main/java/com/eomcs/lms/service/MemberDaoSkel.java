@@ -4,12 +4,12 @@ import java.io.ObjectOutputStream;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
-public class MemberService implements Service{
+public class MemberDaoSkel implements Service{
 
   // MemberService가 작업을 수행할 때 사용할 객체 (의존 객체; dependancy)
   MemberDao memberDao;
 
-  public MemberService(MemberDao memberDao) {
+  public MemberDaoSkel(MemberDao memberDao) {
     this.memberDao = memberDao;
   }
 
