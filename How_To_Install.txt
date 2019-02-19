@@ -47,8 +47,6 @@ Eclipse IDE 도구 설치 및 설정
             - $ gradle eclipse
         - 5) 이클립스로 import 
 
-
-
 *****git
 
 git 서버 업로드
@@ -61,3 +59,7 @@ git 서버 업로드
 - git 저장소 복제
     - git$ git clone https://github.com/아이디/저장소.git
     - git$ git clone https://github.com/아이디/저장소.git 다른디렉토리명
+
+*****DBMS 설치
+    mariadb ubuntu install
+    https://linuxize.com/post/how-to-install-mariadb-on-ubuntu-18-04/

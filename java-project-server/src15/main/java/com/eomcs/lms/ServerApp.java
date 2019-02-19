@@ -1,4 +1,4 @@
-// 16
+// 14단계 DAO에 프록시 패턴 적용하기
 package com.eomcs.lms;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -15,17 +15,7 @@ import com.eomcs.lms.service.BoardDaoSkel;
 import com.eomcs.lms.service.LessonDaoSkel;
 import com.eomcs.lms.service.MemberDaoSkel;
 import com.eomcs.lms.service.Service;
-// 풀링(pooling)기법
-// ==> 자주 사용하는 인스턴스는 미리 생성하여 목록으로 보관하고 있다가 
-//     필요할 때 빌려쓰고 사용 후 반납하는 방식으로 인스턴스를 관리한다
-// ==> 기존에 생성된 인스턴스를 재사용하기 때문에 가비지가 줄어 들어 메모를 보다 효율적으로 사용할 수 있음
-// ==> 기존의 객체를 재사용하기 때문에 인스턴스 생성에 시간이 많이 소요되는 경우에 
-//     실행시간을 줄일 수 있다
-// ==> "Flyweight 디자인패턴"의 응용
 
-// 스레드 풀
-// ==> 한 번 생성한 스레드는 실행 후 버리지 않고 재사용한다
-// ==> 스레드 목록 관리에 풀링 기법을 적용하였다
 public class ServerApp {
   
   static BoardDaoImpl boardDao;
@@ -35,7 +25,8 @@ public class ServerApp {
   static HashMap<String, Service> serviceMap;
   static Set<String> serviceKeySet;
 
-  static ExecutorService executoreServcie = Executors.newCachedThreadPool();
+  ExecutorService executoreServcie = Executors.newCachedThreadPool();
+  
   
   public static void main(String[] args) {
     try {
@@ -68,15 +59,15 @@ public class ServerApp {
       System.out.println("서버 시작!");
 
       while (true) {
-        
-        // 독립적으로 실행 해야할 일을 스레드 풀에 맡긴다
-        // ==> 스레드 풀은 현재 놀고 있는 스레드를 꺼내
-        //     파라미터로 넘겨 받은 RequestHandler의 run()을 호출하게 만든다
-        // ==> 만약 스레드 풀에 놀고 있는 스레드가 없다면
-        //     새로 스레드를 새성하여 일을 맡긴다
-        executoreServcie.submit(new RequestHandler(serverSocket.accept()));
-        
-        
+        // 클라이언트 소켓을 꺼낸 후 스레드에게 전달한다
+        // 그리고 스레드를 실행시킴
+        // start()를 호출하면 스레드가 독립적으로 실행됨
+        // 스레드의 run()메서드가 호출된다
+        new RequestProcessThread(serverSocket.accept()).start();
+        // 스레드를 시작시킨 후 즉시 return;
+        // 스레드가 작업을 종료할 때 까지 기다리지않는다
+        // 즉 비동기로 동작한다
+
       } // while
     } catch(Exception e) {
       e.printStackTrace();
@@ -84,24 +75,16 @@ public class ServerApp {
 
   } // main()
   
-  static class RequestHandler implements Runnable {
-    
-    static int count = 0;
+  
+  
+  static class RequestProcessThread extends Thread {
     
     Socket socket;
-    String name;
     
-    public RequestHandler(Socket socket) {
+    public RequestProcessThread(Socket socket) {
       this.socket = socket;
-      this.name = "핸들러 - " + count++;
-      System.out.printf("[%s : %s] 핸들러 생성됨\n",
-          Thread.currentThread().getName(),
-          this.name);
+      System.out.printf("[%s] 스레드가 생성됨\n", this.getName());
     } // con
-    
-    public String getName() {
-      return this.name;
-    }
     
     // 독립적으로 수행할 코드를 run()메서드에 작성
     @Override
@@ -110,15 +93,11 @@ public class ServerApp {
           ObjectInputStream in = new ObjectInputStream(socket.getInputStream()); 
           ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream()); ){
 
-        System.out.printf("[%s : %s] 클라이언트 연결되었음.\n",
-            Thread.currentThread().getName(),
-            this.name);
+        System.out.printf("[%s] 클라이언트 연결되었음.\n",this.getName());
 
         String request = in.readUTF();
-        System.out.printf("[%s : %s] %s\n",
-            Thread.currentThread().getName(),
-            this.name,
-            request);
+        System.out.printf("[%s] %s\n",this.getName() ,request);
+        
         
         Service service = getService(request);
         
@@ -131,19 +110,11 @@ public class ServerApp {
         
         out.flush();
 
+        System.out.println("클라이언트와 연결을 끊었음.");
       } catch (Exception e) {
         e.printStackTrace();
       }
-      
-      // 아직 스레드가 스레드풀에 반납되지 않았을 때 클라이언트가 서버와 연결된다면 
-      // ==> 스레드 풀은 새 스레드 객체를 생성하여 일을 맡긴다
-      try {
-        Thread.currentThread().sleep(8000);
-      } catch (InterruptedException e) {}
-      
-      System.out.printf("[%s : %s] 클라이언트와 연결을 끊었음\n",
-          Thread.currentThread().getName(),
-          this.getName());
+      System.out.printf("[%s] 클라이언트와 연결을 끊었음\n", this.getName());
     } // run()
     
     static Service getService(String request) {
@@ -155,7 +126,8 @@ public class ServerApp {
       return null;
     } // getService()
     
-  } // RequestHandler class
+  } // RequestProcessThread class
+
 
 } // end of class
 
