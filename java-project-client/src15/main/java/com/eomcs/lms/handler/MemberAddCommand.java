@@ -35,7 +35,6 @@ public class MemberAddCommand implements Command {
     
     System.out.print("전화? ");
     member.setTel(keymember.nextLine());
-    
     member.setRegisteredDate(new Date(System.currentTimeMillis()));
     
     try {

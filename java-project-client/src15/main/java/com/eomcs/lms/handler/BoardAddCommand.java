@@ -3,6 +3,7 @@ import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.proxy.BoardDaoProxy;
 
 public class BoardAddCommand implements Command {
 

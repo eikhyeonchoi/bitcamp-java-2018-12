@@ -4,10 +4,11 @@ import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
 public class BoardUpdateCommand implements Command {
+
   BoardDao boardDao;
   Scanner keyboard;
 
-  public BoardUpdateCommand(Scanner keyboard, BoardDao boardDao) {
+  public BoardUpdateCommand(Scanner keyboard, BoardDao boardDaoO) {
     this.keyboard = keyboard;
     this.boardDao = boardDao;
   }
@@ -19,9 +20,10 @@ public class BoardUpdateCommand implements Command {
     int no = Integer.parseInt(keyboard.nextLine());
 
     try {
-      
       Board board = boardDao.findByNo(no);
+///////////////////////////////////////////////////////////////
       Board temp = board.clone();
+
       System.out.printf("내용(%s) :", temp.getContents());
       String input = keyboard.nextLine();
       if(input.length() > 0)
