@@ -8,7 +8,7 @@ public class BoardUpdateCommand implements Command {
   BoardDao boardDao;
   Scanner keyboard;
 
-  public BoardUpdateCommand(Scanner keyboard, BoardDao boardDaoO) {
+  public BoardUpdateCommand(Scanner keyboard, BoardDao boardDao) {
     this.keyboard = keyboard;
     this.boardDao = boardDao;
   }

@@ -1,62 +1,37 @@
 package com.eomcs.lms;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
-import com.eomcs.lms.dao.BoardDaoImpl;
-import com.eomcs.lms.dao.LessonDaoImpl;
-import com.eomcs.lms.dao.MemberDaoImpl;
-import com.eomcs.lms.handler.BoardAddCommand;
-import com.eomcs.lms.handler.BoardDeleteCommand;
-import com.eomcs.lms.handler.BoardDetailCommand;
-import com.eomcs.lms.handler.BoardListCommand;
-import com.eomcs.lms.handler.BoardUpdateCommand;
+import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.handler.Command;
-import com.eomcs.lms.handler.LessonAddCommand;
-import com.eomcs.lms.handler.LessonDeleteCommand;
-import com.eomcs.lms.handler.LessonDetailCommand;
-import com.eomcs.lms.handler.LessonListCommand;
-import com.eomcs.lms.handler.LessonUpdateCommand;
-import com.eomcs.lms.handler.MemberAddCommand;
-import com.eomcs.lms.handler.MemberDeleteCommand;
-import com.eomcs.lms.handler.MemberDetailCommand;
-import com.eomcs.lms.handler.MemberListCommand;
-import com.eomcs.lms.handler.MemberUpdateCommand;
 
 public class App {
 
   Scanner keyboard = new Scanner(System.in);
   Stack<String> commandHistory = new Stack<>();
   Queue<String> commandHistory2 = new LinkedList<>();
+  
+  ArrayList<ApplicationContextListener> listeners= new ArrayList<>();
 
-  @SuppressWarnings("unchecked")
-  public void service() {
-
-    Map<String,Command> commandMap = new HashMap<>();
-
-    LessonDaoImpl lessonDao = new LessonDaoImpl();
-    commandMap.put("/lesson/add", new LessonAddCommand(keyboard,lessonDao));
-    commandMap.put("/lesson/list", new LessonListCommand(keyboard,lessonDao));
-    commandMap.put("/lesson/detail", new LessonDetailCommand(keyboard,lessonDao));
-    commandMap.put("/lesson/update", new LessonUpdateCommand(keyboard,lessonDao));
-    commandMap.put("/lesson/delete", new LessonDeleteCommand(keyboard,lessonDao));
-
-    MemberDaoImpl memberDao = new MemberDaoImpl();
-    commandMap.put("/member/add", new MemberAddCommand(keyboard,memberDao));
-    commandMap.put("/member/list", new MemberListCommand(keyboard,memberDao));
-    commandMap.put("/member/detail", new MemberDetailCommand(keyboard,memberDao));
-    commandMap.put("/member/update", new MemberUpdateCommand(keyboard,memberDao));
-    commandMap.put("/member/delete", new MemberDeleteCommand(keyboard,memberDao));
-
-    BoardDaoImpl boardDao = new BoardDaoImpl();
-    commandMap.put("/board/add", new BoardAddCommand(keyboard,boardDao));
-    commandMap.put("/board/list", new BoardListCommand(keyboard,boardDao));
-    commandMap.put("/board/detail", new BoardDetailCommand(keyboard,boardDao));
-    commandMap.put("/board/update", new BoardUpdateCommand(keyboard,boardDao));
-    commandMap.put("/board/delete", new BoardDeleteCommand(keyboard,boardDao));
-
+  public void addApplicationContextListener(ApplicationContextListener listener) {
+    listeners.add(listener);
+  } // addApplicationContextListener()
+  
+  public void service() throws Exception {
+    
+    // App에서 사용할 객체를 보관하는 저장소
+    HashMap<String, Object> context = new HashMap<String, Object>();
+    context.put("keyboard", keyboard);
+    
+    // App을 시작할 때 등록된 Listener를 호출
+    for(ApplicationContextListener listener : listeners) {
+      listener.contextInitialized(context);
+    } // for
+    
+    
     while (true) {
       String command = prompt();
 
@@ -75,16 +50,12 @@ public class App {
         continue;
       } 
 
-      Command commandHandler = commandMap.get(command);
+      Command commandHandler = (Command) context.get(command);
       if (commandHandler == null) {
         System.out.println("실행할 수 없는 명령입니다.");
         continue; 
       }
 
-      // stateful을 stateless로 전환할 때 주의점
-      // ==> 가능한 서버에 요청하는 시점에 서버와 연결하라
-      // ==> 이 클래스에서 서버와 연결하지 않고
-      // Agent에 맡김
       try{
         commandHandler.execute();
         System.out.println(); 
@@ -97,6 +68,11 @@ public class App {
     
     keyboard.close();
     
+    // App을 종료할 때 등록된 Listener를 호출
+    for(ApplicationContextListener listener : listeners) {
+      listener.contextDestroyed(context);
+    }
+    
   } // service()
 
   
@@ -107,7 +83,7 @@ public class App {
     while (temp.size() > 0) {
       System.out.println(temp.pop());
     }
-  }
+  } // printCommandHistory()
 
   
   @SuppressWarnings("unchecked")
@@ -117,17 +93,19 @@ public class App {
     while (temp.size() > 0) {
       System.out.println(temp.poll());
     }
-  }
+  } // printCommandHistory2()
 
   
   private String prompt() {
     System.out.print("명령> ");
     return keyboard.nextLine().toLowerCase();
-  }
+  } // prompt()
 
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     App app = new App();
+    
+    app.addApplicationContextListener(new ApplicationInitializer());
 
     app.service();
     
