@@ -19,10 +19,7 @@ public class MemberDeleteCommand implements Command {
     int no = Integer.parseInt(keyboard.nextLine());
 
     try {
-      if (memberDao.delete(no) == 0) {
-        System.out.println("해당 멤버가 존재하지 않습니다");
-        return;
-      }
+      memberDao.delete(no);
       System.out.println("데이터 삭제했습니다.");
     } catch(Exception e) {
       System.out.printf("삭제 오류 : %s\n", e.getMessage());

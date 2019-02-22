@@ -20,12 +20,7 @@ public class MemberUpdateCommand implements Command {
 
     try {
       Member member = memberDao.findByNo(no);
-      
-      if(member == null) {
-        System.out.println("해당 멤버가 존재하지 않습니다");
-        return;
-      }
-      
+      ///////////////////////////////////////////////////////////////
       Member temp = member.clone();
 
       System.out.printf("이름(%s) :", temp.getName());

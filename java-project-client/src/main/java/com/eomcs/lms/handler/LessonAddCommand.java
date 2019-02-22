@@ -18,6 +18,8 @@ public class LessonAddCommand implements Command {
   public void execute() {
     Lesson lesson = new Lesson();
 
+    System.out.print("번호? ");
+    lesson.setNo(Integer.parseInt(keyboard.nextLine()));
     System.out.print("제목? ");
     lesson.setTitle(keyboard.nextLine());
     System.out.print("내용? ");

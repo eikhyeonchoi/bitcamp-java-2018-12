@@ -19,10 +19,7 @@ public class LessonDetailCommand implements Command {
 
     try {
       Lesson lesson = lessonDao.findByNo(no);
-      if (lesson == null) {
-        System.out.println("해당 수업이 존재하지 않습니다");
-        return;
-      }
+      
       System.out.printf("제목: %s\n", lesson.getTitle());
       System.out.printf("내용: %s\n", lesson.getContents());
       System.out.printf("시작일: %s\n", lesson.getStartDate());

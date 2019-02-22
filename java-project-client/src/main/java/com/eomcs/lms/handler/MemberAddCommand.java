@@ -1,4 +1,5 @@
 package com.eomcs.lms.handler;
+import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
@@ -6,10 +7,10 @@ import com.eomcs.lms.domain.Member;
 public class MemberAddCommand implements Command {
 
   MemberDao memberDao;
-  Scanner keyboard;
+  Scanner keymember;
 
   public MemberAddCommand(Scanner keymember, MemberDao memberDao) {
-    this.keyboard = keymember;
+    this.keymember = keymember;
     this.memberDao = memberDao;
   }
 
@@ -17,21 +18,24 @@ public class MemberAddCommand implements Command {
   public void execute() {
     Member member = new Member();
 
+    System.out.print("번호? ");
+    member.setNo(Integer.parseInt(keymember.nextLine()));
+
     System.out.print("이름? ");
-    member.setName(keyboard.nextLine());
+    member.setName(keymember.nextLine());
     
     System.out.print("메일? ");
-    member.setEmail(keyboard.nextLine());
+    member.setEmail(keymember.nextLine());
     
     System.out.print("암호? ");
-    member.setPassword(keyboard.nextLine());
+    member.setPassword(keymember.nextLine());
     
     System.out.print("사진? ");
-    member.setPhoto(keyboard.nextLine());
+    member.setPhoto(keymember.nextLine());
     
     System.out.print("전화? ");
-    member.setTel(keyboard.nextLine());
-    
+    member.setTel(keymember.nextLine());
+    member.setRegisteredDate(new Date(System.currentTimeMillis()));
     
     try {
       memberDao.insert(member);

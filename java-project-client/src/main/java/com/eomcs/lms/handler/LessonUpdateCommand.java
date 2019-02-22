@@ -17,22 +17,14 @@ public class LessonUpdateCommand implements Command {
 
   @Override
   public void execute() {
+    System.out.print("번호? ");
+    int no = Integer.parseInt(keyboard.nextLine());
 
     try {
-      System.out.print("번호? ");
-      int no = Integer.parseInt(keyboard.nextLine());
       Lesson lesson = lessonDao.findByNo(no);
-      if(lesson == null) {
-        System.out.println("해당 수업은 존재하지 않습니다");
-        return;
-        
-      }
-      
+      ///////////////////////////////////////////////////////////////
       Lesson temp = lesson.clone();
-      
-      temp.setNo(lesson.getNo());
-      System.out.printf("%s\n", temp.getNo());
-      
+
       System.out.printf("제목(%s) : ", temp.getTitle());
       String input = keyboard.nextLine();
       if(input.length() > 0)
