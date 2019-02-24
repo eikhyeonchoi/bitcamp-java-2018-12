@@ -1,6 +1,7 @@
 
 -- 테이블 삭제
-drop table if exists lms_lesson; -- if exists : 존재한다면 ~하라
+-- if exists : 존재한다면 ~하라
+drop table if exists lms_lesson; 
 drop table if exists lms_member;
 drop table if exists lms_board;
 
