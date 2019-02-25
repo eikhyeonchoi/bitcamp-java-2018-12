@@ -4,6 +4,7 @@
 drop table if exists lms_lesson; 
 drop table if exists lms_member;
 drop table if exists lms_board;
+drop table if exists lms_photo;
 
 -- 테이블 생성
 create table lms_lesson (
@@ -32,3 +33,47 @@ create table lms_board(
   cdt datetime default now() comment '게시물 등록일',
   vw_cnt int default 0 comment '게시물 조회수'
 ) comment '게시물';
+
+-- 사진 게시물 테이블 (lms_lesson의 대한)
+create table lms_photo(
+  photo_id int not null auto_increment primary key comment '사진 게시물 식별 번호',
+  lesson_id int not null comment '수업 번호',
+  titl varchar(255) not null comment '제목',
+  cdt datetime default now() comment '생성일',
+  vw_cnt int default 0 comment '조회수',
+  -- lesson_id에 저장되는 값은 lms_lesson테이블의 lesson_id값으로 제한하는 조건을 추가
+  constraint fk_photo_to_lesson foreign key (lesson_id) 
+  references lms_lesson (lesson_id)
+) comment '사진게시물';
+
+-- 사진 게시물에 첨부하는 사진 파일 테이블 생성
+create table lms_photo_file(
+  photo_file_id int not null auto_increment primary key comment '사진 파일 식별 번호',
+  photo_id int not null,
+  file_path varchar(255) not null,
+  constraint fk_photo_file_to_photo foreign key (photo_id)
+  references lms_photo(photo_id)
+) comment '사진게시물 첨부파일 테이블';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
