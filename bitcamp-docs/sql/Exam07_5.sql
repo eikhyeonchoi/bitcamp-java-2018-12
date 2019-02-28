@@ -3,7 +3,7 @@
 => 기법
 1) CROSS 조인
 2) NATURAL 조인
-3) JOIN ~ ON
+3) JOIN ~ ON 
 4) OUTER JOIN
 */
 
