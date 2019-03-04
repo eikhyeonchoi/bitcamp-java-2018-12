@@ -5,6 +5,7 @@ drop table if exists lms_lesson;
 drop table if exists lms_member;
 drop table if exists lms_board;
 drop table if exists lms_photo;
+drop table if exists lms_photo_file;
 
 -- 테이블 생성
 create table lms_lesson (

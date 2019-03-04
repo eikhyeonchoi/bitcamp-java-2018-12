@@ -34,7 +34,7 @@ import com.eomcs.lms.handler.PhotoBoardUpdateCommand;
 
 public class ApplicationInitializer implements ApplicationContextListener{
 
-  public static Connection con;
+  Connection con;
 
   @Override
   public void contextInitialized(Map<String, Object> context) {
@@ -42,14 +42,14 @@ public class ApplicationInitializer implements ApplicationContextListener{
 
       con = DriverManager.getConnection(
           "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111");
-
-      con.setAutoCommit(false);
       
       LessonDaoImpl lessonDao = new LessonDaoImpl(con);
       MemberDaoImpl memberDao = new MemberDaoImpl(con);
       BoardDaoImpl boardDao = new BoardDaoImpl(con);
       PhotoBoardDaoImpl photoBoardDao = new PhotoBoardDaoImpl(con);
       PhotoFileDaoImpl photoFileDao = new PhotoFileDaoImpl(con);
+
+      Scanner keyboard = (Scanner) context.get("keyboard");
 
       context.put("/lesson/add", new LessonAddCommand(lessonDao));
       context.put("/lesson/list", new LessonListCommand(lessonDao));

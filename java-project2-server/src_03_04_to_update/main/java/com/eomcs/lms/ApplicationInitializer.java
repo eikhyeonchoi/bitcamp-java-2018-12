@@ -2,7 +2,6 @@ package com.eomcs.lms;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Map;
-import java.util.Scanner;
 import com.eomcs.lms.context.ApplicationContextException;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.dao.mariadb.BoardDaoImpl;
@@ -34,7 +33,7 @@ import com.eomcs.lms.handler.PhotoBoardUpdateCommand;
 
 public class ApplicationInitializer implements ApplicationContextListener{
 
-  public static Connection con;
+  Connection con;
 
   @Override
   public void contextInitialized(Map<String, Object> context) {
@@ -42,14 +41,12 @@ public class ApplicationInitializer implements ApplicationContextListener{
 
       con = DriverManager.getConnection(
           "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111");
-
-      con.setAutoCommit(false);
       
       LessonDaoImpl lessonDao = new LessonDaoImpl(con);
       MemberDaoImpl memberDao = new MemberDaoImpl(con);
       BoardDaoImpl boardDao = new BoardDaoImpl(con);
       PhotoBoardDaoImpl photoBoardDao = new PhotoBoardDaoImpl(con);
-      PhotoFileDaoImpl photoFileDao = new PhotoFileDaoImpl(con);
+      PhotoFileDaoImpl photoFileDaoImpl = new PhotoFileDaoImpl(con);
 
       context.put("/lesson/add", new LessonAddCommand(lessonDao));
       context.put("/lesson/list", new LessonListCommand(lessonDao));
@@ -71,31 +68,27 @@ public class ApplicationInitializer implements ApplicationContextListener{
       context.put("/board/delete", new BoardDeleteCommand(boardDao));
       
       context.put("/photoboard/add", 
-          new PhotoBoardAddCommand(photoBoardDao, photoFileDao));
+          new PhotoBoardAddCommand(photoBoardDao, photoFileDaoImpl));
       context.put("/photoboard/list", new PhotoBoardListCommand(photoBoardDao));
       context.put("/photoboard/detail", 
-          new PhotoBoardDetailCommand(photoBoardDao, photoFileDao));
+          new PhotoBoardDetailCommand(photoBoardDao, photoFileDaoImpl));
       context.put("/photoboard/update",
-          new PhotoBoardUpdateCommand(photoBoardDao, photoFileDao));
-      context.put("/photoboard/delete", 
-          new PhotoBoardDeleteCommand(photoBoardDao, photoFileDao));
+          new PhotoBoardUpdateCommand(photoBoardDao, photoFileDaoImpl));
+      context.put("/photoboard/delete", new PhotoBoardDeleteCommand(photoBoardDao));
       
     } catch(Exception e) {
       throw new ApplicationContextException(e);
     } 
   } // contextInitialized()
 
-  
   @Override
   public void contextDestroyed(Map<String, Object> context) {
     try {
       con.close();
-      
     } catch(Exception e) {
       throw new ApplicationContextException(e);
     }      
   } // contextDestroyed()
 
-  
 
 }
