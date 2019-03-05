@@ -64,11 +64,6 @@ public class PhotoBoardUpdateCommand extends AbstractCommand {
         count ++;
       } // while 
     }
-    
-    if (photoBoardDao.update(board) == 0) {
-      response.println("해당 게시물은 없습니다");
-      return;
-    }
 
     response.println("갱신 완료");
   } // execute()

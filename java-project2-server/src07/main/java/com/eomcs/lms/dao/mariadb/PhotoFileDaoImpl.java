@@ -65,6 +65,7 @@ public class PhotoFileDaoImpl implements PhotoFileDao{
 
     try(PreparedStatement stmt = con.prepareStatement(
         "delete from lms_photo_file where photo_id = ?"); ){
+      
 
       stmt.setInt(1, no);
 

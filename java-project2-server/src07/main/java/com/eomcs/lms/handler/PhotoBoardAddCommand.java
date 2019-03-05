@@ -22,6 +22,14 @@ public class PhotoBoardAddCommand extends AbstractCommand {
     board.setTitle(response.requestString("사진제목? : "));
     board.setLessonNo(response.requestInt("수업번호? : "));
     photoBoardDao.insert(board);
+    // insert를 수행하면 board레퍼런스에 연결된 객체의 no가 설정됨
+    // DB lms_photo_file (사진게시물의 첨부파일 DB)에도 insert를 수행해야하기 때문에
+    // lms_photo와 lms_photo_file은 parent/child 관계이기 때문에 photo_id가 외래키 이다
+    // l그래서 lms_photo의 auto_increment설정으로 인해 값을 지정하지 않는 photo_id의 값을 알아내기
+    // l위해서는 PhotoBoardDaoImpl.insert()메서드를 수행할때에 추가 문법을 작성해 photo_id를 
+    // l알아낼 수 있다. 
+    // l즉 board객체에 no (lms_photo의 photo_id 컬럼)을 알아야지만 첨부파일도 같이 insert 할 수
+    // l있기 때문에 추가문법을 필요로 한다
 
     response.println("최소 한 개의 사진파일을 등록해야 합니다");
     response.println("파일명 없이 그냥 엔터시 파일추가 마침");
