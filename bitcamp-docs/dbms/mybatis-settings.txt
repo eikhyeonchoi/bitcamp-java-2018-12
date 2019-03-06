@@ -1,0 +1,66 @@
+
+
+
+1) 메인 메서드에 추가함
+String resource = "org/mybatis/example/mybatis-config.xml";
+InputStream inputStream = Resources.getResourceAsStream(resource);
+SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+
+2) mybatis-config.xml 파일을 만들고 채운다
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+    <mapper resource="org/mybatis/example/BlogMapper.xml"/>
+  </mappers>
+</configuration>
+
+
+3) resource 경로를 바꿔준다 
+예제 )) String resource = "ch26/c/mybatis-config.xml";
+
+
+4) 매퍼 파일을 만들어 준뒤 mybatis-config.xml에 mapper엘리먼트를 추가한다
+  <mappers>
+    <mapper resource="매퍼파일경로/Mapper.xml"/>
+  </mappers>
+  예제 )) <mapper resource="ch26/c/BoardMapper.xml"/>
+
+
+5) jdbc.properties 파일을 추가한다
+   DB 접속 정보를 설정할 때 jdbc-properties파일의 데이터를 사용
+    mybatis-config.xml에 properties 엘리먼트를 추가한다
+   <properties resource="properties파일경로명/jdbc.properties"/>
+   예제 )) <properties resource="ch26/c/jdbc.properties"/>
+
+ 
+6) 클래스 전체 이름의 대한 별명을 지정한다 
+   mybatis-config.xml에 typeAliases 엘리먼트를 추가한다
+    <typeAliases>
+        <package name="패키지경로"/>
+    </typeAliases>
+    예제 )) <package name="ch26.c"/>
+
+
+7) DB의 컬럼과 java의 프로퍼티명이 다르기 때문에 resultMap을 설정한다
+	<resultMap type="board" id="boardMap">
+		<id column="board_id" property="no" />
+		<result column="created_date" property="createdDate" />
+		<result column="view_count" property="viewCount" />
+	</resultMap>
+
+

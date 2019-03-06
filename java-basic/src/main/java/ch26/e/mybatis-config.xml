@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!-- XML선언 // 반드시 첫 번째로 와야함 -->
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+
+<properties resource="ch26/e/jdbc.properties"/>
+
+<typeAliases>
+<!-- 패키지에 소속된 클래스들에게 별명을 부여한다
+     별명을 클래스 이름이다 
+     SQL 매퍼 파일에서 별명을 지정할 때 대소문자를 구별하지 않는다 
+     그러나 주로 소문자를 사용한다-->
+<package name="ch26.e"/>
+</typeAliases>
+
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+      </dataSource>
+    </environment>
+  </environments>
+  
+  <mappers>
+    <mapper resource="ch26/e/BoardMapper.xml"/>
+  </mappers>
+</configuration>
