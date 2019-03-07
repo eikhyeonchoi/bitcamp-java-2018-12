@@ -43,6 +43,26 @@
 	  insert into x_board(title,contents)
 	  values(#{title}, #{contents})
 	</insert>
+	
+	<update id="update" parameterType="board">
+	 update x_board 
+	 set title=#{title}, contents=#{contents}
+	 where board_id=#{no}
+	</update>
+	
+	<!-- 파라미터 타입일 땐 #{}에 아무 이름이나 넣어도됨 +String Wrapper -->
+	<delete id="delete" parameterType="int">
+	delete from x_board
+	where board_id=#{value}
+	</delete>
+	
+	<!-- inser 실행 후 PK리턴받기
+	파라미터로 전달된 객체를 통해 리턴 받는다 -->
+	 <insert id="insert3" parameterType="board"
+	 useGeneratedKeys="true" keyColumn="board_id" keyProperty="no">
+    insert into x_board(title,contents)
+    values(#{title}, #{contents})
+  </insert>
 
 </mapper>
 

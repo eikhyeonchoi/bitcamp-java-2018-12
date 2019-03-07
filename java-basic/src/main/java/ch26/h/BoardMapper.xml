@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+
+	<resultMap type="board" id="boardMap">
+		<id column="board_id" property="no" />
+		<result column="title" property="title" />
+		<result column="contents" property="contents" />
+		<result column="created_date" property="createdDate" />
+		<result column="view_count" property="viewCount" />
+	</resultMap>
+	
+	
+	
+	<resultMap type="attachfile" id="attachFileMap">
+		<id column="board_file_id" property="no" />
+		<result column="file_path" property="filePath" />
+		<result column="boardNo"  property="boardNo" />
+	</resultMap>
+	
+	
+	
+	<resultMap type="board" id="boardAttachFileMap">
+		<id column="board_id" property="no" />
+		 <!-- 조인 데이터를 가져올 때는 컬럼 이름과 프로퍼티 이름이 같더라도 정확하게 명시해야 한다. 
+          즉 명시하지 않은 컬럼 값은 자바 객체에 저장되지 않는다.-->
+		<result column="title" property="title" />
+		<result column="contents" property="contents" />
+		<result column="created_date" property="createdDate" />
+		<result column="view_count" property="viewCount" />
+		
+		<!-- ofType이 return Type인듯? Board 인스턴스 필드에 List<AttachFile>이 있기 때문에
+		      이건 AttachFile을 받아야 하기 때문에 collection으로 여러개 받아서 저장 -->
+		<collection ofType="attachfile" property="attachFiles">
+		  <id column="board_file_id" property="no"/>
+		  <result column="file_path" property="filePath"/>
+		  <result column="boardNo" property="boardNo"/>
+		</collection>
+	</resultMap>
+
+	<!-- 
+	여러 SQL문에서 반복적으로 사용하는 코드를 별도의 블록으로 분리 시키기
+	<sql>SQL코드 조각</sql> 문법을 사용한다
+	 -->
+	<sql id="sql01">
+	select * from x_board
+	</sql>
+
+	<select id="selectBoard" resultMap="boardMap" parameterType="int">
+	 select * from x_board
+	 where 
+	   board_id = #{value}
+	</select>
+	
+	<select id="selectAttachFile" resultMap="attachFileMap" parameterType="int">
+	 select * from x_board_file
+	 where 
+	   board_id = #{value}
+	</select>
+	
+	<select id="selectBoardWithAttachFile" resultMap="boardAttachFileMap" parameterType="int">
+		select
+		  b.board_id,
+		  b.title,
+		  b.contents,
+		  b.created_date,
+		  b.view_count,
+		  f.board_file_id,
+		  f.file_path,
+		  f.board_id as boardNo
+		from x_board b
+		  left outer join x_board_file f on b.board_id = f.board_id
+		where 
+		  b.board_id = #{value}
+	</select>
+
+
+</mapper>
+
+

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<resultMap type="board" id="boardMap">
+		<id column="board_id" property="no" />
+		<result column="title" property="title" />
+		<result column="contents" property="contents" />
+		<result column="created_date" property="createdDate" />
+		<result column="view_count" property="viewCount" />
+	</resultMap>
+
+
+
+<!-- 조건문 문법
+==> <if test="조건">
+==> 조건은 true/false를 리턴하는 계산식이어야 한다
+==> 파라미터 타입이 자바원시, String, Wrapper의 경우
+    값을 꺼낼 때 프로퍼티 이름은 #{아무거나} 가 가능
+    그러나 <if>태그의 test속성 안에서 프로퍼티 명을 지정할 때는
+    value 라는 이름을 사용해야한다
+==> 즉 parameterType이 primitive type, String, Wrapper 일땐 쿼리문 #{}안에 아무거나 다가능
+    이외엔 프로퍼티명으로 지정해야한다 
+    하지만 <if>태그안에 test속성안에서는 primitive type, String, Wrapper == value로 적음
+    이외엔 프로퍼티명으로 지정해야한다 
+-->
+<!--
+study
+이 쿼리문은 실행 시 return type은 board이면서 파라미터로 int를 받음
+if 조건(value != null)을 만족시 board_id로 조건을 수행 후 return 하며 (java code에서 숫자를 제대로 입력 했을 경우임)
+if 조건(value != null)을 불만족 시 모든 컬럼을 출력하게 됨 (java code에서 숫자를 입력하지 않고 개같이 입력했을 경우임)
+if 조건문 안에 test 의 in-parameter값은 파라미터가 int이기 때문에 
+value로 지정해야한다 + primitive type, String, Wrapper 타입인 경우에는
+value로 지정해야 한다 #{}도 아무 이름이나 적을 수 있지만 value로 통일 하도록 하자
+-->
+	<select id="select1" resultMap="boardMap" parameterType="int">
+		select	* from x_board
+		<if test="value != null">
+			where
+			   board_id = #{value}
+		</if>
+	</select>
+	
+	
+<!-- 
+파라미터 타입이 원시,String,Wrapper가 아닌 일반 클래스인 경우
+원래 했던 것 처럼 프로퍼티 이름을 사용하면 된다
+-->
+<!--
+study
+이 쿼리문은 board를 return 하고 parameter로 map을 받는다
+map에 put할 때 번호를 입력해야 하는데 개같이 입력했다면, 아무 key,value가 들어가지 않는다
+그러면 이 쿼리문의 조건인 if태그를 만족하지 못하는 상태 no == null인 상태가 되기 때문에
+모든 컬럼이 출력되는 것임 
+만약 제대로 입력했다면은 조건을 만족하고 where절을 수행한 뒤 특정 컬럼만 뽑히겠지
+단, #{no}를 만족하는 board_id가 없다면 아무 컬럼도 나오지 않는다 
+-->
+	<select id="select2" resultMap="boardMap" parameterType="map">
+		select	* from x_board
+		<if test="no != null">
+			where
+			   board_id = #{no}
+		</if>
+	</select>
+	
+	
+	
+<!-- 
+여러개의 조건문 처리
+where 절에 조건을 붙일 경우 or나 and를 앞에 붙이는 경우가 있음
+문제는 where 절에 아무 조건문이 없는 상태에서
+or또는 and조건문 등이 붙는다면 SQL오류가 발생한다
+예 )) where or title = #{title}
+그래서 보통 이런경우\
+예 )) where 1=0 or ~
+-->
+<!--
+study
+이 쿼리문은 board를 return parameter로 map을 받음
+where절에 1=0을 넣은이유는 만약 넣지 않는다면 
+where or board_id = #{no} 가 되거나
+where or title like concat('%',#{title},'%') 가 되거나
+where or contents like concat('%',#{contents},'%') 이기 때문이다
+즉 SQL문법 오류가 발생하기 때문에 일단 1=0으로 false 를 만든다 
+만약?? 1=1 하면??? 다른 where절을 어떻게 주던간에 모든 컬럼을 return하게 된다
+or를 사용했기 때문에 board_id, title, contents만족하는 모든 컬럼을 출력하게 된다
+-->
+	<select id="select3" resultMap="boardMap" parameterType="map">
+		select	* from x_board
+			where 1=0
+		<if test="no != null">
+			   or board_id = #{no}
+		</if>
+		<if test="title != null">
+			   or title like concat('%',#{title},'%')
+		</if>
+		<if test="contents != null">
+			   or contents like concat('%',#{contents},'%')
+		</if>
+	</select>
+	
+	
+	
+<!-- 
+where 태그를 사용하면 굳이 임의의 조건을 where절에 추가할 필요x
+-->
+<!-- 
+study
+위 select3 와 return, parameter다 동일 
+하지만 where절을 직접 작성하는 대신에 where 태그를 사용해 좀 더 편하게 JDBC를 사용할 수 있다
+select3는 or때문에 발생하는 SQL문법을 제거하기 위해 where절에 1=0을 추가해 where or 오류를 막았다
+하지만 이 쿼리문은 <where>태그가 or를 알아서 삭제해주기 때문에 띠로 작성을 하지 않아도 
+SQL문법 오류가 발생하지 않는다
+-->
+	<select id="select4" resultMap="boardMap" parameterType="map">
+		select	* from x_board
+		<where>
+			<if test="no != null">
+				   or board_id = #{no}
+			</if>
+			<if test="title != null">
+				   or title like concat('%',#{title},'%')
+			</if>
+			<if test="contents != null">
+				   or contents like concat('%',#{contents},'%')
+			</if>
+			</where>
+	</select>
+	
+	
+	
+<!-- 
+여러 개의 조건 중 한 개의 조건에 대해 SQL문을 처리하고 싶다면,
+<choose><when><otherwise> 태그사용
+-->
+<!-- 
+study
+이 쿼리문은 select4와 return, parameter가 동일함
+<where>태그 대신 <choose>
+<if>태그 대신 <when>을 사용한다 <where><if>와의 차이점은 
+중복해서 return하지 않는다 즉 조건 하나의 대해서만 출력한다는 말임
+board_id >> title >> contents 순이니까 먼저 있는 컬럼 만족하면은
+다음 컬럼은 무시하고 딱 한 조건에 의해서만 return 한다ㅋㅋ
+-->
+	<select id="select5" resultMap="boardMap" parameterType="map">
+		select	* from x_board
+		where
+		<choose>
+				<when test="no != null">
+				  board_id = #{no}
+				</when>
+				<when test="title != null">
+				  title like concat('%',#{title},'%')
+				</when>
+				<when test="contents != null">
+				  contents like concat('%',#{contents},'%')
+				</when>
+				<otherwise>
+				  1=1 <!-- 위 조건중 아무것도 만족하지 못했을 경우 전체 출력 -->
+				</otherwise>
+			</choose>
+	</select>
+
+
+
+<!-- where 대신 trim을 사용해 문장 앞에오는 AND나 OR을 제거가능 -->
+<!-- 
+study
+<where>태그 대신 <trim>태그를 사용할 수 있다
+-->
+  <select id="select6" resultMap="boardMap" parameterType="map">
+    select  * from x_board
+    <trim prefix="where" prefixOverrides="OR |AND">
+	    <if test="no != null">
+	         board_id = #{no}
+	    </if>
+	    <if test="title != null">
+	         or title like concat('%',#{title},'%')
+	    </if>
+	    <if test="contents != null">
+	         or contents like concat('%',#{contents},'%')
+	    </if>
+    </trim>
+  </select>
+  
+
+<!--
+정렬 키워드에 따라 order by 조건을 다루기
+in-parameter 자리에 값을 놓을 때는 #{프로퍼티명} 문법을 사용한다
+그러나 컬럼이름이나 SQL키워드 (예:select, values, into, set, desc, asc ...)가 들어갈 자리는
+in parameter로 처리할 수 없다 in-paramter는 값이 놓일 자리에 놓는것이지 키워드에 놓는게 아님 
+= 다음에 와야하는듯 // 테이블이름, 컬럼이름, SQL키워드 자리에 in-parameter = #{} 이거 불가능
+                  select * from #{} where #{} = #{} 이거 존나게 불가능함
+                     마찬가지로 order by #{column} #{sort}도 존나게 불가능
+그래서 #{프로퍼티명} 사용 x
+-->
+ <!-- 
+study
+존나 씹 중요한거 
+SQL키워드(select, from, asc, desc, order, by, set, where, values 등)  + 테이블명 + 컬럼명
+오는 자리에 !!!!!!!!!!!!!!!!!!!!!!!!! in-parameter #{} 오면 절대 안댐!!!!!!!!!!!!!!!!!!!!!!!!
+in-parameter는 = 다음에 온다고 생각해라 진짜 이거 중요함!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+하지만 ㅅㅂ 예외가 있지 밑 select 문을 볼 것 
+-->
+	<select id="select7_error" resultMap="boardMap" parameterType="map">
+		select	* 
+		from x_board
+	  order by 
+		  <if test="column != null">
+		     title asc
+		  </if>
+	</select>
+	
+<!-- 
+SQL키워드(테이블, 컬럼명 포함)가 들어갈 자리에 in-parameter처럼 값을 넣고 싶다면
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$사용
+${프로퍼티명} 사용
+경고-
+  사용자가 입력한 값을 직접 SQL코드에 삽입하는 경우 SQL 삽입공격을 받을 수 있음
+  따라서 ${프로퍼티명} 문법을 사용할 땐 사용자 입력값을 그대로 전달 xxxxxxxxxxxx
+ -->	
+ <!-- 
+study
+테이블명, 컬럼명이 오는자리에 사용자 입력 값을 그대로 주면 ㅈ되는 수가 있음;;
+그래서 사용자 입력값을 줘야하는 상황이 오긴 올텐데 그냥 주는게 아니라 java code에서
+알아서 default값을 설정해가지고 좆같이 입력해도 default값으로 입력되게 해서 하면됨
+그리고 SQL키워드, 컬럼명, 테이블명 자리에 in-parameter #{}오면 안된다고 했는데
+${}는 올 수 있으니까 참고바람 하지만 진짜로 사용자 입력값 그대로 오면 진짜 ㅈ댄다
+-->
+	<select id="select7_ok" resultMap="boardMap" parameterType="map">
+		select	* 
+		from x_board
+	  order by 
+		  <if test="column != null">
+		     ${column} ${sort}
+		  </if>
+	</select>
+	
+<!-- 
+update를 실행할때
+값을 변경하는 컬럼에 대해서만 update를 수행하게 할 수 있다
+<set>과 <if>태그를 조합하면 된다
+-->
+<!-- 
+study
+만약 in-parameter인 title또는 contents둘 중 아무 것도 입력하지 않는다면
+update x_board where board_id = #{no}가 되기 때문에 SQL문법 오류가 발생 한다
+둘 중 하나라도 입력을 해줘야함
+-->
+	<update id="update1" parameterType="map">
+	 update x_board
+	   <set>
+	     <if test="title != null"> title = #{title},</if>
+	     <if test="contents != null"> contents = #{contents}</if>
+	   </set>
+	   where 
+	     board_id = #{no}
+	</update>
+
+
+
+<!-- Array또는 Iterable 객체를 사용해 값을 반복적으로 꺼내기 -->
+<!-- 
+study
+
+-->
+	<select id="select9" resultMap="boardMap" parameterType="map">
+	  select * 
+	  from x_board
+	  where board_id in /*(31, 37, 38, 43 ,44)*/
+	  <foreach collection="noList" item="value" open="(" close=")" separator=",">
+	   #{value}
+	  </foreach>
+	</select>
+
+
+</mapper>
+
+

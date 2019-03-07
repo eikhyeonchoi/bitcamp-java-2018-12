@@ -23,7 +23,9 @@ public class Test05 {
     Map map = sqlSession.selectOne("board.select6");
     Set set = map.keySet();
     for(Object obj : set) {
-      System.out.println(obj);
+      System.out.print(obj+"  ");
+      System.out.print(obj.hashCode());
+      System.out.println();
     }
     System.out.println("--------------------------------------------");
     System.out.println(map);

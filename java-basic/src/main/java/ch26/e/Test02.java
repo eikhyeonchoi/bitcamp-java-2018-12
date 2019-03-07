@@ -34,10 +34,10 @@ public class Test02 {
     
     //l insert할 때 파라미터를 맵 객체에 담아 넘겨도 된다
     //l ==> Map 객체에 값을 저장할 때 사용하는 key 값은 SQL맵퍼에서 프로퍼티명임
-    HashMap<String, Object> board2 = new HashMap<String, Object>();
-    board2.put("title", "제제제제목목목목");
-    board2.put("contents", "내내내내용용용용");
-    count = sqlSession.insert("board.insert2",board2);
+    HashMap<String, Object> map = new HashMap<String, Object>();
+    map.put("title", "제제제제목목목목");
+    map.put("contents", "내내내내용용용용");
+    count = sqlSession.insert("board.insert2",map);
     System.out.println(count);
     System.out.println("-------------------------------------");
     
