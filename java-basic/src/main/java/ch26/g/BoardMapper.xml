@@ -12,6 +12,7 @@
 		<result column="created_date" property="createdDate" />
 		<result column="view_count" property="viewCount" />
 	</resultMap>
+	
 
 
 <!-- 
