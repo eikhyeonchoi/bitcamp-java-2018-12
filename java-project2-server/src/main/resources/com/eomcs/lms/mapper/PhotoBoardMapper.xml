@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -13,8 +12,6 @@
     <result column="cdt"        property="createdDate"/>
     <result column="vw_cnt"     property="viewCount"/>
   </resultMap>
-  
-  
   
   
   <resultMap type="photoBoard" id="photoBoardFileMap">
@@ -38,23 +35,8 @@
     </collection>
   </resultMap>
   
-  <select id="findAll" resultMap="photoBoardMap" parameterType="map">
-    select 
-      photo_id, 
-      titl, cdt, 
-      vw_cnt, 
-      lesson_id 
-    from 
-      lms_photo
-    <where>
-      <if test="lessonNo != null">or lesson_id = #{lessonNo}</if>
-      <if test="keyword != null">or titl like concat('%', #{keyword}, '%')</if>
-    </where>
-    order by 
-      photo_id desc
-  </select>
   
-  <select id="findByNo" resultMap="photoBoardMap" parameterType="int">
+  <sql id="select1">
     select 
       photo_id, 
       titl, 
@@ -63,9 +45,32 @@
       lesson_id 
     from 
       lms_photo
+  </sql>
+  
+  
+  <select id="findAll" resultMap="photoBoardMap" parameterType="map">
+    <if test="keyword != null">
+      <bind name="pattern1" value="'%' + keyword + '%'"/>
+    </if>
+    <include refid="select1"/>
+    <where>
+      <if test="lessonNo != null">or lesson_id = #{lessonNo}</if>
+      <if test="pattern1 != null">or titl like #{pattern1}</if>
+      <!-- java code에서 value를 정의했을 경우임
+      <if test="keyword != null">or titl like #{keyword}</if>
+       -->
+    </where>
+    order by 
+      photo_id desc
+  </select>
+  
+  
+  <select id="findByNo" resultMap="photoBoardMap" parameterType="int">
+    <include refid="select1"/>
     where 
       photo_id = #{value}
   </select>
+  
   
   <select id="findByNoWithFile" resultMap="photoBoardFileMap" parameterType="int">
     select 
