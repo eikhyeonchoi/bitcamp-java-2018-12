@@ -52,8 +52,6 @@ public class MemberDaoImpl implements MemberDao {
       return sqlSession.delete("MemberMapper.delete", no);
     }
   }
-  
-  
 }
 
 

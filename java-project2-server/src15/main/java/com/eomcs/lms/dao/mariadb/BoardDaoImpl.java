@@ -48,9 +48,6 @@ public class BoardDaoImpl implements BoardDao {
       return sqlSession.delete("BoardMapper.delete", no);
     }
   }
-  
-  
-  
 }
 
 

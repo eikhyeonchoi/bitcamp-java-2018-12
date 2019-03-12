@@ -44,8 +44,6 @@ public class LessonDaoImpl implements LessonDao {
       return sqlSession.delete("LessonMapper.delete", no);
     }
   }
-  
-  
 }
 
 
