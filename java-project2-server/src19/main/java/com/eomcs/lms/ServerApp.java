@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import com.eomcs.lms.context.ApplicationContext;
 import com.eomcs.lms.context.ApplicationContextListener;
-import com.eomcs.lms.context.RequestMappingHandlerMapping;
-import com.eomcs.lms.context.RequestMappingHandlerMapping.RequestMappingHandler;
-import com.eomcs.lms.handler.Response;
+import com.eomcs.lms.handler.Command;
 
 public class ServerApp {
 
@@ -22,9 +20,6 @@ public class ServerApp {
   
   //l Command 객체와 그와 관련된 객체를 보관하고 있는 빈컨테이너
   ApplicationContext beanContainer;
-  
-  // 클라이언트 요청을 처리할 메서드 정보가 들어 있는 객체
-  RequestMappingHandlerMapping handlerMapping;
   
   public void addApplicationContextListener(ApplicationContextListener listener) {
     listeners.add(listener);
@@ -42,12 +37,6 @@ public class ServerApp {
 
       //l ApplicationInitializer가 준비한 ApplicationContext를 꺼낸다
       beanContainer = (ApplicationContext) context.get("applicationContext");
-      
-      //l 빈 컨테이너에서 RequestMappingHandlerMapping 객체를 꺼낸다
-      //l 이 객체에 클라이언트 요청을 처리할 메서드 정보가 들어있다
-      handlerMapping = (RequestMappingHandlerMapping)
-          beanContainer.getBean("handlerMapping");
-      
       
       
       System.out.println("서버 실행 중...");
@@ -104,10 +93,10 @@ public class ServerApp {
         String request = in.readLine();
         
         //l 클라이언트에게 응답하기
-        //l 클라이언트 요청을 처리할 메서드를 꺼낸다
-        RequestMappingHandler requestHandler = handlerMapping.get(request);
+        //l 클라이언트 요청을 처리할 객체는 빈 컨테이너 에서 꺼냄
+        Command commandHandler = (Command) beanContainer.getBean(request);
         
-        if (requestHandler == null) {
+        if (commandHandler == null) {
           out.println("실행할 수 없는 명령입니다.");
           out.println("!end!");
           out.flush();
@@ -115,11 +104,7 @@ public class ServerApp {
         }
         
         try {
-          //l 클라이언트 요청을 처리할 메서드를 찾았다면, 호출한다!
-          requestHandler.method.invoke(
-              requestHandler.bean, // 메서드를 호출할 때 사용하는 인스턴스
-              new Response(in, out)); // 메서드 파라미터 값
-          
+          commandHandler.execute(in, out);
         } catch (Exception e) {
           out.printf("실행 오류! : %s\n", e.getMessage());
           e.printStackTrace();

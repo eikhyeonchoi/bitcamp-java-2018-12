@@ -6,10 +6,11 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.apache.ibatis.io.Resources;
-import com.eomcs.lms.context.RequestMappingHandlerMapping.RequestMappingHandler;
+import com.eomcs.lms.handler.Command;
 
 public class ApplicationContext {
 
@@ -40,9 +41,6 @@ public class ApplicationContext {
     //l 3) Component 애노테이션 클래스만 찾아서 인스턴스를 생성한다
     prepareComponent();
 
-    //l 4) 인스턴스 생성을 완료한 후 작업을 수행
-    postProcess();
-    
     System.out.println("------------------------------------------");
     //l 저장소에 보관된 객체의 이름과 클래스명을 출력한다
     Set<String> names = beanContainer.keySet();
@@ -196,35 +194,6 @@ public class ApplicationContext {
     return null;
   }
 
-  //l bean생성을 완료한 후 작업 수행
-  public void postProcess() {
-    //l RequestMappingHandler 정보를 관리할 객체 생성
-    RequestMappingHandlerMapping handlerMapping = new RequestMappingHandlerMapping();
-    
-    //l 빈컨테이너에서 객체를 모두 꺼낸다
-    Collection<Object> beans = beanContainer.values();
-    
-    for(Object bean : beans) {
-      //l 각 객체의 대해 @RequestMapping 메서드를 찾는다
-      Method[] methods = bean.getClass().getMethods();
-      for(Method m : methods) {
-        RequestMapping requestMapping = m.getAnnotation(RequestMapping.class);
-        if(requestMapping == null)
-          continue;
-        
-        //l RequestMapping이 붙은 메서드를 찾았으면 그 정보를 RequestMappingHandler에 담는다
-        RequestMappingHandler handler = new RequestMappingHandler(bean, m);
-        
-        //l 그리고 이 요청 핸들러(RequestMapping 애노테이션이 붙은 메서드)를 저장한다
-        handlerMapping.add(requestMapping.value(), handler);
-      } // for(Method)
-    } // for(Object)
-    
-    //l ServerApp에서 꺼낼 수 있도록 RequestMappingHandlerMapping객체를 beanContainer에 저장
-    beanContainer.put("handlerMapping", handlerMapping);
-  } // postProcess
-  
-  
 
 } // end of class
 
