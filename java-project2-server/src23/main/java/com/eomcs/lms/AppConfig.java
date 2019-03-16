@@ -23,6 +23,7 @@ import com.eomcs.lms.dao.PhotoFileDao;
 
 //l 특정 패키지를 탐색하여 @Component 애노테이션이 붙은 클래스에 대해 인스턴스를 생성하게 만드는 애노테이션
 @ComponentScan(basePackages = "com.eomcs.lms")
+
 //l .properties 파일을 로딩시키는 애노테이션
 @PropertySource("classpath:/com/eomcs/lms/conf/jdbc.properties")
 
@@ -80,7 +81,7 @@ public class AppConfig {
 
   // SqlSessionFactory를 생성하는 메서드
   @Bean
-  public SqlSessionFactory SqlSessionFactory(
+  public SqlSessionFactory sqlSessionFactory(
       DataSource dataSource, ApplicationContext appCtx) throws Exception {
     //l mybatis에서 SqlSessionFactory를 생성할 때 사용하라고 제공하는 객체
     SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
