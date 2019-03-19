@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:c="http://www.springframework.org/schema/c"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        
+  <bean id="car1" class="prac.Car">
+  <constructor-arg name="nm" type="java.lang.String" value="소나타"/>
+  <constructor-arg name="pr" type="int" value="2800"/>
+  </bean>
+  
+  <bean id="navigation1" class="prac.Navigation"
+    p:maker="메이커1" p:name="네비게이션1" p:price="50"/>
+  
+  <!-- 이 bean엘리먼트는 생성자를 실행하는게 아닌 단지 setter메서드를 호출해 값을 지정하는 것이다 -->
+  <bean id="car2" class="prac.Car"
+    p:maker="현대" p:name="그랜져" p:cc="3500" 
+    p:price="5000" p:navigation-ref="navigation1"/>
+        
+        
+</beans>

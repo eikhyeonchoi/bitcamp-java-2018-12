@@ -20,6 +20,13 @@ public class Test01 {
           name, 
           iocContainer.getBean(name).getClass().getName());
     }
+    
+    Car c1 = (Car) iocContainer.getBean("c1");
+    Car c2 = (Car) iocContainer.getBean("c2");
+    System.out.println(c1 == c2);
+    
+    
+    
   }
 }
 
