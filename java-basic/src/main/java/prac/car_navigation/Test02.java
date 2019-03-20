@@ -1,4 +1,4 @@
-package prac;
+package prac.car_navigation;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

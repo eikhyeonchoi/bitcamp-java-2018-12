@@ -1,4 +1,4 @@
-package prac;
+package prac.car_navigation;
 
 public class Navigation {
   private String maker;

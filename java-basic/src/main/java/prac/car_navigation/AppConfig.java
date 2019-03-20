@@ -1,4 +1,4 @@
-package prac;
+package prac.car_navigation;
 import org.springframework.context.annotation.Bean;
 
 public class AppConfig {
