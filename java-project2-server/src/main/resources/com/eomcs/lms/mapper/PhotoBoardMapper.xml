@@ -14,6 +14,8 @@
     <result column="vw_cnt"     property="viewCount"/>
   </resultMap>
   
+  
+  
   <resultMap type="photoBoard" id="photoBoardFileMap">
     <id column="photo_id"       property="no"/>
     <result column="lesson_id"  property="lessonNo"/>

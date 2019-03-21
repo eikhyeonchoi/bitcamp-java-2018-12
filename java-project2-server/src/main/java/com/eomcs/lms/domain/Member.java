@@ -60,6 +60,7 @@ public class Member implements Cloneable, Serializable {
   public void setTel(String tel) {
     this.tel = tel;
   }
+  
   public Date getRegisteredDate() {
     return registeredDate;
   }
