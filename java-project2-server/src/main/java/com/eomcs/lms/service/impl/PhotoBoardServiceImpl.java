@@ -24,8 +24,8 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
   }
 
   @Override
-  public List<PhotoBoard> list(int lessonNo, String searchWord) {
-    if(lessonNo <= 0 && searchWord == null) {
+  public List<PhotoBoard> list(int lessonNo, String keyword) {
+    if(lessonNo <= 0 && keyword == null) {
       return boardDao.findAll(null);
 
     } else {
@@ -35,8 +35,8 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
         params.put("lessonNo", lessonNo);
       }
 
-      if(searchWord != null) {
-        params.put("keyword", searchWord);
+      if(keyword != null) {
+        params.put("keyword", keyword);
       }
 
       return boardDao.findAll(params);

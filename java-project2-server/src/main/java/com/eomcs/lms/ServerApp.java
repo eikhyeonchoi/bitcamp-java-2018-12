@@ -11,7 +11,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import com.eomcs.lms.context.RequestMappingHandlerMapping;
 import com.eomcs.lms.context.RequestMappingHandlerMapping.RequestMappingHandler;
-import com.eomcs.lms.handler.Response;
+import com.eomcs.lms.handler.ServletRequest;
+import com.eomcs.lms.handler.ServletResponse;
 
 public class ServerApp {
   final static Logger logger = LogManager.getLogger(ServerApp.class);
@@ -63,52 +64,73 @@ public class ServerApp {
               new InputStreamReader(socket.getInputStream()));
           PrintWriter out = new PrintWriter(socket.getOutputStream())) {
 
-        //l 클라이언트의 요청 읽기
+        // 클라이언트의 요청 읽기
         String requestLine = in.readLine();
         logger.debug(requestLine);
-
-        while(true) {
+        
+        while (true) {
           String str = in.readLine();
-          if(str.length() == 0) break; // 요청의 끝을 만나면 읽기를 멈춘다
+          if (str.length() == 0) // 요청의 끝을 만나면 읽기를 멈춘다. 
+            break;
         }
-
-        String commandPath = requestLine.split(" ")[1];
-
+        
+        // 예) GET /member/list HTTP/1.1
+        // 예) GET /member/detail?no=10 HTTP/1.1
+        // 예) GET /member/add?name=aaa&email=aaa@test.com&password=1111 HTTP/1.1
+        // => requestURI[0] : /board/detail
+        // => requestURI[1] : no=1
+        String[] requestURI = requestLine.split(" ")[1].split("\\?");
+        String commandPath = requestURI[0];
+            
+        // 클라이언트에게 응답하기
+        // => HTTP 프로토콜에 따라 응답 헤더를 출력한다.
+        
+        // => 클라이언트 요청을 처리할 메서드를 꺼낸다.
         RequestMappingHandler requestHandler = handlerMapping.get(commandPath);
-
+        
         if (requestHandler == null) {
           out.println("HTTP/1.1 404 Not Found");
-          out.println("Server : bitcamp");
+          out.println("Server: bitcamp");
           out.println("Content-Type: text/plain; charset=UTF-8");
           out.println();
           out.println("실행할 수 없는 명령입니다.");
-          out.println("!end!");
           out.flush();
           return;
         }
-
+        
         try {
+          // 요청을 처리할 메서드가 사용할 Request, Response 준비하기
+          ServletRequest request = new ServletRequest();
+          if (requestURI.length > 1) {
+            // 예) name=aaa&email=aaa@test.com&password=1111
+            request.setQueryString(requestURI[1]); 
+          }
+
+          ServletResponse response = new ServletResponse(in, out);
+          
+          // 클라이언트 요청을 처리할 메서드를 찾았다면 호출한다.
           out.println("HTTP/1.1 200 OK");
-          out.println("Server : bitcamp");
+          out.println("Server: bitcamp");
           out.println("Content-Type: text/html; charset=UTF-8");
           out.println();
-          //l 클라이언트 요청을 처리할 메서드를 찾았다면 호출한다.
+          
           requestHandler.method.invoke(
-              requestHandler.bean, //l 메서드를 호출할 때 사용할 인스턴스 
-              new Response(in, out)); //l 메서드 파라미터 값
-
+              requestHandler.bean, // 메서드를 호출할 때 사용할 인스턴스 
+              request, response); // 메서드 파라미터 값
+          
         } catch (Exception e) {
           out.printf("실행 오류! : %s\n", e.getMessage());
           e.printStackTrace();
         }
-
+        out.flush();
+        
       } catch (Exception e) {
         logger.error("명령어 실행 중 오류 발생 : " + e.toString());
         StringWriter strWriter = new StringWriter();
         PrintWriter out = new PrintWriter(strWriter);
         e.printStackTrace(out);
         logger.error(strWriter.toString());
-
+        
       }
       logger.info("클라이언트와 연결 종료.");
     }
