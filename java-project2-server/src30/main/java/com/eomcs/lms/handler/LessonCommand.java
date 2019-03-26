@@ -3,11 +3,14 @@ package com.eomcs.lms.handler;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.List;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import org.springframework.stereotype.Component;
 import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.service.LessonService;
 import com.eomcs.lms.service.PhotoBoardService;
 
@@ -32,14 +35,14 @@ public class LessonCommand {
 
     out.println("<html><head><title>수업 목록</title><head>");
     out.println("<body><h1>수업 목록</h1>");
-    out.println("<p><a href='form'> 새 수업 </a></p>");
+    out.println("<p><a href='/lesson/form'> 새 수업 </a></p>");
     out.println("<table border='1'>");
     out.println("<tr> <th>번호</th> <th>제목</th> <th>등록일</th> <th>조회수</th> <th>수업 번호</th> </tr>");
     for (Lesson lesson : lessons) {
       out.println(
           String.format("<tr> "
               + "<td>%d</td> "
-              + "<td><a href='detail?no=%1$d'>%s</a></td> "
+              + "<td><a href='/lesson/detail?no=%1$d'>%s</a></td> "
               + "<td>%s</td> "
               + "<td>%s</td> "
               + "<td>%d</td> "
@@ -68,7 +71,7 @@ public class LessonCommand {
     PrintWriter out = response.getWriter();
     out.println("<html><head>"
         + "<title>수업 등록</title>"
-        + "<meta http-equiv='Refresh' content='1;url=list'>"
+        + "<meta http-equiv='Refresh' content='1;url=/lesson/list'>"
         + "<head>");
     out.println("<body><h1>수업 등록</h1>");
     out.println("<p>저장했습니다</p>");
@@ -90,7 +93,7 @@ public class LessonCommand {
       return;
     }
     
-    out.println("<form action='update'>");
+    out.println("<form action='/lesson/update'>");
     out.println("<table border='1'>");
     out.printf("<tr>"
         + "<th>번호</th>"
@@ -129,8 +132,8 @@ public class LessonCommand {
 
     out.println("</table>");
     
-    out.println("<p><a href='list'> 목록 </a>"
-        + "<a href='delete?no="+lesson.getNo()+"'> 삭제 </a>"
+    out.println("<p><a href='/lesson/list'> 목록 </a>"
+        + "<a href='/lesson/delete?no="+lesson.getNo()+"'> 삭제 </a>"
         + "<button type='submit'> 변경 </button>"
         + "</p>");
 
@@ -154,7 +157,7 @@ public class LessonCommand {
     PrintWriter out = response.getWriter();
     out.println("<html><head>"
         + "<title>수업정보 변경</title>"
-        + "<meta http-equiv='Refresh' content='1;url=list'>"
+        + "<meta http-equiv='Refresh' content='1;url=/lesson/list'>"
         + "<head>");
     out.println("<body><h1>수업정보 변경</h1>");
 
@@ -173,7 +176,7 @@ public class LessonCommand {
     PrintWriter out = response.getWriter();
     out.println("<html><head>"
         + "<title>수업정보 삭제</title>"
-        + "<meta http-equiv='Refresh' content='1;url=list'>"
+        + "<meta http-equiv='Refresh' content='1;url=/lesson/list'>"
         + "<head>");
     out.println("<body><h1>수업정보 삭제</h1>");
     
@@ -194,7 +197,7 @@ public class LessonCommand {
     out.println("<head><title>새 수업</title></head>");
     out.println("<body>");
     out.println("<h1>새 수업</h1>");
-    out.println("<form action='add'>");
+    out.println("<form action='/lesson/add'>");
     out.println("<table border='1'>");
     
     out.println("<tr>");
@@ -233,7 +236,7 @@ public class LessonCommand {
     out.println("</table>");
     out.println("<p>");
     out.println("<button type='submit'>등록</button>");
-    out.println("<a href='list'>목록</a>");
+    out.println("<a href='/lesson/list'>목록</a>");
     out.println("</p>");
     out.println("</form>");
     out.println("</body>");

@@ -1,8 +1,6 @@
 package com.eomcs.lms.handler;
 import java.io.PrintWriter;
 import java.util.List;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import org.springframework.stereotype.Component;
 import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.domain.Board;
@@ -18,29 +16,28 @@ public class BoardCommand {
   }
 
   @RequestMapping("/board/list")
-  public void list(ServletRequest request, ServletResponse response) throws Exception {
-    List<Board> boards = boardService.list();
-    
-    
+  public void list(ServletRequest request, ServletResponse response) {
     PrintWriter out = response.getWriter();
+
+    List<Board> boards = boardService.list();
 
     out.println("<html><head><title>게시물 목록</title><head>");
     out.println("<body><h1>게시물 목록</h1>");
-    out.println("<p><a href='form'>새 글</a></p>");
+    out.println("<p><a href='/board/form'>새 글</a></p>");
 
     out.println("<table border='1'>");
     out.println("<tr><th>번호</th><th>제목</th><th>등록일</ht><th>조회수</th></tr>");
 
     for (Board board : boards) {
       out.println(
-          String.format("<tr><td>%d</td> <td><a href='detail?no=%1$d'>%s</a></td> <td>%s</td> <td>%d</td> </tr>", 
+          String.format("<tr><td>%d</td> <td><a href='/board/detail?no=%1$d'>%s</a></td> <td>%s</td> <td>%d</td> </tr>", 
               board.getNo(),
               board.getContents(), 
               board.getCreatedDate(), 
               board.getViewCount()));
     }
     out.println("</table></body></html>");
-  } // list
+  }
 
   @RequestMapping("/board/add")
   public void add(ServletRequest request, ServletResponse response) throws Exception {
@@ -52,12 +49,12 @@ public class BoardCommand {
     PrintWriter out = response.getWriter();
     out.println("<html><head>"
         + "<title>게시물 등록</title>"
-        + "<meta http-equiv='Refresh' content='1;url=list'>"
+        + "<meta http-equiv='Refresh' content='1;url=/board/list'>"
         + "<head>");
     out.println("<body><h1>게시물 등록</h1>");
     out.println("<p>저장했습니다</p>");
     out.println("</body></html>");
-  } // add
+  }
 
   @RequestMapping("/board/detail")
   public void detail(ServletRequest request, ServletResponse response) throws Exception {
@@ -74,7 +71,7 @@ public class BoardCommand {
       return;
     }
 
-    out.println("<form action='update'>");
+    out.println("<form action='/board/update'>");
     out.println("<table border='1'>");
     out.printf("<tr>"
         + "<th>번호</th>"
@@ -91,14 +88,14 @@ public class BoardCommand {
         "<tr> <th>조회수</th> <td>%s</td> </tr>", board.getViewCount()));
 
     out.println("</table>");
-    out.println("<p><a href='list'> 목록 </a>"
-        + "<a href='delete?no="+board.getNo()+"'> 삭제 </a>"
+    out.println("<p><a href='/board/list'> 목록 </a>"
+        + "<a href='/board/delete?no="+board.getNo()+"'> 삭제 </a>"
         + "<button type='submit'> 변경 </button>"
         + "</p>");
 
     out.println("</form>");
     out.println("</body></html>");
-  } // detail
+  }
 
   @RequestMapping("/board/update")
   public void update(ServletRequest request,ServletResponse response) throws Exception {
@@ -110,7 +107,7 @@ public class BoardCommand {
     PrintWriter out = response.getWriter();
     out.println("<html><head>"
         + "<title>게시물 변경</title>"
-        + "<meta http-equiv='Refresh' content='1;url=list'>"
+        + "<meta http-equiv='Refresh' content='1;url=/board/list'>"
         + "<head>");
     out.println("<body><h1>게시물 변경</h1>");
 
@@ -120,7 +117,7 @@ public class BoardCommand {
       out.println("<p>변경했습니다.</p>");
     }
     out.println("</body></html>");
-  } // update
+  }
 
 
   @RequestMapping("/board/delete")
@@ -130,7 +127,7 @@ public class BoardCommand {
     PrintWriter out = response.getWriter();
     out.println("<html><head>"
         + "<title>게시물 삭제</title>"
-        + "<meta http-equiv='Refresh' content='1;url=list'>"
+        + "<meta http-equiv='Refresh' content='1;url=/board/list'>"
         + "<head>");
     out.println("<body><h1>게시물 삭제</h1>");
 
@@ -141,7 +138,7 @@ public class BoardCommand {
     }
 
     out.println("</body></html>");
-  } // delete
+  }
 
 
   @RequestMapping("/board/form")
@@ -152,7 +149,7 @@ public class BoardCommand {
     out.println("<head><title>새 글</title></head>");
     out.println("<body>");
     out.println("<h1>새 글</h1>");
-    out.println("<form action='add'>");
+    out.println("<form action='/board/add'>");
     out.println("<table border='1'>");
     out.println("<tr>");
     out.println("<th>내용</th>");
@@ -161,11 +158,11 @@ public class BoardCommand {
     out.println("</table>");
     out.println("<p>");
     out.println("<button type='submit'>등록</button>");
-    out.println("<a href='list'>목록</a>");
+    out.println("<a href='/board/list'>목록</a>");
     out.println("</p>");
     out.println("</form>");
     out.println("</body>");
     out.println("</html>");
-  } // form
+  }
 
 }
