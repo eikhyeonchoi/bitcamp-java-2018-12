@@ -19,6 +19,7 @@ public class ServerApp implements Servlet {
   final static Logger logger = LogManager.getLogger(ServerApp.class);
 
   ApplicationContext iocContainer;
+  
   RequestMappingHandlerMapping handlerMapping;
   
   ServletConfig config;
@@ -27,7 +28,6 @@ public class ServerApp implements Servlet {
   public void init(ServletConfig config) throws ServletException {
     //l 이 클래스의 인스턴스가 생성된 후 tomcat이 제일 먼저 호출하는 메서드
     //l ==> 보통 이 클래스가 작업하는데 필요한 객체를 준비한다
-    
     this.config = config;
 
     logger.info("Spring IoC 컨테이너 준비 ...");
