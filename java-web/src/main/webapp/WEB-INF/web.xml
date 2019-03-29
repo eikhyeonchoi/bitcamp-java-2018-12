@@ -85,6 +85,19 @@
     </servlet-mapping>
     
     
+    <servlet>
+      <servlet-name>bitcamp.ex04.Servlet05</servlet-name>
+      <servlet-class>bitcamp.ex04.Servlet05</servlet-class>
+      <multipart-config>
+        <max-file-size>10000000</max-file-size>
+      </multipart-config>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>bitcamp.ex04.Servlet05</servlet-name>
+      <url-pattern>/ex04/s5</url-pattern>
+    </servlet-mapping>
+    
+    
     
     
     

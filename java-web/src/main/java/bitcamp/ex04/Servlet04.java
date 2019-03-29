@@ -1,18 +1,33 @@
 // 멀티파트 파일 업로드 처리하기 - apache 라이브러리 사용
 package bitcamp.ex04;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 @WebServlet("/ex04/s4")
 public class Servlet04 extends GenericServlet {
   
   private static final long serialVersionUID = 1L;
+  private String uploadDir;
+  
+  @Override
+  public void init() throws ServletException {
+    this.uploadDir = this.getServletContext().getRealPath("/upload");
+    
+  }
 
   @Override
   public void service(ServletRequest req, ServletResponse res)
@@ -37,26 +52,70 @@ public class Servlet04 extends GenericServlet {
     // 테스트
     // - http://localhost:8080/java-web/ex04/test04.html 실행
     //
-    req.setCharacterEncoding("UTF-8");
+    // req.setCharacterEncoding("UTF-8");
 
     // getParameter()가 null을 리턴한다는 것을 확인하기 위해 
     // 파라미터 모두 String으로 받는다.
-    String age = req.getParameter("age");
-    String name = req.getParameter("name");
-    String photo = req.getParameter("photo");
+    // ==> 멀티파트로 전송된 데이터는 getParameter()로 받을 수 없다
+    /*
+    */
     
-    res.setContentType("text/plain;charset=UTF-8");
-    PrintWriter out = res.getWriter();
-    out.printf("이름=%s\n", name);
-    out.printf("나이=%s\n", age);
-    out.printf("사진=%s\n", photo);
-  }
-}
+    // ==> 멀티파트 데이터를 분석하여 FileItem객체에 담아 줄 공장을 준비한다
+    DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
+    
+    // ==> 공장 객체를 사용해 클라이언트가 보낸 데이터를 처리할 객체를 준비한다
+    ServletFileUpload multiPartDataHandler = new ServletFileUpload(fileItemFactory);
+    
+    // ==> 분석할 데이터를 보관할 맵 객체를 준비한다
+    HashMap<String, String> paramMap = new HashMap<>();
+    
+    
+    
+    // ==> 멀티파트 데이터 처리기를 이용해 클라이언트 요청을 분석하기
+    try {
+      List<FileItem> parts = multiPartDataHandler.parseRequest((HttpServletRequest)req);
+      
+      for(FileItem part : parts) {
+        if(part.isFormField()) {
+          paramMap.put(part.getFieldName(), part.getString("UTF-8"));
+          
+        } else {
+          // 파트의 데이터가 파일이라면
+          String filename = UUID.randomUUID().toString();
+          
+          File file = new File(this.uploadDir+"/"+filename);
+          
+          part.write(file);
+          
+          paramMap.put(part.getFieldName(), filename);
+        }
+      } // for
+      
+      res.setContentType("text/html;charset=UTF-8");
+      PrintWriter out = res.getWriter();
+      
+      out.printf("<html>");
+      out.printf("<head><title>Servlet04</title></head>");
+      out.printf("<body><h1> 파일 업로드 결과</h1>");
+      out.printf("이름=%s<br>\n", paramMap.get("name"));
+      out.printf("나이=%s<br>\n", paramMap.get("age"));
+      out.printf("사진=%s<br>\n", paramMap.get("photo"));
+      out.printf("<img src='../upload/%s'>\n",paramMap.get("photo"));
+      out.printf("</body></html>");
+      
+    } catch (Exception e) {
+      e.printStackTrace();
+    } // try
+  }// service
+} // end of class
+
+
 
 // <form> 태그의 enctype을 "multipart/form-data" 로 설정하면,
 // 웹 브라우저가 데이터를 전송할 때 다음과 같은 형식으로 보낸다.
 // 요청 프로토콜에서 Content-Type을 확인하라.
 // 
+
 /*
 POST /java-web/ex04/s4 HTTP/1.1
 Host: 192.168.0.4:8080
