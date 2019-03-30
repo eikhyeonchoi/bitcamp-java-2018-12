@@ -20,7 +20,6 @@ public class ServerApp extends HttpServlet {
   
   @Override
   public void init() throws ServletException {
-    
     logger.info("IoC컨테이너 준비");
     iocContainer = new AnnotationConfigApplicationContext(AppConfig.class);
     
