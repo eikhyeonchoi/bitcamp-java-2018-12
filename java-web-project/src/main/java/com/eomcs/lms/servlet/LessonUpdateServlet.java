@@ -8,7 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.lms.InitServlet;
+import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.service.LessonService;
 
@@ -20,7 +20,7 @@ public class LessonUpdateServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    LessonService lessonService = InitServlet.iocContainer.getBean(LessonService.class);
+    LessonService lessonService = ((ApplicationContext) this.getServletContext().getAttribute("iocContainer")).getBean(LessonService.class);
 
     Lesson lesson = new Lesson();
     lesson.setNo(Integer.parseInt(request.getParameter("no")));
@@ -31,6 +31,11 @@ public class LessonUpdateServlet extends HttpServlet {
     lesson.setTotalHours(Integer.parseInt(request.getParameter("totalHours")));
     lesson.setDayHours(Integer.parseInt(request.getParameter("dayHours")));
 
+    if (lessonService.update(lesson) > 0) {
+      response.sendRedirect("list");
+      return;
+    }
+
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
 
@@ -39,13 +44,7 @@ public class LessonUpdateServlet extends HttpServlet {
         + "<meta http-equiv='Refresh' content='1;url=list'>"
         + "</head>");
     out.println("<body><h1>수업 변경</h1>");
-
-    if (lessonService.update(lesson) == 0) {
-      out.println("<p>해당 번호의 수업이 없습니다.</p>");
-    } else { 
-      out.println("<p>변경했습니다.</p>");
-    }
-
+    out.println("<p>해당 번호의 수업이 없습니다.</p>");
     out.println("</body></html>");
   }
 

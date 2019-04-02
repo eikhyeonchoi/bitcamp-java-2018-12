@@ -7,7 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.lms.InitServlet;
+import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
@@ -19,14 +19,21 @@ public class MemberSearchServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    MemberService memberService = InitServlet.iocContainer.getBean(MemberService.class);
+    MemberService memberService = ((ApplicationContext) this.getServletContext().getAttribute("iocContainer")).getBean(MemberService.class);
     
     String keyword = request.getParameter("keyword");
     List<Member> members = memberService.list(keyword);
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-    out.println("<html><head><title>회원 검색</title></head>");
+    
+    out.println("<html>");
+    out.println("<head>");
+    out.println("<title>회원 검색</title>");
+    if(members.size() == 0) {
+      out.println("<meta http-equiv='refresh' content='1;url=list'");
+    }
+    out.println("</head>");
     out.println("<body><h1>회원 검색</h1>");
     out.println("<table border='1'>");
     out.println("<tr><th>번호</th><th>이름</th><th>이메일</th><th>전화</th><th>가입일</th></tr>");

@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.lms.InitServlet;
+import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
 
@@ -20,8 +20,8 @@ public class BoardDetailServlet extends HttpServlet {
       throws ServletException, IOException {
     
     // Spring IoC 컨테이너에서 BoardService 객체를 꺼낸다.
-    BoardService boardService = 
-        InitServlet.iocContainer.getBean(BoardService.class);
+    
+    BoardService boardService = ((ApplicationContext) this.getServletContext().getAttribute("iocContainer")).getBean(BoardService.class);
     
     int no = Integer.parseInt(request.getParameter("no"));
     

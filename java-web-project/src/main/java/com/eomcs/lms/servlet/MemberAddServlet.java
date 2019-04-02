@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import com.eomcs.lms.InitServlet;
+import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
@@ -21,7 +21,6 @@ public class MemberAddServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     
@@ -59,14 +58,14 @@ public class MemberAddServlet extends HttpServlet {
     out.println("</form>");
     out.println("</body>");
     out.println("</html>");
-  }
+  } // doGet
   
   
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    MemberService memberService = InitServlet.iocContainer.getBean(MemberService.class);
+    MemberService memberService = ((ApplicationContext) this.getServletContext().getAttribute("iocContainer")).getBean(MemberService.class);
     
     Member member = new Member();
     member.setName(request.getParameter("name"));
@@ -84,17 +83,8 @@ public class MemberAddServlet extends HttpServlet {
     }
 
     memberService.add(member);
-    
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-    out.println("<html><head>"
-        + "<title>회원 등록</title>"
-        + "<meta http-equiv='Refresh' content='1;url=list'>"
-        + "</head>");
-    out.println("<body><h1>회원 등록</h1>");
-    out.println("<p>저장하였습니다.</p>");
-    out.println("</body></html>");
-  }
+    response.sendRedirect("list");
+  } // doPost
   
 
 }

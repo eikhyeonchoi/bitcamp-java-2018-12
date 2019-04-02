@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import com.eomcs.lms.InitServlet;
+import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
@@ -26,20 +26,20 @@ import com.eomcs.lms.service.PhotoBoardService;
 public class PhotoBoardAddServlet extends HttpServlet {
 
   String uploadDir; 
-      
+
   @Override
   public void init() throws ServletException {
     this.uploadDir = this.getServletContext().getRealPath(
         "/upload/photoboard");
-  }
+  } // init
+
   
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    LessonService lessonService = 
-        InitServlet.iocContainer.getBean(LessonService.class);
-    
+    LessonService lessonService = ((ApplicationContext) this.getServletContext().getAttribute("iocContainer")).getBean(LessonService.class);
+
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
 
@@ -97,13 +97,14 @@ public class PhotoBoardAddServlet extends HttpServlet {
     out.println("</form>");
     out.println("</body>");
     out.println("</html>");
-  }
+  } // doGet
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    PhotoBoardService photoBoardService = InitServlet.iocContainer.getBean(PhotoBoardService.class);
+    PhotoBoardService photoBoardService =
+        ((ApplicationContext) this.getServletContext().getAttribute("iocContainer")).getBean(PhotoBoardService.class);
 
     PhotoBoard board = new PhotoBoard();
     board.setTitle(request.getParameter("title"));
@@ -111,37 +112,39 @@ public class PhotoBoardAddServlet extends HttpServlet {
 
     ArrayList<PhotoFile> files = new ArrayList<>();
     Collection<Part> photos = request.getParts();
-    
+
     for (Part photo : photos) {
       if (photo.getSize() == 0 || !photo.getName().equals("photo")) 
         continue;
-      
+
       String filename = UUID.randomUUID().toString();
       photo.write(uploadDir + "/" + filename);
-      
+
       PhotoFile file = new PhotoFile();
       file.setFilePath(filename);
       files.add(file);
     }
     board.setFiles(files);
 
+    if (board.getLessonNo() != 0 && files.size() > 0) {
+      photoBoardService.add(board);
+      response.sendRedirect("list");
+      return;
+    } 
+
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-    out.println("<html><head>" + "<title>사진 등록</title>"
-        + "<meta http-equiv='Refresh' content='1;url=list'>" + "</head>");
+    out.printf("<html>"
+        + "<head>" 
+        + "<title>사진 등록</title>"
+        + "<meta http-equiv='Refresh' content='1;url=add'>\n");
+    out.println("</head>");
     out.println("<body><h1>사진 등록</h1>");
-
-    if (board.getLessonNo() == 0) {
-      out.println("<p>사진 또는 파일을 등록할 수업을 선택하세요.</p>");
-      
-    } else if (files.size() == 0) {
-      out.println("<p>최소 한 개의 사진 파일을 등록해야 합니다.</p>");
-
-    } else {
-      photoBoardService.add(board);
-      out.println("<p>저장하였습니다.</p>");
-    }
+    out.println("<p>사진 또는 파일을 등록할 수업을 선택하세요.</p>");
+    out.println("<p>최소 한 개의 사진 파일을 등록해야 합니다.</p>");
     out.println("</body></html>");
-  }
+  } // doPost
+  
+  
 
 }

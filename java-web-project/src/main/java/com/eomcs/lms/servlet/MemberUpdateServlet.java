@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import com.eomcs.lms.InitServlet;
+import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
@@ -22,7 +22,7 @@ public class MemberUpdateServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    MemberService memberService = InitServlet.iocContainer.getBean(MemberService.class);
+    MemberService memberService = ((ApplicationContext) this.getServletContext().getAttribute("iocContainer")).getBean(MemberService.class);
 
     Member member = new Member();
     member.setNo(Integer.parseInt(request.getParameter("no")));
@@ -40,20 +40,20 @@ public class MemberUpdateServlet extends HttpServlet {
       member.setPhoto(filename);
     }
 
+    if (memberService.update(member) > 0) {
+      response.sendRedirect("list");
+      return;
+    }
+
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-    
+
     out.println("<html><head>"
         + "<title>회원 변경</title>"
         + "<meta http-equiv='Refresh' content='1;url=list'>"
         + "</head>");
     out.println("<body><h1>회원 변경</h1>");
-
-    if (memberService.update(member) == 0) {
-      out.println("<p>해당 번호의 회원이 없습니다.</p>");
-    } else { 
-      out.println("<p>변경했습니다.</p>");
-    }
+    out.println("<p>해당 번호의 회원이 없습니다.</p>");
 
     out.println("</body></html>");
   }

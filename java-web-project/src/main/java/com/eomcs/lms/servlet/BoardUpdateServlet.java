@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.lms.InitServlet;
+import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
 
@@ -18,32 +18,33 @@ public class BoardUpdateServlet extends HttpServlet {
   protected void doPost(
       HttpServletRequest request, 
       HttpServletResponse response)
-      throws ServletException, IOException {
-    
-    BoardService boardService = InitServlet.iocContainer.getBean(BoardService.class);
+          throws ServletException, IOException {
+
+    BoardService boardService = ((ApplicationContext) this.getServletContext().getAttribute("iocContainer")).getBean(BoardService.class);
 
     Board board = new Board();
     board.setNo(Integer.parseInt(request.getParameter("no")));
     board.setContents(request.getParameter("contents"));
     
+    if (boardService.update(board) > 0) {
+      response.sendRedirect("list");
+      return;
+    }
+
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-    
+
     out.println("<html><head>"
         + "<title>게시물 변경</title>"
-        + "<meta http-equiv='Refresh' content='1;url=list'>"
         + "</head>");
     out.println("<body><h1>게시물 변경</h1>");
-    
-    if (boardService.update(board) == 0) {
-      out.println("<p>해당 번호의 게시물이 없습니다.</p>");
-    } else { 
-      out.println("<p>변경했습니다.</p>");
-    }
-    
+    out.println("<p>해당 번호의 게시물이 없습니다.</p>");
     out.println("</body></html>");
+    
+    response.setHeader("refresh", "1;url=list");
+    
   }
- 
+
 }
 
 

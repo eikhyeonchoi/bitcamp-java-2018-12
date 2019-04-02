@@ -17,6 +17,10 @@
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>  
   
+  <listener>
+    <listener-class>com.eomcs.lms.listener.ContextLoaderListener</listener-class>
+  </listener>
+  
 </web-app>
 
 
