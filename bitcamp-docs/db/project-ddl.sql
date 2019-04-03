@@ -28,6 +28,9 @@ create table lms_member (
   cdt datetime default now() comment '등록일'
 ) comment '회원';
 
+create unique index UIX_lms_member_email
+  on lms_member(email asc);
+
 create table lms_board(
   board_id int not null auto_increment primary key comment '게시물 식별 번호', 
   conts text not null comment '게시물 내용',

@@ -30,7 +30,9 @@ public class BoardDeleteServlet extends HttpServlet {
         + "<title>게시물 삭제</title>"
         + "<meta http-equiv='Refresh' content='1;url=list'>"
         + "</head>");
+    
     out.println("<body>");
+    
     request.getRequestDispatcher("/board3/header").include(request, response);
     
     out.println("<h1>게시물 삭제</h1>");
@@ -42,6 +44,7 @@ public class BoardDeleteServlet extends HttpServlet {
     }
     
     request.getRequestDispatcher("/board3/footer").include(request, response);
+    
     out.println("</body></html>");
   }
 

@@ -18,6 +18,7 @@ public class MemberDetailServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    request.setCharacterEncoding("UTF-8");
     MemberService memberService = InitServlet.iocContainer.getBean(MemberService.class);
 
     int no = Integer.parseInt(request.getParameter("no"));

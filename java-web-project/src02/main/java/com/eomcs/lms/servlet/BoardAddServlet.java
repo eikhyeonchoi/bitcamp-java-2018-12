@@ -40,7 +40,7 @@ public class BoardAddServlet extends HttpServlet {
     out.println("</form>");
     out.println("</body>");
     out.println("</html>");
-  } // doGet
+  }
   
   @Override
   protected void doPost(
@@ -54,10 +54,11 @@ public class BoardAddServlet extends HttpServlet {
     Board board = new Board();
     board.setContents(request.getParameter("contents")
         + ":" + request.getRemoteAddr());
+    
     boardService.add(board);
     
     response.sendRedirect("list");
-  } // doPost
+  }
 }
 
 

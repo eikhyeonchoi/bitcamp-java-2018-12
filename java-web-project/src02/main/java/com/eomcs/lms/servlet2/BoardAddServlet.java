@@ -24,14 +24,14 @@ public class BoardAddServlet extends HttpServlet {
         InitServlet.iocContainer.getBean(BoardService.class);
     
     Board board = new Board();
-    board.setContents(request.getParameter("contents"));
+    board.setContents(request.getParameter("contents")
+        + ":" + request.getRemoteAddr());
     
     boardService.add(board);
     
     PrintWriter out = response.getWriter();
     out.println("<h1>게시물 등록</h1>");
     out.println("<p>저장하였습니다.</p>");
-    
   }
 }
 

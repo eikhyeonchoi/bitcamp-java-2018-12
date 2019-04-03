@@ -79,8 +79,7 @@ public class BoardAddServlet extends HttpServlet {
     
     request.getRequestDispatcher("/board3/footer").include(request, response);
     
-    out.println("</body>");
-    out.println("</html>");
+    out.println("</body></html>");
     
   }
 }

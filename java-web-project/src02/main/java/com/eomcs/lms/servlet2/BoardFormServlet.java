@@ -6,9 +6,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.lms.InitServlet;
-import com.eomcs.lms.domain.Board;
-import com.eomcs.lms.service.BoardService;
 
 @SuppressWarnings("serial")
 @WebServlet("/board2/form")
@@ -32,10 +29,11 @@ public class BoardFormServlet extends HttpServlet {
     out.println("</table>");
     out.println("<p>");
     out.println("  <button type='submit'>등록</button>");
-    out.println("  <a href='board2?command=list'>목록</a>");
+    out.println("  <a href='list'>목록</a>");
     out.println("</p>");
     out.println("</form>");
-  } // doGet
+  }
+
 }
 
 

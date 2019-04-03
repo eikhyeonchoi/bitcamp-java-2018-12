@@ -18,8 +18,8 @@ public class BoardUpdateServlet extends HttpServlet {
   protected void doPost(
       HttpServletRequest request, 
       HttpServletResponse response)
-          throws ServletException, IOException {
-
+      throws ServletException, IOException {
+    
     BoardService boardService = InitServlet.iocContainer.getBean(BoardService.class);
 
     Board board = new Board();
@@ -30,11 +30,12 @@ public class BoardUpdateServlet extends HttpServlet {
       response.sendRedirect("list");
       return;
     }
-
-    response.setHeader("refresh", "1;url=list");
+    
+    response.setHeader("Refresh", "2;url=list");
+    
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-
+    
     out.println("<html><head>"
         + "<title>게시물 변경</title>"
         + "</head>");
@@ -42,7 +43,7 @@ public class BoardUpdateServlet extends HttpServlet {
     out.println("<p>해당 번호의 게시물이 없습니다.</p>");
     out.println("</body></html>");
   }
-
+ 
 }
 
 

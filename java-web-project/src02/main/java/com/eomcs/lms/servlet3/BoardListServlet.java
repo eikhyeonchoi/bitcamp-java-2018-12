@@ -11,8 +11,8 @@ import com.eomcs.lms.InitServlet;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
 
-@SuppressWarnings("serial")
 @WebServlet("/board3/list")
+@SuppressWarnings("serial")
 public class BoardListServlet extends HttpServlet {
   
   @Override
@@ -35,7 +35,6 @@ public class BoardListServlet extends HttpServlet {
     request.getRequestDispatcher("/board3/header").include(request, response);
     
     out.println("<h1>게시물 목록</h1>");
-    
     out.println("<p><a href='add'>새 글</a></p>");
     out.println("<table border='1'>");
     out.println("<tr> <th>번호</th> <th>제목</th> <th>등록일</th> <th>조회수</th> </tr>");
@@ -50,12 +49,9 @@ public class BoardListServlet extends HttpServlet {
     
     out.println("</table>");
     
-    out.println("<a href='../index.html'>처음화면</a>");
-    
     request.getRequestDispatcher("/board3/footer").include(request, response);
     
     out.println("</body></html>");
-    
   }
 
 }

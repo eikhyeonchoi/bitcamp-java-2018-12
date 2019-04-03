@@ -12,13 +12,13 @@ import com.eomcs.lms.service.BoardService;
 @SuppressWarnings("serial")
 @WebServlet("/board/delete")
 public class BoardDeleteServlet extends HttpServlet {
-
+  
   @Override
   protected void doGet(
       HttpServletRequest request, 
       HttpServletResponse response)
-          throws ServletException, IOException {
-
+      throws ServletException, IOException {
+    
     BoardService boardService = InitServlet.iocContainer.getBean(BoardService.class);
 
     int no = Integer.parseInt(request.getParameter("no"));
@@ -27,7 +27,8 @@ public class BoardDeleteServlet extends HttpServlet {
       response.sendRedirect("list");
       return;
     }
-
+    
+    // <meta> 태그를 이용하여 리프래시 하기
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     

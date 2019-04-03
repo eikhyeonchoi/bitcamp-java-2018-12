@@ -22,8 +22,12 @@ public class PhotoBoardDetailServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    LessonService lessonService = InitServlet.iocContainer.getBean(LessonService.class);
-    PhotoBoardService photoBoardService = InitServlet.iocContainer.getBean(PhotoBoardService.class);
+
+    PhotoBoardService photoBoardService = 
+        InitServlet.iocContainer.getBean(PhotoBoardService.class);
+    LessonService lessonService = 
+        InitServlet.iocContainer.getBean(LessonService.class);
+    
     response.setContentType("text/html;charset=UTF-8");
 
     int no = Integer.parseInt(request.getParameter("no"));
@@ -74,7 +78,8 @@ public class PhotoBoardDetailServlet extends HttpServlet {
       }
       
       out.println("  </select></td>");
-      out.println("</tr>");
+      out.println("</tr>");      
+      
       
       out.println("<tr>");
       out.println("  <td colspan='2'>최소 한 개의 사진 파일을 등록해야 합니다.</td>");

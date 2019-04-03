@@ -82,6 +82,7 @@ public class MemberAddServlet extends HttpServlet {
       photo.write(uploadDir + "/" + filename);
       member.setPhoto(filename);
     }
+
     memberService.add(member);
     
     response.setContentType("text/html;charset=UTF-8");

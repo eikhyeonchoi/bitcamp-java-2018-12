@@ -13,18 +13,30 @@ import com.eomcs.lms.service.BoardService;
 @SuppressWarnings("serial")
 @WebServlet("/board/add")
 public class BoardAddServlet extends HttpServlet {
+
+  @Override
+  public void init() throws ServletException {
+    System.out.println("add");
+    System.out.println("add");
+    System.out.println("add");
+    System.out.println("add");
+    System.out.println("add");
+    System.out.println("add");
+    System.out.println("add");
+    System.out.println("add");
+  }
   
   @Override
   protected void doGet(
       HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     
     out.println("<htm>");
     out.println("<head><title>새 글</title></head>");
     out.println("<body>");
+    request.getRequestDispatcher("/header").include(request, response);
     out.println("<h1>새 글</h1>");
     out.println("<form action='add' method='post'>");
     out.println("<table border='1'>");

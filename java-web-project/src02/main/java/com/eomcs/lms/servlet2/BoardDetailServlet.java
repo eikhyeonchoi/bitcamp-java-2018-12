@@ -52,7 +52,7 @@ public class BoardDetailServlet extends HttpServlet {
           "<tr> <th>조회수</th> <td>%d</td> </tr>", board.getViewCount()));
       
       out.println("</table>");
-      out.println("<p><a href='board2?command=list'>목록</a>"
+      out.println("<p><a href='board2'>목록</a>"
           + " <a href='board2?command=delete&no=" + board.getNo() + "'>삭제</a>"
           + " <button type='submit'>변경</button>"
           + "<p>");

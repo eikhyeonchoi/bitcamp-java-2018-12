@@ -32,7 +32,6 @@ public class BoardDeleteServlet extends HttpServlet {
     } else { 
       out.println("<p>삭제했습니다.</p>");
     }
-    
   }
 
 

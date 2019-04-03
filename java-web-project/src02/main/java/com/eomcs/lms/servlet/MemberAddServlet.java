@@ -84,6 +84,7 @@ public class MemberAddServlet extends HttpServlet {
     }
 
     memberService.add(member);
+    
     response.sendRedirect("list");
   }
   

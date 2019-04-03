@@ -26,7 +26,9 @@ public class PhotoBoardListServlet extends HttpServlet {
     List<PhotoBoard> photoBoards = photoBoardService.list(0, null);
 
     out.println("<html><head><title>사진 목록</title></head>");
-    out.println("<body><h1>사진 목록</h1>");
+    out.println("<body>");
+    out.println("<h1>사진 목록</h1>");
+    request.getRequestDispatcher("/header").include(request, response);
     out.println("<p><a href='add'>사진 추가</a></p>");
     out.println("<table border='1'>");
     out.println("<tr> <th>번호</th> <th>제목</th> <th>등록일</th> <th>조회수</th> "

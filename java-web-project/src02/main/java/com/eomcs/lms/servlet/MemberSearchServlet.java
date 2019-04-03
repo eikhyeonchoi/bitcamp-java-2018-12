@@ -26,14 +26,7 @@ public class MemberSearchServlet extends HttpServlet {
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-    
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<title>회원 검색</title>");
-    if(members.size() == 0) {
-      out.println("<meta http-equiv='refresh' content='1;url=list'");
-    }
-    out.println("</head>");
+    out.println("<html><head><title>회원 검색</title></head>");
     out.println("<body><h1>회원 검색</h1>");
     out.println("<table border='1'>");
     out.println("<tr><th>번호</th><th>이름</th><th>이메일</th><th>전화</th><th>가입일</th></tr>");

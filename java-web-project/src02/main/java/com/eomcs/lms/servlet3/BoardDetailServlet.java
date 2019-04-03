@@ -32,7 +32,9 @@ public class BoardDetailServlet extends HttpServlet {
     
     out.println("<html><head><title>게시물 조회</title></head>");
     out.println("<body>");
+    
     request.getRequestDispatcher("/board3/header").include(request, response);
+    
     out.println("<h1>게시물 조회</h1>");
     
     if (board == null) {
@@ -61,7 +63,9 @@ public class BoardDetailServlet extends HttpServlet {
           + "<p>");
       out.println("</form>");
     }
+    
     request.getRequestDispatcher("/board3/footer").include(request, response);
+    
     out.println("</body></html>");
   }
 

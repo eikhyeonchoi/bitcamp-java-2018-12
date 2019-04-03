@@ -42,10 +42,7 @@ public class BoardListServlet extends HttpServlet {
             board.getCreatedDate(), 
             board.getViewCount()));
     }
-    out.println("</table>");
-    out.println("<a href='../index.html'>처음화면</a>");
-    out.println("</body></html>");
-    
+    out.println("</table></body></html>");
   }
 
 }

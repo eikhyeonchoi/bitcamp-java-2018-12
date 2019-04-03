@@ -41,7 +41,6 @@ public class BoardListServlet extends HttpServlet {
             board.getViewCount()));
     }
     out.println("</table>");
-    
   }
 
 }

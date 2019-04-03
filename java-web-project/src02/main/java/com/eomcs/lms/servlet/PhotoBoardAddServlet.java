@@ -124,22 +124,27 @@ public class PhotoBoardAddServlet extends HttpServlet {
       files.add(file);
     }
     board.setFiles(files);
+
     
-    if (board.getLessonNo() != 0 && files.size() > 0) {
+    
+    response.setContentType("text/html;charset=UTF-8");
+    PrintWriter out = response.getWriter();
+    out.println("<html><head>" + "<title>사진 등록</title>"
+        + "<meta http-equiv='Refresh' content='1;url=list'>" + "</head>");
+    out.println("<body><h1>사진 등록</h1>");
+
+    if (board.getLessonNo() == 0) {
+      out.println("<p>사진 또는 파일을 등록할 수업을 선택하세요.</p>");
+      
+    } else if (files.size() == 0) {
+      out.println("<p>최소 한 개의 사진 파일을 등록해야 합니다.</p>");
+
+    } else {
       photoBoardService.add(board);
       response.sendRedirect("list");
       return;
-    } else {
-      response.setContentType("text/html;charset=UTF-8");
-      PrintWriter out = response.getWriter();
-      out.println("<html><head>" + "<title>사진 등록</title>"
-          + "<meta http-equiv='Refresh' content='1;url=list'>" + "</head>");
-      out.println("<body><h1>사진 등록</h1>");
-      out.println("<p>사진 또는 파일을 등록할 수업을 선택하세요.</p>");
-      out.println("<p>최소 한 개의 사진 파일을 등록해야 합니다.</p>");
-      out.println("</body></html>");
     }
-
-  } // doPost
+    out.println("</body></html>");
+  }
 
 }
