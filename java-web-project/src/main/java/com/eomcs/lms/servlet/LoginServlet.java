@@ -21,23 +21,14 @@ public class LoginServlet extends HttpServlet {
 
   @Override
   public void init() throws ServletException {
+    System.out.println("LoginServlet.init()");
     
   }
   @Override
   protected void doGet(
       HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    System.out.println("login");
-    System.out.println("login");
-    System.out.println("login");
-    System.out.println("login");
-    System.out.println("login");
-    System.out.println("login");
-    System.out.println("login");
-    System.out.println("login");
-    System.out.println("login");
-    System.out.println("login");
-    System.out.println("login");
+    System.out.println("LoginServlet.doGet()");
 
     // 도대체 어느 페이지에서 이리로 보냈나?
     // => 요청 헤더 Referer의 값을 세션에 보관한다.
@@ -91,6 +82,7 @@ public class LoginServlet extends HttpServlet {
   protected void doPost(
       HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
+    System.out.println("LoginServlet.doPost()");
 
     // 이메일 저장을 처리한다. 
     Cookie cookie;

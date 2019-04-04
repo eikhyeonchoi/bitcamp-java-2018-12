@@ -15,10 +15,16 @@ import com.eomcs.lms.service.BoardService;
 @WebServlet("/board/list")
 public class BoardListServlet extends HttpServlet {
   
+  
+  @Override
+  public void init() throws ServletException {
+    System.out.println("BoardListServlet.init()");
+  }
   @Override
   protected void doGet(
       HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+    System.out.println("BoardListServlet.doGet()");
     
     // Spring IoC 컨테이너에서 BoardService 객체를 꺼낸다.
     BoardService boardService = ((ApplicationContext) this.getServletContext().getAttribute("iocContainer")).getBean(BoardService.class);
