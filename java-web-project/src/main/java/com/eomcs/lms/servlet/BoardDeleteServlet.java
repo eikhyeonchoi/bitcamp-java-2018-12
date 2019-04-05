@@ -27,21 +27,10 @@ public class BoardDeleteServlet extends HttpServlet {
       response.sendRedirect("list");
       return;
     }
-
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
+    request.setAttribute("error.title", "게시물 변경");
+    request.setAttribute("error.content", "해당 번호의 게시물이 없습니다.");
     
-    out.println("<html><head>"
-        + "<title>게시물 삭제</title>"
-        + "<meta http-equiv='Refresh' content='1;url=list'>"
-        + "</head>");
-    out.println("<body><h1>게시물 삭제</h1>");
-    out.println("<p>해당 번호의 게시물이 없습니다.</p>");
-    out.println("</body></html>");
-    
-    // response.setHeader("refresh", "1;url=list");
-    
-    
+    request.getRequestDispatcher("/error.jsp").forward(request, response);
   } // doGet
 
 

@@ -15,38 +15,14 @@ import com.eomcs.lms.service.BoardService;
 public class BoardAddServlet extends HttpServlet {
 
   @Override
-  public void init() throws ServletException {
-    System.out.println("BoardAddServlet.init()");
-  }
-  
-  @Override
   protected void doGet(
       HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     System.out.println("BoardAddServlet.doGet()"); 
     
     response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
+    request.getRequestDispatcher("/board/form.jsp").include(request, response);
     
-    out.println("<htm>");
-    out.println("<head><title>새 글</title></head>");
-    out.println("<body>");
-    request.getRequestDispatcher("/header").include(request, response);
-    out.println("<h1>새 글</h1>");
-    out.println("<form action='add' method='post'>");
-    out.println("<table border='1'>");
-    out.println("<tr>");
-    out.println("  <th>내용</th>");
-    out.println("  <td><textarea name='contents' rows='5' cols='50'></textarea></td>");
-    out.println("</tr>");
-    out.println("</table>");
-    out.println("<p>");
-    out.println("  <button type='submit'>등록</button>");
-    out.println("  <a href='list'>목록</a>");
-    out.println("</p>");
-    out.println("</form>");
-    out.println("</body>");
-    out.println("</html>");
   } // doGet
   
   @Override
