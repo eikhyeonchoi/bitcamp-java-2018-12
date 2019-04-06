@@ -16,11 +16,6 @@ import com.eomcs.lms.service.BoardService;
 @WebServlet("/board/list")
 public class BoardListServlet extends HttpServlet {
   
-  
-  @Override
-  public void init() throws ServletException {
-    System.out.println("BoardListServlet.init()");
-  }
   @Override
   protected void doGet(
       HttpServletRequest request, HttpServletResponse response)

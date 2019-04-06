@@ -20,32 +20,15 @@ public class LessonListServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    LessonService lessonService = ((ApplicationContext) this.getServletContext().getAttribute("iocContainer")).getBean(LessonService.class);
+    LessonService lessonService = 
+        ((ApplicationContext) this.getServletContext().getAttribute("iocContainer")).getBean(LessonService.class);
     List<Lesson> lessons = lessonService.list();
+    
+    request.setAttribute("lessons", lessons);
 
     response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-    out.println("<html><head><title>수업 목록</title></head>");
-    out.println("<body>");
-    request.getRequestDispatcher("/header").include(request, response);
-    out.println("<h1>수업 목록</h1>");
-    out.println("<p><a href='add'>새 수업</a></p>");
-    out.println("<table border='1'>");
-    out.println("<tr><th>번호</th><th>수업</th><th>기간</th><th>총교육시간</th></tr>");
-
-    for (Lesson lesson : lessons) {
-      out.println(String.format(
-          "<tr><td>%d</td><td><a href='detail?no=%1$d'>%s</a></td>"
-              + "<td>%s ~ %s</td><td>%d</td></tr>", 
-              lesson.getNo(), 
-              lesson.getTitle(), 
-              lesson.getStartDate(), 
-              lesson.getEndDate(), 
-              lesson.getTotalHours()));
-    }
-    out.println("</table>");
-    out.println("<a href='../index.html'>처음화면</a>");
-    out.println("</body></html>");
+    request.getRequestDispatcher("list.jsp").include(request, response);
+    
 
   }
 }

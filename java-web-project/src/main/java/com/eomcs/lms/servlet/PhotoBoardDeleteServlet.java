@@ -21,11 +21,7 @@ public class PhotoBoardDeleteServlet extends HttpServlet {
     PhotoBoardService photoBoardService =((ApplicationContext) this.getServletContext().getAttribute("iocContainer")).getBean(PhotoBoardService.class);
 
     response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-    out.println("<html><head>" + "<title>사진 삭제</title>"
-        + "<meta http-equiv='Refresh' content='1;url=list'>" + "</head>");
-    out.println("<body><h1>사진 삭제</h1>");
-
+    
     int no = Integer.parseInt(request.getParameter("no"));
 
     if(photoBoardService.delete(no) > 0) {
@@ -33,9 +29,9 @@ public class PhotoBoardDeleteServlet extends HttpServlet {
       return;
     }
     
-    out.println("<p>해당 번호의 사진이 없습니다.</p>");
-    out.println("<p>삭제했습니다.</p>");
-    out.println("</body></html>");
+    request.setAttribute("error.title", "사진 등록 오류");
+    request.setAttribute("error.content", "최소 한 개의 사진 파일을 등록해야 합니다");
+    request.getRequestDispatcher("../error.jsp").include(request, response);
 
   } // doGet
 

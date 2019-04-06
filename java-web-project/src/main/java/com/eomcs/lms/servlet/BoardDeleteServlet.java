@@ -18,7 +18,6 @@ public class BoardDeleteServlet extends HttpServlet {
       HttpServletRequest request, 
       HttpServletResponse response)
           throws ServletException, IOException {
-
     BoardService boardService = ((ApplicationContext) this.getServletContext().getAttribute("iocContainer")).getBean(BoardService.class);
 
     int no = Integer.parseInt(request.getParameter("no"));

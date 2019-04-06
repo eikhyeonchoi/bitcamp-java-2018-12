@@ -24,33 +24,21 @@ public class MemberSearchServlet extends HttpServlet {
     String keyword = request.getParameter("keyword");
     List<Member> members = memberService.list(keyword);
 
+    request.setAttribute("members", members);
+    
     response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
     
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<title>회원 검색</title>");
-    if(members.size() == 0) {
-      out.println("<meta http-equiv='refresh' content='1;url=list'");
+    if (members.size() == 0) {
+      request.setAttribute("error.title", "게시물 변경");
+      request.setAttribute("error.content", "해당 번호의 게시물이 없습니다.");
+      request.getRequestDispatcher("../error.jsp").include(request, response);
+      return;
     }
-    out.println("</head>");
-    out.println("<body><h1>회원 검색</h1>");
-    out.println("<table border='1'>");
-    out.println("<tr><th>번호</th><th>이름</th><th>이메일</th><th>전화</th><th>가입일</th></tr>");
     
-    for (Member member : members) {
-      out.println(String.format(
-          "<tr><td>%d</td><td><a href='detail?no=%1$d'>%s</a></td>"
-          + "<td>%s</td><td>%s</td><td>%s</td></tr>", 
-          member.getNo(), 
-          member.getName(), 
-          member.getEmail(), 
-          member.getTel(), 
-          member.getRegisteredDate()));
-    }
-    out.println("</table>");
-    out.println("<p><a href='list'>목록</a></p>");
-    out.println("</body></html>");
+    
+    response.setContentType("text/html;charset=UTF-8");
+    request.getRequestDispatcher("search.jsp").include(request, response);
+    
   }
   
 }

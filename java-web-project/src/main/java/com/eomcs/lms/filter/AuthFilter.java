@@ -22,13 +22,11 @@ public class AuthFilter implements Filter {
   public void init(FilterConfig filterConfig) throws ServletException {
     this.filterConfig = filterConfig;
     contextRootPath = filterConfig.getServletContext().getContextPath();
-    System.out.println("AuthFilter.init()");
   } // init
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
-    System.out.println("AuthFilter.doFilter() 시작");
     
     HttpServletRequest httpRequest = (HttpServletRequest) request;
     HttpServletResponse httpResponse = (HttpServletResponse) response;
@@ -46,7 +44,6 @@ public class AuthFilter implements Filter {
     }
     
     chain.doFilter(request, response);
-    System.out.println("AuthFilter.doFilter() 끝");
   } // doFilter
   
 } // end of class

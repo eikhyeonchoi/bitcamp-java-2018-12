@@ -7,10 +7,10 @@
 <meta http-equiv="Refresh" content="1;url=<%=request.getHeader("Referer")%>">
 </head>
 <body>
-  <jsp:include page="/header.jsp" />
 
-  <h1><%=request.getAttribute("error.title")%></h1>
-  <p><%=request.getAttribute("error.content")%></p>
+  <jsp:include page="/header.jsp" />
+  <h1><%= request.getAttribute("error.title")%></h1>
+  <p><%= request.getAttribute("error.content")%></p>
 
 </body>
 </html>

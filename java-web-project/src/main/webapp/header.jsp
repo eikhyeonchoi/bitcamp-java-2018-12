@@ -13,8 +13,7 @@
     if (loginUser == null) {
   %>
 
-  <a href='<%=contextRootPath%>/auth/login'>로그인</a>
-
+  <a href='<%= contextRootPath%>/auth/login'>로그인</a>
   <%
     } else {
   %>

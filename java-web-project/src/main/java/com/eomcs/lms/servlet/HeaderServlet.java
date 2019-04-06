@@ -21,7 +21,7 @@ public class HeaderServlet extends HttpServlet {
     Member loginUser = (Member) session.getAttribute("loginUser");
 
     String contextRootPath = this.getServletContext().getContextPath();
-
+    
     PrintWriter out = response.getWriter();
 
     out.println("<header>");

@@ -42,7 +42,7 @@ if(board == null) {
     </table>
 
     <p>
-      <a href='list'>목록</a> <a href='delete?no=<%= board.getNo()%>'>삭제</a>
+      <a href='list'>목록</a> <a href='delete?no= <%= board.getNo()%>'>삭제</a>
       <button type='submit'>변경</button>
     <p>
   </form>
