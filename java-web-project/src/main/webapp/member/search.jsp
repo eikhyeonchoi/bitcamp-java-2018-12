@@ -3,15 +3,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
-<%
-List<Member> members = (List<Member>) request.getAttribute("members");
-%>
 <html>
 <head>
 <title>회원 검색(JSP)</title>
 </head>
 <jsp:include page="/header.jsp"/>
-
+<jsp:useBean id="members" type="java.util.List<Member>" scope="request"/>
 <body>
 	<h1>회원 검색(JSP)</h1>
 	

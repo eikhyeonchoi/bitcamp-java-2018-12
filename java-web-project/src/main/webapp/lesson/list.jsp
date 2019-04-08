@@ -3,9 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
-<%
-List<Lesson> lessons = (List<Lesson>) request.getAttribute("lessons");
-%>
 <html>
 <head>
 <title>수업 목록(JSP)</title>
@@ -23,7 +20,7 @@ List<Lesson> lessons = (List<Lesson>) request.getAttribute("lessons");
 			<th>기간</th>
 			<th>총교육시간</th>
 		</tr>
-		
+    <jsp:useBean id="lessons" type="java.util.List<Lesson>" scope="request"/>
 		<% for (Lesson l : lessons) { %>
 		<tr>
 			<td><%= l.getNo() %></td>

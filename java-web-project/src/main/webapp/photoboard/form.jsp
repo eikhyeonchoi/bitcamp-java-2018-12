@@ -3,14 +3,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
-<%
-List<Lesson> lessons = (List<Lesson>) request.getAttribute("lessons");
-%>
 <html>
 <head>
 <title>새 사진(JSP)</title>
 </head>
 <body>
+  <jsp:useBean id="lessons" type="java.util.List<Lesson>" scope="request"/>
   <jsp:include page="/header.jsp"/>
 	<h1>새 사진(JSP)</h1>
 	

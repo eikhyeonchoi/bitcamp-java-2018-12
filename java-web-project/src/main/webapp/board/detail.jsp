@@ -1,9 +1,6 @@
 <%@page import="com.eomcs.lms.domain.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
   trimDirectiveWhitespaces="true"%>
-<%
-Board board = (Board)request.getAttribute("board");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +9,8 @@ Board board = (Board)request.getAttribute("board");
 <body>
 
   <jsp:include page="/header.jsp"/>
-  <h1>게시물 조회</h1>
+  <h1>게시물 조회(JSP)</h1>
+  <jsp:useBean id="board" scope="request" type="com.eomcs.lms.domain.Board"/>
 <%
 if(board == null) {
 %>

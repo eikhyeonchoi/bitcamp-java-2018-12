@@ -3,9 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
-<%
-List<Member> members = (List<Member>)request.getAttribute("list");
-%>
 <html>
 <head>
 <title>회원 목록(JSP)</title>
@@ -14,6 +11,7 @@ List<Member> members = (List<Member>)request.getAttribute("list");
 <h1>회원 목록(JSP)</h1>
 
 <body>
+  <jsp:useBean id="members" type="java.util.List<Member>" scope="request"/>
   <jsp:include page="/header.jsp"/>
   
 	<p>

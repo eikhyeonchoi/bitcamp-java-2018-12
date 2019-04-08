@@ -22,7 +22,7 @@ public class MemberListServlet extends HttpServlet {
     MemberService memberService = ((ApplicationContext) this.getServletContext().getAttribute("iocContainer")).getBean(MemberService.class);
 
     List<Member> members = memberService.list(null);
-    request.setAttribute("list", members);
+    request.setAttribute("members", members);
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();

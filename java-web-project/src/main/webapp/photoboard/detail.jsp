@@ -6,17 +6,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
-<%
-PhotoBoard photoBoard = (PhotoBoard) request.getAttribute("photoBoard");
-List<Lesson> lessons = (List<Lesson>) request.getAttribute("lessons");
-List<PhotoFile> files = (List<PhotoFile>) request.getAttribute("files");
-%>
 <html>
 <head>
 <title>사진 조회(JSP)</title>
 </head>
 <body>
-
+  <jsp:useBean id="lessons" type="java.util.List<Lesson>" scope="request"/>
+  <jsp:useBean id="files" type="java.util.List<PhotoFile>" scope="request"/>
+  <jsp:useBean id="photoBoard" type="com.eomcs.lms.domain.PhotoBoard" scope="request"/>
+  
   <jsp:include page="/header.jsp"/>
 	<h1>사진 조회(JSP)</h1>
 	

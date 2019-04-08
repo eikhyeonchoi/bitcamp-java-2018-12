@@ -2,9 +2,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
   trimDirectiveWhitespaces="true"%>
-<%
-  List<Board> list = (List<Board>) request.getAttribute("list");
-%>
+
 <!DOCTYPE html>
 
 <html>
@@ -24,6 +22,7 @@
       <th>등록일</th>
       <th>조회수</th>
     </tr>
+    <jsp:useBean id="list" scope="request" type="java.util.List<Board>"/>
     <%
       for (Board board : list) {
     %>

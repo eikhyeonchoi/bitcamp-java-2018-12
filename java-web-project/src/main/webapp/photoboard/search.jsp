@@ -3,16 +3,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
-<%
-List<PhotoBoard> photoBoards = (List<PhotoBoard>)request.getAttribute("photoBoards");
-
-%>
 <html>
 <head>
 <title>사진 검색(JSP)</title>
 </head>
 
 <body>
+  <jsp:useBean id="photoBoards" type="java.util.List<PhotoBoard>" scope="request"/>
   <jsp:include page="/header.jsp"/>
   
 	<h1>사진 검색 결과(JSP)</h1>

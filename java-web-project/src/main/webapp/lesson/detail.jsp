@@ -2,9 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
-<%
-Lesson lesson = (Lesson) request.getAttribute("lesson");
-%>
 <html>
 <head>
 <title>수업 조회(JSP)</title>
@@ -13,6 +10,7 @@ Lesson lesson = (Lesson) request.getAttribute("lesson");
   <jsp:include page="/header.jsp"/>
   
 	<h1>수업 조회(JSP)</h1>
+  <jsp:useBean id="lesson" type="com.eomcs.lms.domain.Lesson" scope="request"/>
 	
 	<form action='update' method='post'>
 		<table border='1'>

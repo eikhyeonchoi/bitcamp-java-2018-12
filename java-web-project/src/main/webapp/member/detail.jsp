@@ -2,9 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="false"%>
 <!DOCTYPE html>
-<%
-Member member = (Member) request.getAttribute("member");
-%>
 <html>
 <head>
 <title>회원 조회(JSP)</title>
@@ -13,7 +10,7 @@ Member member = (Member) request.getAttribute("member");
   <jsp:include page="/header.jsp"/>
   
 	<h1>회원 조회(JSP)</h1>
-	
+	<jsp:useBean id="member" type="com.eomcs.lms.domain.Member" scope="request"/>
 	<%
 	if (member == null) {
 	%>
