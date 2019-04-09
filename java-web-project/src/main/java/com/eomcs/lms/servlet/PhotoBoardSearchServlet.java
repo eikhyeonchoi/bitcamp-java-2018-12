@@ -1,7 +1,7 @@
 package com.eomcs.lms.servlet;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,13 +16,15 @@ import com.eomcs.lms.service.PhotoBoardService;
 public class PhotoBoardSearchServlet extends HttpServlet {
 
   @Override
-  protected void doGet(
-      HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
-
-    PhotoBoardService photoBoardService =((ApplicationContext) this.getServletContext().getAttribute("iocContainer")).getBean(PhotoBoardService.class);
-
-    request.setCharacterEncoding("UTF-8");
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    
+    // Spring IoC 컨테이너에서 BoardService 객체를 꺼낸다.
+    ServletContext sc = this.getServletContext();
+    ApplicationContext iocContainer = 
+        (ApplicationContext) sc.getAttribute("iocContainer");
+    PhotoBoardService photoBoardService = 
+        iocContainer.getBean(PhotoBoardService.class);
     int lessonNo = 0;
     try {
       lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
@@ -31,16 +33,17 @@ public class PhotoBoardSearchServlet extends HttpServlet {
 
     String searchWord = null;
     try {
-      String keyword = request.getParameter("searchWord");
+      String keyword = request.getParameter("keyword");
       if (keyword.length() > 0)
         searchWord = keyword;
     } catch (Exception e) { // 사용자가 검색어를 입력하지 않았으면 무시한다.
     }
 
     List<PhotoBoard> boards = photoBoardService.list(lessonNo, searchWord);
-    request.setAttribute("photoBoards", boards);
-
-    response.setContentType("text/html;charset=UTF-8");
-    request.getRequestDispatcher("search.jsp").include(request, response);
+    request.setAttribute("list", boards);
+    
+    // 뷰 컴포넌트의 URL을 ServletRequest 보관소에 저장한다.
+    request.setAttribute("viewUrl", "/photoboard/search.jsp");
   }
+
 }

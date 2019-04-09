@@ -43,8 +43,6 @@
       member_id = #{value}
   </select>
   
-  
-  
   <select id="findByEmailPassword" resultMap="memberMap" parameterType="map">
     select 
       <include refid="default-columns"/>, 
@@ -55,8 +53,6 @@
       email = #{email}
       and pwd = password(#{password})
   </select>
-  
-  
   
   <select id="findByKeyword" resultMap="memberMap" parameterType="string">
     <bind name="pattern1" value="'%' + _parameter + '%'"/>

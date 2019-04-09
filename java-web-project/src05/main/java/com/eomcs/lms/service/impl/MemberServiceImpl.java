@@ -48,12 +48,13 @@ public class MemberServiceImpl implements MemberService {
   public int delete(int no) {
     return memberDao.delete(no);
   }
-
+  
   @Override
   public Member get(String email, String password) {
-    HashMap<String, Object> paramMap = new HashMap<String, Object>();
+    HashMap<String,Object> paramMap = new HashMap<>();
     paramMap.put("email", email);
     paramMap.put("password", password);
+    
     return memberDao.findByEmailPassword(paramMap);
   }
 }

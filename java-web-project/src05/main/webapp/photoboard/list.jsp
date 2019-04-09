@@ -1,48 +1,54 @@
-<%@page import="java.util.List"%>
 <%@page import="com.eomcs.lms.domain.PhotoBoard"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-<!DOCTYPE html>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+  trimDirectiveWhitespaces="true"%>
 <%
-List<PhotoBoard> photoBoards = (List<PhotoBoard>)request.getAttribute("photoBoards");
+  List<PhotoBoard> boards = (List<PhotoBoard>) request.getAttribute("list");
 %>
+<!DOCTYPE html>
 <html>
 <head>
-<title>사진 목록(JSP)</title>
+<title>사진 목록</title>
 </head>
 <body>
-	<jsp:include page="/header.jsp" />
-	<h1>사진 목록(JSP)</h1>
+  <jsp:include page="/header.jsp" />
+  <h1>사진 목록(JSP)</h1>
+  <p>
+    <a href='add'>새 사진</a>
+  </p>
+  <table border='1'>
+    <tr>
+      <th>번호</th>
+      <th>제목</th>
+      <th>등록일</th>
+      <th>조회수</th>
+      <th>수업</th>
+    </tr>
+ 
+    <%for (PhotoBoard board : boards) {%>
+    <tr>
+      <td><%=board.getNo() %></td>
+      <td><a href='detail?no=<%=board.getNo()%>'><%=board.getTitle() %></a></td>
+      <td><%=board.getCreatedDate() %></td>
+      <td><%=board.getViewCount() %></td>
+      <td><%=board.getLessonNo() %></td>
+    </tr>
+    <%} %>
+  </table>
 
-	<p>
-		<a href='add'>사진 추가</a>
-	</p>
-	<table border='1'>
-		<tr>
-			<th>번호</th>
-			<th>제목</th>
-			<th>등록일</th>
-			<th>조회수</th>
-			<th>수업 번호</th>
-		</tr>
-		
-		<% for (PhotoBoard p : photoBoards) {%>
-		<tr>
-			<td><%= p.getNo()%></td>
-			<td><a href='detail?no=<%= p.getNo()%>'><%= p.getTitle() %></a></td>
-			<td><%= p.getCreatedDate() %></td>
-			<td><%= p.getViewCount() %></td>
-			<td><%= p.getLessonNo() %></td>
-		</tr>
-		<% } %>
-	</table>
-	
-	<form action='search'>
-		수업번호: <input type='number' name='lessonNo'> 
-		검색어: <input type='text' name='searchWord'>
-		<button type='submit'>검색</button>
-	</form>
-	<a href='../index.html'>처음화면</a>
-	
+  <form action='search'>
+    수업번호: <input type='text' name='lessonNo'> 검색어: 
+    <input type='text' name='keyword'>
+    <button type='submit'>검색</button>
+  </form>
+
 </body>
 </html>
+
+
+
+
+
+
+
+

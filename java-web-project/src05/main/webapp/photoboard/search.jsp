@@ -1,41 +1,50 @@
 <%@page import="com.eomcs.lms.domain.PhotoBoard"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+  trimDirectiveWhitespaces="true"%>
 <%
-List<PhotoBoard> photoBoards = (List<PhotoBoard>)request.getAttribute("photoBoards");
-
+  List<PhotoBoard> boards = (List<PhotoBoard>) request.getAttribute("list");
 %>
+<!DOCTYPE html>
 <html>
 <head>
-<title>사진 검색(JSP)</title>
+<title>사진 검색</title>
 </head>
-
 <body>
-  <jsp:include page="/header.jsp"/>
-  
-	<h1>사진 검색 결과(JSP)</h1>
-	<table border='1'>
-		<tr>
-			<th>번호</th>
-			<th>제목</th>
-			<th>등록일</th>
-			<th>조회수</th>
-			<th>수업</th>
-		</tr>
-		<% for (PhotoBoard p : photoBoards) { %>
-		<tr>
-			<td>1</td>
-			<td><a href='detail?no=<%= p.getNo()%>'><%= p.getTitle() %></a></td>
-			<td><%= p.getCreatedDate() %></td>
-			<td><%= p.getViewCount() %></td>
-			<td><%= p.getLessonNo() %></td>
-		</tr>
-		<% } %>
-	</table>
-	<p>
-		<a href='list'>목록</a>
-	</p>
+  <jsp:include page="/header.jsp" />
+  <h1>사진 검색</h1>
+  <p>
+    <a href='add'>새 사진</a>
+  </p>
+  <p>
+    <a href='../'>시스템 목록</a>
+  </p>
+  <table border='1'>
+    <tr>
+      <th>번호</th>
+      <th>제목</th>
+      <th>등록일</th>
+      <th>조회수</th>
+      <th>수업</th>
+    </tr>
+
+    <%for (PhotoBoard board : boards) {%>
+    <tr>
+      <td><%=board.getNo() %></td>
+      <td><a href='detail?no=<%=board.getNo()%>'><%=board.getTitle() %></a></td>
+      <td><%=board.getCreatedDate() %></td>
+      <td><%=board.getViewCount() %></td>
+      <td><%=board.getLessonNo() %></td>
+    </tr>
+    <%} %>
+  </table>
 </body>
 </html>
+
+
+
+
+
+
+
+
