@@ -25,6 +25,7 @@ public class RequestMappingAnnotationBeanPostProcessor implements BeanPostProces
 
   @Override
   public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+    System.out.println("RequestMappingAnnotationBeanPostProcessor.postProcessAfterInitialization()");
     
     // 각 객체에 대해 @RequestMapping 메서드를 찾는다.
     Method[] methods = bean.getClass().getMethods();
@@ -37,6 +38,7 @@ public class RequestMappingAnnotationBeanPostProcessor implements BeanPostProces
         continue;
 
       // RequestMapping이 붙은 메서드를 찾았으면 그 정보를 RequestMappingHandler에 담는다.
+      System.out.println("bean : " + bean + "  bean name : " + beanName + "  method name : " + m.getName());
       RequestMappingHandler handler = new RequestMappingHandler(bean, m);
 
       // 그리고 이 요청 핸들러(RequestMapping 애노테이션이 붙은 메서드)를 저장한다.

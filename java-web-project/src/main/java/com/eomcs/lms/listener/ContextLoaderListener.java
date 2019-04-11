@@ -30,6 +30,8 @@ public class ContextLoaderListener implements ServletContextListener {
   
   @Override
   public void contextInitialized(ServletContextEvent sce) {
+    System.out.println("ContextLoaderListener.contextInitialized()");
+    System.out.println("ContextLoaderListener.contextInitialized()");
     // Spring IoC 컨테이너가 객체를 생성하기 위해서 설정 클래스를 사용하기 전에
     // WebAppConfig 클래스에 대해 SerlvetContext를 주입한다.
     WebAppConfig.servletContext = sce.getServletContext();
