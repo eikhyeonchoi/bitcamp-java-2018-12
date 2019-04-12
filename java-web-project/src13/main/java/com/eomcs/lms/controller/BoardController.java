@@ -20,7 +20,12 @@ public class BoardController {
   }
   
   @RequestMapping("/board/add")
-  public String add(Board board) throws Exception {
+  public String add(
+      @RequestParam("contents") String contents) throws Exception {
+    
+    Board board = new Board();
+    board.setContents(contents);
+    
     boardService.add(board);
     
     return "redirect:list";

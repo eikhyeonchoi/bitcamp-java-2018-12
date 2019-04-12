@@ -15,7 +15,7 @@
 - HTTP 요청을 수행하는 코드를 만든다.
 </pre>
 
-<h2>HTTP 요청하기</h2>    
+<h2>HTTP 요청하기</h2>
 <c:url value="http://localhost:8080/java-web/jstl/ex05.jsp" var="url1">
     <c:param name="name" value="홍길동"/>
     <c:param name="age" value="20"/>

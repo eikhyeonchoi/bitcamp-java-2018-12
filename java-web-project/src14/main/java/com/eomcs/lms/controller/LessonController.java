@@ -22,7 +22,6 @@ public class LessonController {
   @RequestMapping("/lesson/add")
   public String add(Lesson lesson) throws Exception {
     lessonService.add(lesson);
-
     return "redirect:list";
   }
   
@@ -55,7 +54,6 @@ public class LessonController {
   
   @RequestMapping("/lesson/update")
   public String update(Lesson lesson) throws Exception {
-
     if (lessonService.update(lesson) == 0)
       throw new Exception("해당 번호의 수업이 없습니다.");
     

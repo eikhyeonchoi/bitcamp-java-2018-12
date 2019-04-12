@@ -13,9 +13,16 @@ plugins {
 
 repositories {
     jcenter()
+    
+    flatDir {
+      dirs 'lib'
+    }
 }
 
 dependencies {
+    // 특정 디렉토리에 있는 라이브러리 파일을 가져오기
+    compile name: 'java-web-library'
+
     testImplementation 'junit:junit:4.12'
 
     // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api

@@ -22,8 +22,6 @@
     Exception e = (Exception) request.getAttribute("error");
     e.printStackTrace(new PrintWriter(out));
 %>    
-
-
   </pre>
 </body>
 </html>

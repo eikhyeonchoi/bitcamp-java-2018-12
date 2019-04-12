@@ -81,7 +81,8 @@ public class MemberController {
   }
 
   @RequestMapping("/member/update")
-  public String update(Member member, 
+  public String update(
+      Member member,
       @RequestParam("photoFile") Part photoFile) throws Exception {
 
     if (photoFile.getSize() > 0) {

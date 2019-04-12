@@ -28,8 +28,5 @@ public class MybatisConfig {
     
     return factoryBean.getObject();
   }
-  
-  
-  
 
 }

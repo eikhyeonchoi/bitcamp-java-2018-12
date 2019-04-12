@@ -23,7 +23,6 @@ public class AuthController {
   public String form(
       @RequestHeader("Referer") String refererUrl,
       HttpSession session) {
-    System.out.println("==============================>" + refererUrl);
     session.setAttribute(REFERER_URL, refererUrl);
     return "/auth/form.jsp";
   }

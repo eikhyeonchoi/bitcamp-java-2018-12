@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import com.eomcs.lms.context.RequestMapping;
-import com.eomcs.lms.context.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
 
@@ -20,7 +20,12 @@ public class BoardController {
   }
   
   @RequestMapping("/board/add")
-  public String add(Board board) throws Exception {
+  public String add(
+      @RequestParam("contents") String contents) throws Exception {
+    
+    Board board = new Board();
+    board.setContents(contents);
+    
     boardService.add(board);
     
     return "redirect:list";
