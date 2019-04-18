@@ -36,9 +36,6 @@ dependencies {
     // https://mvnrepository.com/artifact/org.mybatis/mybatis
     compile group: 'org.mybatis', name: 'mybatis', version: '3.5.0'
 
-    // https://mvnrepository.com/artifact/org.springframework/spring-context
-    // compile group: 'org.springframework', name: 'spring-context', version: '5.1.5.RELEASE'
-
     // https://mvnrepository.com/artifact/org.springframework/spring-webmvc
     compile group: 'org.springframework', name: 'spring-webmvc', version: '5.1.6.RELEASE'
 
