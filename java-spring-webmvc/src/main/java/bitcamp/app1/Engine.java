@@ -9,7 +9,6 @@ public class Engine {
   public String toString() {
     return "Engine [model=" + model + ", cc=" + cc + ", valve=" + valve + "]";
   }
-  
   public String getModel() {
     return model;
   }
