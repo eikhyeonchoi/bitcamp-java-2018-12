@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <style>
+  /* 태그 너비와 높이
+    content-box(기본)
+      => width = 콘텐츠 너비
+      => height = 콘텐츠 높이
+    border-box
+    => width = 콘텐츠너비 + 좌,우 패딩너비 + 좌,우 테두리너비 + 좌,우 마진너비
+    => height = 콘텐츠높이 + 좌,우 패딩높이 + 좌,우 테두리높이+ 좌,우 마진높이
+  */
+  body {
+    border: solid 1px black;
+  }
+
+  div {
+    border: 30px solid red;
+    padding: 30px;
+    padding-right: 80px;
+    margin: 10px;
+    background-color: blue;
+    color: white;
+    width: 200px;
+    height: 100px;
+  }
+
+  #content {
+    background-color: gray;
+    /* border-box라고 설정하면 width, height는
+       content크기가 아니라 박스 크기가 된다
+     
+       이 설정을 해준다면, 
+       padding, border, margin등을 만질 때
+       박스 사이즈는 고정되어 있고 
+       content크기가 줄어들었다가, 늘어났다가 하는 것이다
+
+       설정을 해주지 않는다면
+       width, height 크기는 content 크기가 되고
+       margin, padding, border의 크기를 늘린다면
+       화면이 틀어짐
+       
+     */
+    box-sizing: border-box;
+  }
+
+  </style>
+</head>
+<body>
+  <div id="menu">menu</div>
+  <div id="content">content</div>
+
+</body>
+</html>
+
+
+
+
+<!-- -->
