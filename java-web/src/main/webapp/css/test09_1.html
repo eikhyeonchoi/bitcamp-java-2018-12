@@ -7,16 +7,30 @@
   /* display 속성 : block, inline, inline-block
     => block
        => 한 줄을 모두 점유한다.
-       => 자신의 너비와 높이를 가질 수 있다.
+       => 자신의 너비와 높이를 가질 수 있다. (width, height를 가질 수 있다)
        => 예) h1 ~ h6, div, p, address, ul, ol 등
+       (width, height, padding, margin를 가질 수 있음 oooooooooooooooooooooooooooooooooo)
+       (width, height, padding, margin를 가질 수 있음 oooooooooooooooooooooooooooooooooo)
+       (width, height, padding, margin를 가질 수 있음 oooooooooooooooooooooooooooooooooo)
+
+
+
     => inline
        => 한 줄 속에 포함되어 다른 태그와 그 줄을 함께 공유한다.
        => 자신의 너비와 높이를 가질 수 없다.
           콘텐츠의 크기에 따라 너비와 높이가 결정된다.
-       => a, i, b, strong, span 등
-    => inline-block
+       => a, i, b, strong, span 등 (i, b 쓰지 말자)
+       (width, height를 가질 수 없음 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)
+       (width, height를 가질 수 없음 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)
+       (width, height를 가질 수 없음 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)
+
+
+    => inline-block ==> inline 이면서 자신의 width, heigh를 가지고 싶은경우 사용함
        => inline 처럼 한 줄을 다른 태그와 공유한다.
        => block 처럼 자신의 너비와 높이를 가질 수 있다.
+       (width, height, padding, margin를 가질 수 있음 oooooooooooooooooooooooooooooooooo)
+       (width, height, padding, margin를 가질 수 있음 oooooooooooooooooooooooooooooooooo)
+       (width, height, padding, margin를 가질 수 있음 oooooooooooooooooooooooooooooooooo)
   */
   body {
     font-family: '맑은 고딕', 굴림체, 'Apple SD Gothic Neo', sans-serif;
@@ -36,7 +50,7 @@
     /*padding: 10px;
     margin: 10px;*/
     display: inline-block;
-    width: 70px;
+    width: 100px;
     height: 50px;
   }
 

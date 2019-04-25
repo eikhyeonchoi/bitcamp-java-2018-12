@@ -99,6 +99,13 @@
     delete from lms_member 
     where member_id = #{value}
   </delete>
+  
+    <select id="countAll" resultType="int">
+    select 
+      count(*)
+    from
+      lms_member
+  </select>
 </mapper>
 
 
