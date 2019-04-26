@@ -6,8 +6,9 @@ import java.util.List;
 import com.eomcs.lms.domain.Lesson;
 
 public interface LessonDao {
-  int insert(Lesson lesson);
+  List<Lesson> findAll();
   List<Lesson> findAll(HashMap<String, Object> params);
+  int insert(Lesson lesson);
   Lesson findByNo(int no);
   int update(Lesson lesson);
   int delete(int no);

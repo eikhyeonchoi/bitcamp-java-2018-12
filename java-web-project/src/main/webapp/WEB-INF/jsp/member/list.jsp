@@ -13,16 +13,15 @@
 <title>회원 목록</title>
 </head>
 <body>
-
   <jsp:include page="../header.jsp" />
   <div class="container">
 
-    <div class="bit-list">
       <h1>회원 목록</h1>
       <p>
         <a href='form' class="btn btn-primary btn-sm">새 회원</a>
       </p>
 
+    <div id="bit-list">
       <table class='table table-hover'>
         <thead>
           <tr>
@@ -47,11 +46,11 @@
         </tbody>
       </table>
 
-      <form action='search'>
-        <input type='text' name='keyword'>
-        <button type='submit'>검색</button>
+      <form action="search" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" name="keyword" placeholder="검색" aria-label="검색">
+        <button class="btn btn-outline-success my-2 my-sm-0">검색</button>
       </form>
-
+      
     </div>
     <!-- <div class="bit-list"> -->
     <nav aria-label="목록 페이지 이동">

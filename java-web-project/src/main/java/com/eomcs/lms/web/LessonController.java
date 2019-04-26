@@ -64,6 +64,7 @@ public class LessonController {
     model.addAttribute("pageNo", pageNo);
     model.addAttribute("pageSize", pageSize);
     model.addAttribute("totalPage", totalPage);
+    
     return "lesson/list";
   }
   

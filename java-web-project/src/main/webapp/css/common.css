@@ -8,8 +8,19 @@ h1 {
 	/* border: solid red 1px; */
 	/* text-align: center; */
 }
+
 div{
 	/* margin: 5px;  */ 
+}
+
+.img-thumbnail {
+	max-width: 100px;
+	max-height: 100px;
+}
+
+div#bit-img {
+	width: 10%;
+	height: auto;
 }
 
 div#bit-detail {

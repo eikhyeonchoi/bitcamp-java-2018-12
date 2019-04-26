@@ -24,7 +24,7 @@
       tot_hr
   </sql>
   
-  <select id="findAll" resultMap="lessonMap" parameterMap="map">
+  <select id="findAll" resultMap="lessonMap" parameterType="map">
     select 
       <include refid="default-columns"/> 
     from 

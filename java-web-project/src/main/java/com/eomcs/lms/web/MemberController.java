@@ -70,7 +70,7 @@ public class MemberController {
     if(pageNo < 1) pageNo = 1;
     else if (pageNo > totalPage) pageNo = totalPage;
     
-    List<Member> members = memberService.list(null);
+    List<Member> members = memberService.list(null,pageNo, pageSize);
     
     model.addAttribute("list", members);
     model.addAttribute("pageNo", pageNo);
@@ -82,7 +82,7 @@ public class MemberController {
   
   @GetMapping("search")
   public void search(String keyword, Model model) {
-    List<Member> members = memberService.list(keyword);
+    List<Member> members = memberService.list(keyword, 0, 0);
     model.addAttribute("list", members);
   }
 
