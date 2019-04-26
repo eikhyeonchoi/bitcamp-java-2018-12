@@ -45,14 +45,13 @@
           </c:forEach>
         </tbody>
       </table>
-
+      
       <form action="search" class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" name="keyword" placeholder="검색" aria-label="검색">
         <button class="btn btn-outline-success my-2 my-sm-0">검색</button>
       </form>
-      
-    </div>
-    <!-- <div class="bit-list"> -->
+    </div><!-- <div class="bit-list"> -->
+    
     <nav aria-label="목록 페이지 이동">
       <ul class="pagination justify-content-center">
         <li class="page-item ${pageNo <= 1 ? 'disabled' : '' }"><a class="page-link"

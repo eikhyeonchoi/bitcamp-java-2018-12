@@ -18,11 +18,6 @@ div{
 	max-height: 100px;
 }
 
-div#bit-img {
-	width: 10%;
-	height: auto;
-}
-
 div#bit-detail {
 	min-height: 500px;
 }
@@ -34,7 +29,6 @@ div#bit-list {
 div.container {
   width: 800px;
 }
-
 
 #bit-login-state {
 	margin: 0px 10px;

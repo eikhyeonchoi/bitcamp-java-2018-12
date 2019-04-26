@@ -19,29 +19,35 @@
     <h1>회원 검색</h1>
 
     <div id="bit-list">
-      <table border='1'>
-        <tr>
-          <th>번호</th>
-          <th>이름</th>
-          <th>이메일</th>
-          <th>전화</th>
-          <th>가입일</th>
-        </tr>
-
-
-        <c:forEach items="${list}" var="member">
+    
+    <table class='table table-hover'>
+        <thead>
           <tr>
-            <td>${member.no}</td>
-            <td><a href='detail?no=${member.no}'>${member.name}</a></td>
-            <td>${member.email}</td>
-            <td>${member.tel}</td>
-            <td>${member.registeredDate}</td>
+            <th scope="col">번호</th>
+            <th scope="col">이름</th>
+            <th scope="col">이메일</th>
+            <th scope="col">전화</th>
+            <th scope="col">가입일</th>
           </tr>
-        </c:forEach>
+        </thead>
+
+        <tbody>
+          <c:forEach items="${list}" var="member">
+            <tr>
+              <th scope="row">${member.no}</th>
+              <td><a href='${member.no}'>${member.name}</a></td>
+              <td>${member.email}</td>
+              <td>${member.tel}</td>
+              <td>${member.registeredDate}</td>
+            </tr>
+          </c:forEach>
+        </tbody>
       </table>
+      
       <p>
-        <a href='.'>목록</a>
+        <a class="btn btn-primary" href='.'>목록</a>
       </p>
+      
     </div>
     
   </div><!-- <div class="container"> -->

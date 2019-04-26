@@ -1,92 +1,144 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-  trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+  pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+  crossorigin="anonymous">
+<link rel="stylesheet" href="${contextRootPath}/css/common.css" />
+
 <title>사진 조회</title>
 </head>
 <body>
 
   <jsp:include page="../header.jsp" />
+  <div class="container">
 
-  <h1>사진 조회</h1>
-<c:choose>
-<c:when test="${empty board}">
-  <p>해당 사진을 찾을 수 없습니다.</p>
-</c:when>
-<c:otherwise>
-  <form action='update' method='post' enctype='multipart/form-data'>
-    <table border='1'>
-      <tr>
-        <th>번호</th>
-        <td><input name='no' value='${board.no}' readonly></td>
-      </tr>
-      <tr>
-        <th>제목</th>
-        <td><input name='title' value='${board.title}'></td>
-      </tr>
-      <tr>
-        <th>등록일</th>
-        <td>${board.createdDate}</td>
-      </tr>
-      <tr>
-        <th>조회수</th>
-        <td>${board.viewCount}</td>
-      </tr>
-      <tr>
-        <th>수업</th>
-        <td><select name='lessonNo'>
-          <c:forEach items="${lessons}" var="lesson">
-            <option value="${lesson.no}"
-              ${board.lessonNo == lesson.no ? "selected" : ""}>${lesson.title}(${lesson.startDate}
-              ~
-              ${lesson.endDate})
-            </option>
-          </c:forEach>
-        </select></td>
-      </tr>
-      <tr>
-        <td colspan='2'>최소 한 개의 사진 파일을 등록해야 합니다.</td>
-      </tr>
-      <tr>
-        <th>사진1</th>
-        <td><input type='file' name='photo'></td>
-      </tr>
-      <tr>
-        <th>사진2</th>
-        <td><input type='file' name='photo'></td>
-      </tr>
-      <tr>
-        <th>사진3</th>
-        <td><input type='file' name='photo'></td>
-      </tr>
-      <tr>
-        <th>사진4</th>
-        <td><input type='file' name='photo'></td>
-      </tr>
-      <tr>
-        <th>사진5</th>
-        <td><input type='file' name='photo'></td>
-      </tr>
-      <tr>
-        <th>사진</th>
-        <td>
-          <c:set var="contextRootPath" value="${pageContext.servletContext.contextPath}"></c:set>
-          <c:forEach items="${board.files}" var="file"> 
-            <img src='${contextRootPath}/upload/photoboard/${file.filePath}' style='height: 80px'> 
-          </c:forEach>
-        </td>
-      </tr>
-    </table>
+    <h1>사진 조회</h1>
+    <c:choose>
+      <c:when test="${empty board}">
+        <p>해당 사진을 찾을 수 없습니다.</p>
+      </c:when>
 
-    <p>
-      <a href='.'>목록</a>
-      <a href='delete/${board.no}'>삭제</a>
-      <button type='submit'>변경</button>
-    <p>
-  </form>
-</c:otherwise>
-</c:choose>
+      <c:otherwise>
+        <form action='update' method='post'
+          enctype='multipart/form-data'>
+
+          <div class="form-group row">
+            <label for="no" class="col-sm-2 col-form-label">번호</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control-plaintext" id="no"
+                name='no' value='${board.no}' readonly>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">제목</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="title"
+                name='title' value='${board.title}'>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="createdDate" class="col-sm-2 col-form-label">작성일</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control-plaintext"
+                id="createdDate" value='${board.createdDate}'>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="viewCount" class="col-sm-2 col-form-label">조회수</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control-plaintext"
+                id="viewCount" value='${board.viewCount}'>
+            </div>
+          </div>
+
+          <div class="contents row">
+            <label for="dropdownMenuButton"
+              class="col-sm-3 col-form-label">수업</label>
+            <div class="dropdown">
+              <select class="btn btn-secondary dropdown-toggle"
+                id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"
+                name="lessonNo">
+                <c:forEach items="${lessons}" var="lesson">
+                  <option value="${lesson.no}"
+                    ${board.lessonNo == lesson.no ? "selected" : ""}>${lesson.title}(${lesson.startDate}
+                    ~ ${lesson.endDate})</option>
+                </c:forEach>
+              </select>
+            </div>
+          </div>
+          <br>
+
+          <h4>최소 한 개의 사진 파일을 등록해야 합니다</h4>
+          <div class="contents row">
+            <label for="photo" class="col-sm-2 col-form-label">사진1</label>
+            <div class="col-sm-6">
+              <input type="file" class="form-control" id='photo'
+                name='photo'>
+            </div>
+          </div>
+
+          <div class="contents row">
+            <label for="photo" class="col-sm-2 col-form-label">사진2</label>
+            <div class="col-sm-6">
+              <input type="file" class="form-control" id='photo'
+                name='photo'>
+            </div>
+          </div>
+
+          <div class="contents row">
+            <label for="photo" class="col-sm-2 col-form-label">사진3</label>
+            <div class="col-sm-6">
+              <input type="file" class="form-control" id='photo'
+                name='photo'>
+            </div>
+          </div>
+
+          <div class="contents row">
+            <label for="photo" class="col-sm-2 col-form-label">사진4</label>
+            <div class="col-sm-6">
+              <input type="file" class="form-control" id='photo'
+                name='photo'>
+            </div>
+          </div>
+
+          <div class="contents row">
+            <label for="photo" class="col-sm-2 col-form-label">사진5</label>
+            <div class="col-sm-6">
+              <input type="file" class="form-control" id='photo'
+                name='photo'>
+            </div>
+          </div>
+
+          <c:forEach items="${board.files}" var="file">
+            <img
+              src='${contextRootPath}/upload/photoboard/${file.filePath}'
+              class="img-thumbnail">
+          </c:forEach>
+          <table border='1'>
+          </table>
+
+
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <button class="btn btn-primary">변경</button>
+              <a class="btn btn-primary" href='.'>목록</a> <a
+                class="btn btn-primary" href='delete/${board.no}'>삭제</a>
+            </div>
+          </div>
+        </form>
+      </c:otherwise>
+    </c:choose>
+  </div>
+
+  <jsp:include page="../javascript.jsp" />
 </body>
 </html>

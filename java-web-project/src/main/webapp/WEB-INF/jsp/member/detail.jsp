@@ -101,7 +101,7 @@
 
   <jsp:include page="../javascript.jsp" />
 </body>
-</html><script type="text/javascript" src="js/materialize.min.js"></script>
+</html>
 
 
 <!-- 
