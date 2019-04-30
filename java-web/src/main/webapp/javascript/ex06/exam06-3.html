@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex06</title>
+<style>
+</style>
+</head>
+<body>
+<h1>이벤트 - form 데이터검증</h1>
+
+<form id="form1" action="http://www.daum.net">
+이름(*) : <input type="text" id="name"><br>
+  <button>전송</button>
+</form>
+
+<form id="form2" action="http://www.daum.net">
+이름(*) : <input type="text" id="name2"><br>
+  <button id="btn2" type="button">전송</button>
+</form>
+
+<script>
+"use strict"
+
+// <button>태그에 기본 type이 submit임
+// 그러므로 button을 클릭하는 것 자체가 submit임
+document.querySelector("#form1").onsubmit = () =>{
+  var name = document.querySelector("#name");
+  if (name.value ==""){
+    alert("필수 입력 항목이 비어 있읍니다");
+    return false; // false를 return하면 서버에 입력폼 값을 제출하지 않음
+                    // HTTP 요청을 수행하지 않는다
+  }
+  // return true; 이거나 아무것도 return하지 않는다면,
+  // 입력 폼의 값을 서버에 제출한다. 즉 HTTP 요청을 수행함
+}
+
+
+
+// 이게 좋은듯?
+// <button>태그가 type이 button이기 때문에
+// name이 비어있지 않아도, submit되지 않는다
+// 그러므로 버튼을 클릭했을시 form의 submit을 하는 코드를 추가해줘야한다
+document.querySelector("#btn2").onclick = () =>{
+  var name = document.querySelector("#name2");
+  if (name.value ==""){
+    alert("필수 입력 항목이 비어 있읍니다");
+    return;
+  }
+  
+  document.querySelector("#form2").submit();
+}
+
+
+
+</script>
+</body>
+</html>
+

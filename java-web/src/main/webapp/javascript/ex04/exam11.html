@@ -19,7 +19,7 @@ function Score(name, kor, eng, math) {
     this.kor = kor;
     this.eng = eng;
     this.math = math;
-    
+    // ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
     // 자바스크립트는 자바처럼 설계도(클래스)를 기반으로 객체를 만드는 것이 아니라 
     // 기본 객체에 필요한 변수나 함수를 추가하는 방식으로 객체를 만든다.
     // 그러다보니 sum()과 aver() 함수처럼 객체가 사용하는 함수는 
@@ -27,19 +27,22 @@ function Score(name, kor, eng, math) {
     // 즉 메모리 낭비가 발생한다.
     // 해결책?
     // => 객체가 사용하는 함수를 공유하면 메모리 낭비 문제를 해결할 수 있다.
+    // ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
     /*
     this.sum = function() { 
-        return this.kor + this.eng + this.math
+         return this.kor + this.eng + this.math
     };
     this.aver = function() { 
         return this.sum() / 3
     }
     */
 }
-
+// ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
 // 1) 자바스크립트 함수는 객체이다. 즉 "함수 = 객체 + 함수코드" 이다.
 // 2) 함수 객체는 prototype 이라는 공용 저장소를 갖고 있다.
 // 3) prototype에 저장된 프로퍼티는 그 함수를 통해 초기화된 모든 객체가 공통으로 사용할 수 있다.
+// ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
+
 Score.prototype.sum = function() { 
     return this.kor + this.eng + this.math
 }
@@ -47,7 +50,6 @@ Score.prototype.sum = function() {
 Score.prototype.aver = function() { 
     return this.sum() / 3
 }
-
 
 var scores = []; //new Array();
 scores[0] = new Score("홍길동", 100, 100, 100);

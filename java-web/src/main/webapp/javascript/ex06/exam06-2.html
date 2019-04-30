@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex06</title>
+<style>
+</style>
+</head>
+<body>
+<h1>이벤트 - form의 submit 동작을 중단시키기</h1>
+<p>form의 submit 버튼을 클릭하면 서버에 요청을 한다</p>
+<form>
+  <button>전송</button>
+</form>
+
+<form onsubmit="return false">
+  <button>전송막기111</button>
+</form>
+
+<form id="form2">
+  <button>전송막기222</button>
+</form>
+
+<form id="form3">
+  <button>전송막기333</button>
+</form>
+
+<form id="form4">
+  <!-- 일반버튼은 전송을 수행하지 않는다 -->
+  <button type="button">전송막기444</button>
+</form>
+
+<script>
+"use strict"
+
+document.querySelector("#form2").onsubmit = () =>{
+  return false;
+}
+
+document.querySelector("#form3").onsubmit = (e) =>{
+  e.preventDefault();
+}
+
+// a태그와 마찬가지로 버튼의 기본동작(버튼의 기본동작은 "submit"이다)을 막으려면
+// return false; 를 넣어준다거나, function()의 파라미터로 e(event)를 받아 e.preventDefault()를 
+// 해줘야 기본동작을 막을 수 있다
+// 가장 좋은 방법은 <button>태그의 type을 button으로 지정하는 것 
+// type을 지정하지 않으면 submit이 default이다
+
+</script>
+</body>
+</html>
+

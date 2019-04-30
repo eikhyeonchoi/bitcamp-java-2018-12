@@ -17,8 +17,13 @@ var obj = new Object();
 // 기본 객체 안에는 다음의 함수들이 들어 있다.
 console.log(obj.toString());
 console.log(obj.valueOf());
-console.log(obj.hasOwnProperty("toString"));
-console.log(obj.hasOwnProperty("hashCode"));
+console.log(obj.hasOwnProperty("toString")); // false
+console.log(obj.hasOwnProperty("hashCode")); // false
+//●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
+// 기본적으로 포함되는 property는 (원래부터 있던) hasOwnProperty에서 false를 return
+// 기본객체를 만든다음 추가한 property를 조사할 때 사용하는게 
+// hasOwnProperty이다
+// ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
 
 // 이렇게 준비되 객체에 프로퍼티를 추가하고 싶다면 다음의 문법을 사용하라!
 // 객체.프로퍼티명 = 값;
@@ -29,6 +34,11 @@ console.log(obj.hasOwnProperty("hashCode"));
 obj.title = "제목입니다.";
 obj["content"] = "내용입니다.";
 obj['viewCount'] = 120;
+//●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
+// JS에서는 객체에 추가한 값들을 property라고 부른다
+// 문자열일수도, 숫자일수도, 함수일수도, ...
+// 자바에서의 property는 setter, getter이다
+// ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
 
 // 물론 그 값으로 함수 객체의 주소를 저장할 수 있다.
 obj.plus = (a, b) => console.log("합계=", a + b);

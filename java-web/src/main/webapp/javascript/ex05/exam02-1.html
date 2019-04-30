@@ -25,6 +25,13 @@
 // => 태그의 콘텐트를 HTML 코드 그대로 리턴한다.
 // 
 var e = document.querySelector("article:first-child > p");
+console.log(e.constructor.name);
+
+// ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
+// article:first-child ==> article의 첫 자식을 찾는 것이 아님
+//                     ==> first-child의 의미는 "article이 부모의 첫째 자식이라면" 을 의미한다
+//                     ==> 위에서는 <section> 바로 밑 <article>을 의미한다
+// ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
 console.log(e)
 console.log(e.innerHTML)
 console.log("----------------------")

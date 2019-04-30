@@ -11,6 +11,7 @@
 ```
 > npm install 라이브러리명@버전명 --save 
 > npm install jquery@1.12.4 --save
+> npm install bootstrap --save
 
 라이브러리 명을 적지 않으면 package.json 파일에 등록된 모든 라이브러리를 자동으로 받는다.
 > npm install
