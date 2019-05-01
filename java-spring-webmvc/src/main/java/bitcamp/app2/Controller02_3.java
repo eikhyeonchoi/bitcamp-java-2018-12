@@ -21,7 +21,6 @@ public class Controller02_3 {
       @PathVariable String name, 
       @PathVariable String tel,
       @PathVariable String gender) {
-    
     return String.format("name: %s\n tel: %s \n gender: %s", 
         name, tel, gender);
   }

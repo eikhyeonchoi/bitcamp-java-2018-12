@@ -4,12 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet"
-  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-  crossorigin="anonymous">
-<link rel="stylesheet" href="${contextRootPath}/css/common.css" />
-
+<jsp:include page="../commonCss.jsp" />
 <title>사진 조회</title>
 </head>
 <body>
@@ -125,8 +120,7 @@
           </c:forEach>
           <table border='1'>
           </table>
-
-
+          
           <div class="form-group row">
             <div class="col-sm-10">
               <button class="btn btn-primary">변경</button>
