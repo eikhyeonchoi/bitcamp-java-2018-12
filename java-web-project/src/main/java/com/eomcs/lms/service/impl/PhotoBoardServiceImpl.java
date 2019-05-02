@@ -48,20 +48,6 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
   }
   
   @Override
-  public List<PhotoBoard> list(int pageNo, int pageSize) {
-    
-    HashMap<String, Object> params = new HashMap<>();
-    
-    params.put("size", pageSize);
-    if (pageNo <= 0 ) 
-      pageNo = 1;
-    
-    params.put("rowNo", (pageNo-1) * pageSize);
-    
-    return boardDao.forList(params);
-  }
-  
-  @Override
   public int add(PhotoBoard board) {
     int count = boardDao.insert(board);
 
@@ -116,13 +102,6 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
     fileDao.deleteByPhotoBoardNo(no);
     return boardDao.delete(no);
   }
-
-  @Override
-  public int size() {
-    return boardDao.countAll();
-  }
-
-
 }
 
 

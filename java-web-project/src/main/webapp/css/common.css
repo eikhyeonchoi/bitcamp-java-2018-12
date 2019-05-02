@@ -1,36 +1,35 @@
 @charset "UTF-8";
 
 body {
-	font-size: small;
+  font-size: small;
 }
 
-h1 {
-	/* border: solid red 1px; */
-	/* text-align: center; */
+body > header {
+  min-height: 60px;
+}
+    
+.container > h1 {
+  height: 40px;
+  /* border: 1px solid red; */
+  /* text-align: center; */
 }
 
-div{
-	/* margin: 5px;  */ 
-}
-
-.img-thumbnail {
-	max-width: 100px;
-	max-height: 100px;
-}
-
-div#bit-detail {
-	min-height: 500px;
-}
-
-div#bit-list {
-	min-height: 300px;
+div.bit-list {
+  min-height: 200px;
 }
 
 div.container {
   width: 800px;
 }
 
-#bit-login-state {
-	margin: 0px 10px;
+.bit-invisible {
+  display: none;
 }
+
+#bit-login-state {
+  margin: 0px 10px;
+}
+
+
+
 

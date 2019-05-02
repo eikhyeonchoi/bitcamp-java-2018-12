@@ -48,22 +48,26 @@ public class BoardController {
   public String list(
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="3") int pageSize,
-      // @RequestParam(defaultValue="1") int searchPage,
       Model model) {
-    if(pageSize < 3 || pageSize > 8) pageSize = 3;
-    int rowsCount = boardService.size();
-    int totalPage = (rowsCount / pageSize);
-    if (rowsCount % pageSize > 0) totalPage ++;
     
-    if(pageNo < 1) pageNo = 1;
-    else if (pageNo > totalPage) pageNo = totalPage;
+    if (pageSize < 3 || pageSize > 8) 
+      pageSize = 3;
+    
+    int rowCount = boardService.size();
+    int totalPage = rowCount / pageSize;
+    if (rowCount % pageSize > 0)
+      totalPage++;
+    
+    if (pageNo < 1) 
+      pageNo = 1;
+    else if (pageNo > totalPage)
+      pageNo = totalPage;
     
     List<Board> boards = boardService.list(pageNo, pageSize);
     model.addAttribute("list", boards);
     model.addAttribute("pageNo", pageNo);
     model.addAttribute("pageSize", pageSize);
     model.addAttribute("totalPage", totalPage);
-    model.addAttribute("rowsCount", rowsCount);
     
     return "board/list";
   }
