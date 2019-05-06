@@ -17,8 +17,13 @@
   <!-- Web MVC 관련 컴포넌트 준비 -->
   <context:component-scan base-package="com.eomcs.lms.web"/>
   
+  
+  
   <!-- @MatrixVariable 애노테이션을 활성화시키기 -->
-  <mvc:annotation-driven enable-matrix-variables="true"/>
+  <mvc:annotation-driven enable-matrix-variables="true" />
+  
+  
+  
   
   <!-- 기존의 뷰 리졸버를 대체한다. -->
   <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -26,6 +31,9 @@
     <property name="prefix" value="/WEB-INF/jsp/"/>
     <property name="suffix" value=".jsp"/>
   </bean>
+  
+  
+  
   
   <!-- 인터셉터 배치하기 -->
   <!--  

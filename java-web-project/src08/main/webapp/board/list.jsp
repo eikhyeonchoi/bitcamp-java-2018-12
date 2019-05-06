@@ -17,6 +17,7 @@
 <p><a href='add'>새 글</a></p>
 <table border='1'>
   <tr> <th>번호</th> <th>제목</th> <th>등록일</th> <th>조회수</th> </tr>
+  
 <c:forEach items="${list}" var="board">
   <tr> 
     <td>${board.no}</td>

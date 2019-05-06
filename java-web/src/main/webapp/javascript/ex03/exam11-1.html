@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -20,24 +20,25 @@
 //
 
 function createGreeting(name) {
+  console.log("createGreeting()  시작");
   var message = name + "님 반갑습니다!";
   
   // 클로저 만들기
   var f = function() {
+    console.log("f()  시작");
     console.log(message); // 클로저에서 바깥 함수의 변수를 사용하기
+    console.log("f()  끝");
   };
   
+  console.log("createGreeting()  끝");
   return f;
 }
 
 var test1 = createGreeting("홍길동");
-var test2 = createGreeting("임꺽정");
 
 test1();
-test2();
 
 </script>
-
 </body>
 </html>
 

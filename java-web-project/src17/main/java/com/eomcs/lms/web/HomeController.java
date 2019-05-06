@@ -13,6 +13,7 @@ public class HomeController {
   
   @GetMapping
   public void home() {
+    // java-web-project/WEB-INF/jsp/ home .jsp
   }
 }
 

@@ -14,12 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/app/*")
 @SuppressWarnings("serial")
 public class DispatcherServlet extends HttpServlet {
+  
   @Override
   protected void service(
       HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     
     String pageControllerPath = request.getPathInfo();
+    
+    System.out.println(pageControllerPath);
     
     // 클라이언트가 요청한 페이지 컨트롤러를 실행한다.
     request.getRequestDispatcher(pageControllerPath)
