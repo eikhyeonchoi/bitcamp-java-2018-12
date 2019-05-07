@@ -31,7 +31,7 @@ public class RequestMappingAnnotationBeanPostProcessor implements BeanPostProces
     
     for (Method m : methods) {
       
-      // System.out.println(m.getName());
+      //System.out.println(m.getName());
       RequestMapping requestMapping = m.getAnnotation(RequestMapping.class);
       if (requestMapping == null) 
         continue;
@@ -41,7 +41,7 @@ public class RequestMappingAnnotationBeanPostProcessor implements BeanPostProces
 
       // 그리고 이 요청 핸들러(RequestMapping 애노테이션이 붙은 메서드)를 저장한다.
       handlerMapping.add(requestMapping.value(), handler);
-      System.out.println("==> " + requestMapping.value());
+      //System.out.println("==> " + requestMapping.value());
     }
 
     return bean;

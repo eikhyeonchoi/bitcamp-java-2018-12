@@ -16,7 +16,6 @@ import com.eomcs.lms.context.RequestMappingHandlerMapping.RequestMappingHandler;
 @WebServlet("/app/*")
 @SuppressWarnings("serial")
 public class DispatcherServlet extends HttpServlet {
-  
   @Override
   protected void service(
       HttpServletRequest request, HttpServletResponse response)
@@ -29,7 +28,6 @@ public class DispatcherServlet extends HttpServlet {
     ServletContext sc = this.getServletContext();
     ApplicationContext iocContainer = 
         (ApplicationContext) sc.getAttribute("iocContainer");
-    
     RequestMappingHandlerMapping handlerMapping = 
         (RequestMappingHandlerMapping) iocContainer.getBean(
             RequestMappingHandlerMapping.class);

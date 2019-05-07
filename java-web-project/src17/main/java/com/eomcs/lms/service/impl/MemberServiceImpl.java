@@ -7,6 +7,10 @@ import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
+// 스프링 IoC 컨테이너가 관리하는 객체 중에서 
+// 비즈니스 로직을 담당하는 객체는 
+// 특별히 그 역할을 표시하기 위해 @Component 대신에 @Service 애노테이션을 붙인다.
+// 이렇게 애노테이션으로 구분해두면 나중에 애노테이션으로 객체를 찾을 수 있다.
 @Service
 public class MemberServiceImpl implements MemberService {
   
@@ -16,30 +20,17 @@ public class MemberServiceImpl implements MemberService {
     this.memberDao = memberDao;
   }
   
+  // 비지니스 객체에서 메서드 이름은 가능한 업무 용어를 사용한다.
   @Override
-  public List<Member> list(String keyword, int pageNo, int pageSize) {
-    // list에서
-    if ((keyword == null) &&(pageNo != 0) && (pageSize != 0)) {
-      HashMap<String, Object> params = new HashMap<>();
-      params.put("size", pageSize);
-      if (pageNo <= 0 ) 
-        pageNo = 1;
-      params.put("rowNo", (pageNo-1) * pageSize);
-      return memberDao.findAll(params);
-    }
-      
-    // 전체
-    if (keyword == null && pageNo == 0 && pageSize == 0)
-      return memberDao.findAll(new HashMap<>());
+  public List<Member> list(int pageNo, int pageSize, String search) {
     
-    // 검색
-    if (keyword != null && pageNo == 0 && pageSize == 0) {
-      return memberDao.findByKeyword(keyword);
-    }
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("search", search);
     
-    return memberDao.findAll(null);
+    return memberDao.findAll(params);
   }
-  
   
   @Override
   public int add(Member member) {
@@ -69,12 +60,11 @@ public class MemberServiceImpl implements MemberService {
     
     return memberDao.findByEmailPassword(paramMap);
   }
-
+  
   @Override
-  public int size() {
-    return memberDao.countAll();
+  public int size(String search) {
+    return memberDao.countAll(search);
   }
-
 }
 
 

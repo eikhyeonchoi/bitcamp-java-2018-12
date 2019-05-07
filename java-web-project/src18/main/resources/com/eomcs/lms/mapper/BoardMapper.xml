@@ -27,11 +27,10 @@
     <include refid="select1"/>
     order by 
       board_id desc
-    <if test="#{size != null || rowNo != null}">
+    <if test="size != null and rowNo != null">
       limit #{rowNo}, #{size}
     </if>
   </select>
-
   
   <select id="findByNo" resultMap="boardMap" parameterType="int">
     <include refid="select1"/>
@@ -64,10 +63,7 @@
   </delete>
   
   <select id="countAll" resultType="int">
-    select 
-      count(*)
-    from
-      lms_board
+    select count(*) from lms_board
   </select>
 </mapper>
 

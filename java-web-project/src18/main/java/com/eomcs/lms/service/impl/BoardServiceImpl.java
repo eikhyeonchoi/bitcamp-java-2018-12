@@ -27,11 +27,10 @@ public class BoardServiceImpl implements BoardService {
     // 그럼에도 불구하고 Command 객체와 DAO 사이에 Service 객체를 두기로 했으면 
     // 일관성을 위해 Command 객체는 항상 Service 객체를 통해 데이터를 다뤄야 한다.
     // 
-    HashMap<String, Object> params = new HashMap<>();
+    
+    HashMap<String,Object> params = new HashMap<>();
     params.put("size", pageSize);
-    if (pageNo <= 0 ) 
-      pageNo = 1;
-    params.put("rowNo", (pageNo-1) * pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
     
     return boardDao.findAll(params);
   }
@@ -67,7 +66,7 @@ public class BoardServiceImpl implements BoardService {
     // 그래도 항상 Command 객체는 이 Service 객체를 통해서 데이터를 처리해야 한다.
     return boardDao.delete(no);
   }
-
+  
   @Override
   public int size() {
     // 전체 게시물의 개수

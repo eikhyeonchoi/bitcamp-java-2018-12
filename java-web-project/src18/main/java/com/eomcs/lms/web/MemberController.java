@@ -60,31 +60,30 @@ public class MemberController {
   public String list(
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="3") int pageSize,
+      String search,
       Model model) {
     
-    if(pageSize < 3 || pageSize > 8) pageSize = 3;
-    int rowsCount = memberService.size();
-    int totalPage = (rowsCount / pageSize);
-    if (rowsCount % pageSize > 0) totalPage ++;
+    if (pageSize < 3 || pageSize > 8) 
+      pageSize = 3;
     
-    if(pageNo < 1) pageNo = 1;
-    else if (pageNo > totalPage) pageNo = totalPage;
+    int rowCount = memberService.size(search);
+    int totalPage = rowCount / pageSize;
+    if (rowCount % pageSize > 0)
+      totalPage++;
     
-    List<Member> members = memberService.list(null,pageNo, pageSize);
+    if (pageNo > totalPage)
+      pageNo = totalPage;
+    if (pageNo < 1) 
+      pageNo = 1;
     
+    List<Member> members = memberService.list(pageNo, pageSize, search);
     model.addAttribute("list", members);
     model.addAttribute("pageNo", pageNo);
     model.addAttribute("pageSize", pageSize);
     model.addAttribute("totalPage", totalPage);
-    model.addAttribute("rowsCount", rowsCount);
+    model.addAttribute("search", search);
     
     return "member/list";
-  }
-  
-  @GetMapping("search")
-  public void search(String keyword, Model model) {
-    List<Member> members = memberService.list(keyword, 0, 0);
-    model.addAttribute("list", members);
   }
 
   @PostMapping("update")

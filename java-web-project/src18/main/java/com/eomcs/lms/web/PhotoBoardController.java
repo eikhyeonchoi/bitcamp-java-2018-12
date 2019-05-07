@@ -29,7 +29,7 @@ public class PhotoBoardController {
   
   @GetMapping("form")
   public void form(Model model) {
-    List<Lesson> lessons = lessonService.list(0, 0);
+    List<Lesson> lessons = lessonService.list(1, 100, null);
     model.addAttribute("lessons", lessons);
   }
   
@@ -79,7 +79,7 @@ public class PhotoBoardController {
   @GetMapping("{no}")
   public String detail(@PathVariable int no, Model model) {
     PhotoBoard board = photoBoardService.get(no);
-    List<Lesson> lessons = lessonService.list(0,0);
+    List<Lesson> lessons = lessonService.list(1, 100, null);
     model.addAttribute("board", board);
     model.addAttribute("lessons", lessons);
     return "photoboard/detail";
@@ -89,37 +89,30 @@ public class PhotoBoardController {
   public String list(
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="3") int pageSize,
+      String search,
       Model model) {
-    if(pageSize < 3 || pageSize > 8) pageSize = 3;
-    int rowsCount = photoBoardService.size();
-    int totalPage = (rowsCount / pageSize);
-    if (rowsCount % pageSize > 0) totalPage ++;
     
-    if(pageNo < 1) pageNo = 1;
-    else if (pageNo > totalPage) pageNo = totalPage;
+    if (pageSize < 3 || pageSize > 8) 
+      pageSize = 3;
     
-    List<PhotoBoard> boards = photoBoardService.list(pageNo, pageSize);
+    int rowCount = photoBoardService.size(search);
+    int totalPage = rowCount / pageSize;
+    if (rowCount % pageSize > 0)
+      totalPage++;
+    
+    if (pageNo > totalPage)
+      pageNo = totalPage;
+    if (pageNo < 1) 
+      pageNo = 1;
+    
+    List<PhotoBoard> boards = photoBoardService.list(pageNo, pageSize, search);
     model.addAttribute("list", boards);
     model.addAttribute("pageNo", pageNo);
     model.addAttribute("pageSize", pageSize);
     model.addAttribute("totalPage", totalPage);
-    model.addAttribute("rowsCount", rowsCount);
+    model.addAttribute("search", search);
     
     return "photoboard/list";
-  }
-  
-  @GetMapping("search")
-  public void search(String lessonNo, String keyword, Model model) {
-    int realNo = 0;
-    if(lessonNo.length() > 0) {
-      realNo = Integer.parseInt(lessonNo);
-    }
-    
-    String searchWord = null;
-    if (keyword.length() > 0)
-      searchWord = keyword;
-    List<PhotoBoard> boards = photoBoardService.list(realNo, searchWord);
-    model.addAttribute("list", boards);
   }
   
   @PostMapping("update")

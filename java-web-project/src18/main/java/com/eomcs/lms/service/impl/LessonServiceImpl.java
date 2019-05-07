@@ -32,20 +32,13 @@ public class LessonServiceImpl implements LessonService {
   }
   
   // 비지니스 객체에서 메서드 이름은 가능한 업무 용어를 사용한다.
-  
   @Override
-  public List<Lesson> list(int pageNo, int pageSize) {
-    if (pageNo == 0 && pageSize == 0) {
-      HashMap<String, Object> params = new HashMap<>();
-      params.put("size", 99999);
-      params.put("rowNo", 0);
-      return lessonDao.findAll(params);
-    }
-    HashMap<String, Object> params = new HashMap<>();
+  public List<Lesson> list(int pageNo, int pageSize, String search) {
+    
+    HashMap<String,Object> params = new HashMap<>();
     params.put("size", pageSize);
-    if (pageNo <= 0 ) 
-      pageNo = 1;
-    params.put("rowNo", (pageNo-1) * pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("search", search);
     
     return lessonDao.findAll(params);
   }
@@ -78,15 +71,13 @@ public class LessonServiceImpl implements LessonService {
     
     int count = lessonDao.delete(no);
     
-    
     return count;
   }
-
+  
   @Override
-  public int size() {
-    return lessonDao.countAll();
+  public int size(String search) {
+    return lessonDao.countAll(search);
   }
-
 }
 
 
