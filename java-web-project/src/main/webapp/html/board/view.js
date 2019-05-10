@@ -37,6 +37,9 @@ document.querySelector('#add-btn').onclick = () => {
   xhr.send("contents=" + encodeURIComponent(contents));
 };
 
+
+
+
 document.querySelector('#delete-btn').onclick = () => {
   var xhr = new XMLHttpRequest()
   xhr.onreadystatechange = function() {

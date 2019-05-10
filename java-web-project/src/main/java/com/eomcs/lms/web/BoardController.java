@@ -42,6 +42,7 @@ public class BoardController {
     Board board = boardService.get(no);
     model.addAttribute("board", board);
     return "board/detail";
+    ///WEB-INF/jsp/board/deti.jsp"
   }
   
   @GetMapping
