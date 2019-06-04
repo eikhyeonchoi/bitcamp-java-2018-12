@@ -29,8 +29,8 @@ public class BoardServiceImpl implements BoardService {
     // 
     
     HashMap<String,Object> params = new HashMap<>();
-    params.put("size", pageSize);
     params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("size", pageSize);
     
     return boardDao.findAll(params);
   }

@@ -1,5 +1,7 @@
 package com.eomcs.lms.web.json;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.eomcs.lms.domain.Member;
+import com.eomcs.lms.service.FaceBookService;
 import com.eomcs.lms.service.MemberService;
 
 @RestController("json/AuthController")
@@ -23,6 +26,7 @@ public class AuthController {
   static final String REFERER_URL = "refererUrl";
 
   @Autowired MemberService memberService;
+  @Autowired FaceBookService faceBookService;
   @Autowired ServletContext servletContext;
   
   @GetMapping("form")
@@ -58,6 +62,39 @@ public class AuthController {
       content.put("status", "success");
     }
 
+    return content;
+  }
+  
+  @GetMapping("fblogin")
+  public Object fblogin(
+      String accessToken,
+      HttpSession session,
+      HttpServletResponse response) {
+    
+    // accessToken을 가지고 페이스북 서버에 로그인 사용자의 정보를 요청한다
+    Map fbLoginUser = faceBookService.getLoginUser(accessToken);
+    
+    Member member = memberService.get((String)fbLoginUser.get("email"));
+    
+    // 만약 소설 사용자가 현재 사이트에 가입된 상태가 아니라면 자동으로 가입시켜야함
+    // 소셜 사용자 정보를 가지고 필수 회원정보를 준비한다
+    if (member == null) {
+      member = new Member();
+      member.setEmail((String)fbLoginUser.get("email"));
+      member.setName((String)fbLoginUser.get("name"));
+      member.setPassword(UUID.randomUUID().toString());
+      memberService.add(member);
+    }
+    
+    
+    HashMap<String,Object> content = new HashMap<>();
+    
+    session.setAttribute("loginUser", member);
+    
+    
+      content.put("status", "success");
+      content.put("member", member);
+    
     return content;
   }
   
